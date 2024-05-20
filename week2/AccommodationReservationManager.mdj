@@ -4238,7 +4238,7 @@
 								"$ref": "AAAAAAGPlR/kRhS6bzQ="
 							},
 							"name": "updateReservation",
-							"documentation": "METHOD OVERLOAD\nGets current reservation,\nisValidHotelRoom ? update : throw Error\n updates fields and file\nreturns true on success",
+							"documentation": "METHOD OVERRIDE\nGets current reservation,\nisValidHotelRoom ? update : throw Error\n updates fields and file\nreturns true on success",
 							"parameters": [
 								{
 									"_type": "UMLParameter",

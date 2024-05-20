@@ -36,7 +36,7 @@ public class Hotel extends Reservation {
     }
 
     /**
-     * METHOD OVERLOAD
+     * METHOD OVERRIDE
      * Gets current reservation,
      * isValidHotelRoom ? update : throw Error
      *  updates fields and file
