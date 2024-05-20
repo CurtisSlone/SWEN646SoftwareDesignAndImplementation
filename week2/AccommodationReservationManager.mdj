@@ -1,0 +1,1010 @@
+{
+	"_type": "Project",
+	"_id": "AAAAAAFF+h6SjaM2Hec=",
+	"name": "AccommodationReservationManager",
+	"ownedElements": [
+		{
+			"_type": "UMLModel",
+			"_id": "AAAAAAFF+qBWK6M3Z8Y=",
+			"_parent": {
+				"$ref": "AAAAAAFF+h6SjaM2Hec="
+			},
+			"name": "AppLogic",
+			"ownedElements": [
+				{
+					"_type": "UMLClassDiagram",
+					"_id": "AAAAAAFF+qBtyKM79qY=",
+					"_parent": {
+						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
+					},
+					"name": "AppLogicDiagram",
+					"defaultDiagram": true
+				},
+				{
+					"_type": "UMLClass",
+					"_id": "AAAAAAGPlO+MghM6yaI=",
+					"_parent": {
+						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
+					},
+					"name": "Manager",
+					"documentation": "Manager Class",
+					"attributes": [
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGPlPDZMRNqwOY=",
+							"_parent": {
+								"$ref": "AAAAAAGPlO+MghM6yaI="
+							},
+							"name": "allAccounts",
+							"documentation": "List of all known accounts",
+							"type": "List<Account>"
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGPlY3jMhZJ9uw=",
+							"_parent": {
+								"$ref": "AAAAAAGPlO+MghM6yaI="
+							},
+							"name": "reservationListing",
+							"documentation": "Reservation Listing from selected Account",
+							"type": "List<Reservation>"
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGPlVfwnxWrGLA=",
+							"_parent": {
+								"$ref": "AAAAAAGPlO+MghM6yaI="
+							},
+							"name": "currentAccount",
+							"documentation": "Current Account Selected",
+							"type": {
+								"$ref": "AAAAAAGPlPUf6xN6Xu8="
+							}
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGPlZ8MLBcoG5c=",
+							"_parent": {
+								"$ref": "AAAAAAGPlO+MghM6yaI="
+							},
+							"name": "currentClient",
+							"documentation": "Current client object",
+							"type": {
+								"$ref": "AAAAAAGPlZUzxRaVmPY="
+							}
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGPla+48Rdi1x4=",
+							"_parent": {
+								"$ref": "AAAAAAGPlO+MghM6yaI="
+							},
+							"name": "currentAddress",
+							"type": {
+								"$ref": "AAAAAAGPlZHOrhZThMg="
+							}
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGPlbNgcxerCzA=",
+							"_parent": {
+								"$ref": "AAAAAAGPlO+MghM6yaI="
+							},
+							"name": "currentReservation",
+							"type": {
+								"$ref": "AAAAAAGPlPbPDxOH9H0="
+							}
+						}
+					],
+					"operations": [
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAGPlYktRxYjAfc=",
+							"_parent": {
+								"$ref": "AAAAAAGPlO+MghM6yaI="
+							},
+							"name": "selectAccount",
+							"documentation": "Select Account using AccountID",
+							"parameters": [
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAGPlYm6SBYnWRU=",
+									"_parent": {
+										"$ref": "AAAAAAGPlYktRxYjAfc="
+									},
+									"name": "accountID",
+									"type": "String"
+								},
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAGPlYqBgBYuLFw=",
+									"_parent": {
+										"$ref": "AAAAAAGPlYktRxYjAfc="
+									},
+									"name": "return Account",
+									"documentation": "Returns Account by selected AccountID",
+									"type": {
+										"$ref": "AAAAAAGPlPUf6xN6Xu8="
+									},
+									"direction": "return"
+								}
+							]
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAGPlYvACBY0O9w=",
+							"_parent": {
+								"$ref": "AAAAAAGPlO+MghM6yaI="
+							},
+							"name": "getAllReservations",
+							"documentation": "Return List of Reservations from Selected Account",
+							"parameters": [
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAGPlYyLhhY50B8=",
+									"_parent": {
+										"$ref": "AAAAAAGPlYvACBY0O9w="
+									},
+									"name": "selectedAccount",
+									"type": {
+										"$ref": "AAAAAAGPlPUf6xN6Xu8="
+									}
+								},
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAGPlY0ZxBY+RNU=",
+									"_parent": {
+										"$ref": "AAAAAAGPlYvACBY0O9w="
+									},
+									"name": "return List<Reservation>",
+									"type": "List<Reservation>",
+									"direction": "return"
+								}
+							]
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAGPlY9tXhZPNEc=",
+							"_parent": {
+								"$ref": "AAAAAAGPlO+MghM6yaI="
+							},
+							"name": "generateNewAccount",
+							"documentation": "Generates new account number, validates that Account ID is unique,  generates Account directory with account file",
+							"parameters": [
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAGPlZkLlxbXeeo=",
+									"_parent": {
+										"$ref": "AAAAAAGPlY9tXhZPNEc="
+									},
+									"name": "newContact",
+									"type": {
+										"$ref": "AAAAAAGPlZUzxRaVmPY="
+									}
+								},
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAGPlaUqXRdGtxU=",
+									"_parent": {
+										"$ref": "AAAAAAGPlY9tXhZPNEc="
+									},
+									"name": "clientAddress",
+									"type": {
+										"$ref": "AAAAAAGPlZHOrhZThMg="
+									}
+								},
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAGPlZmHxhbcoug=",
+									"_parent": {
+										"$ref": "AAAAAAGPlY9tXhZPNEc="
+									},
+									"name": "return bool",
+									"documentation": "returns true if successful, returns false if fail",
+									"stereotype": "",
+									"type": "bool",
+									"direction": "return"
+								}
+							]
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAGPlZ+spBcxdI8=",
+							"_parent": {
+								"$ref": "AAAAAAGPlO+MghM6yaI="
+							},
+							"name": "generateNewContact",
+							"documentation": "Generates new client object from first name string, last name string, email string, and phone number string",
+							"parameters": [
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAGPla46pxdRQQU=",
+									"_parent": {
+										"$ref": "AAAAAAGPlZ+spBcxdI8="
+									},
+									"name": "firstName",
+									"type": "String"
+								},
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAGPla9D1hdWvJ8=",
+									"_parent": {
+										"$ref": "AAAAAAGPlZ+spBcxdI8="
+									},
+									"name": "lastName",
+									"type": "String"
+								},
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAGPla9blhdZgm4=",
+									"_parent": {
+										"$ref": "AAAAAAGPlZ+spBcxdI8="
+									},
+									"name": "email",
+									"type": "String"
+								},
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAGPla9y1Rdc9lo=",
+									"_parent": {
+										"$ref": "AAAAAAGPlZ+spBcxdI8="
+									},
+									"name": "phoneNumber",
+									"type": ""
+								},
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAGPla+JQhdfN3Y=",
+									"_parent": {
+										"$ref": "AAAAAAGPlZ+spBcxdI8="
+									},
+									"name": "return new Contact",
+									"type": {
+										"$ref": "AAAAAAGPlZUzxRaVmPY="
+									},
+									"direction": "return"
+								}
+							]
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAGPlbFy5hd9+1I=",
+							"_parent": {
+								"$ref": "AAAAAAGPlO+MghM6yaI="
+							},
+							"name": "generateNewAddress",
+							"parameters": [
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAGPlbHgvBeEK6U=",
+									"_parent": {
+										"$ref": "AAAAAAGPlbFy5hd9+1I="
+									},
+									"name": "street1",
+									"type": "String"
+								},
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAGPlbHzSheIoME=",
+									"_parent": {
+										"$ref": "AAAAAAGPlbFy5hd9+1I="
+									},
+									"name": "street2",
+									"type": "String"
+								},
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAGPlbH9uxeMXcA=",
+									"_parent": {
+										"$ref": "AAAAAAGPlbFy5hd9+1I="
+									},
+									"name": "city",
+									"type": ""
+								},
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAGPlbIH1heQlS8=",
+									"_parent": {
+										"$ref": "AAAAAAGPlbFy5hd9+1I="
+									},
+									"name": "state",
+									"type": ""
+								},
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAGPlbIQNheUQK8=",
+									"_parent": {
+										"$ref": "AAAAAAGPlbFy5hd9+1I="
+									},
+									"name": "zip",
+									"type": ""
+								},
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAGPlbIZBReYrx4=",
+									"_parent": {
+										"$ref": "AAAAAAGPlbFy5hd9+1I="
+									},
+									"name": "return new Address",
+									"type": {
+										"$ref": "AAAAAAGPlZHOrhZThMg="
+									},
+									"direction": "return"
+								}
+							]
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAGPlbnWxRfWsa4=",
+							"_parent": {
+								"$ref": "AAAAAAGPlO+MghM6yaI="
+							},
+							"name": "selectReservation",
+							"documentation": "Selects Reservation for modification",
+							"parameters": [
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAGPlboGXxfZd0Y=",
+									"_parent": {
+										"$ref": "AAAAAAGPlbnWxRfWsa4="
+									},
+									"name": "reservationID",
+									"type": "String"
+								},
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAGPlboj0hfciBU=",
+									"_parent": {
+										"$ref": "AAAAAAGPlbnWxRfWsa4="
+									},
+									"name": "return Reservation",
+									"type": {
+										"$ref": "AAAAAAGPlPbPDxOH9H0="
+									},
+									"direction": "return"
+								}
+							]
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAGPlbsciBfmhvk=",
+							"_parent": {
+								"$ref": "AAAAAAGPlO+MghM6yaI="
+							},
+							"name": "generateNewReservation",
+							"parameters": [
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAGPlb0hwhfqeOg=",
+									"_parent": {
+										"$ref": "AAAAAAGPlbsciBfmhvk="
+									},
+									"name": "return isSuccessful",
+									"type": "bool"
+								}
+							]
+						}
+					]
+				},
+				{
+					"_type": "UMLClass",
+					"_id": "AAAAAAGPlZUzxRaVmPY=",
+					"_parent": {
+						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
+					},
+					"name": "Contact",
+					"documentation": "Contact Class for Clients",
+					"attributes": [
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGPlZb/bxayL9E=",
+							"_parent": {
+								"$ref": "AAAAAAGPlZUzxRaVmPY="
+							},
+							"name": "firstNme",
+							"type": "String"
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGPlZdElxa3msA=",
+							"_parent": {
+								"$ref": "AAAAAAGPlZUzxRaVmPY="
+							},
+							"name": "lastName",
+							"type": ""
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGPlZe7DRbAedM=",
+							"_parent": {
+								"$ref": "AAAAAAGPlZUzxRaVmPY="
+							},
+							"name": "email",
+							"type": ""
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGPlZfjVRbEFuI=",
+							"_parent": {
+								"$ref": "AAAAAAGPlZUzxRaVmPY="
+							},
+							"name": "phoneNumber",
+							"type": "String"
+						}
+					],
+					"operations": [
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAGPlZiqohbS8GI=",
+							"_parent": {
+								"$ref": "AAAAAAGPlZUzxRaVmPY="
+							},
+							"name": "toString",
+							"parameters": [
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAGPlZiqohbTbEo=",
+									"_parent": {
+										"$ref": "AAAAAAGPlZiqohbS8GI="
+									},
+									"name": "return String",
+									"type": "String",
+									"direction": "return"
+								}
+							]
+						}
+					]
+				},
+				{
+					"_type": "UMLClass",
+					"_id": "AAAAAAGPlZHOrhZThMg=",
+					"_parent": {
+						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
+					},
+					"name": "Address",
+					"attributes": [
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGPlZIHDBZX+xI=",
+							"_parent": {
+								"$ref": "AAAAAAGPlZHOrhZThMg="
+							},
+							"name": "street1",
+							"type": "String"
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGPlZIeXhZa//8=",
+							"_parent": {
+								"$ref": "AAAAAAGPlZHOrhZThMg="
+							},
+							"name": "street2",
+							"type": "String",
+							"defaultValue": "\"\""
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGPlZI1lhZdm1I=",
+							"_parent": {
+								"$ref": "AAAAAAGPlZHOrhZThMg="
+							},
+							"name": "city",
+							"type": "String"
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGPlZJIuBZghDo=",
+							"_parent": {
+								"$ref": "AAAAAAGPlZHOrhZThMg="
+							},
+							"name": "state",
+							"type": "String"
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGPlZJqBBZjzuQ=",
+							"_parent": {
+								"$ref": "AAAAAAGPlZHOrhZThMg="
+							},
+							"name": "zip",
+							"type": "String"
+						}
+					],
+					"operations": [
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAGPlZiaFBbLKKI=",
+							"_parent": {
+								"$ref": "AAAAAAGPlZHOrhZThMg="
+							},
+							"name": "toString",
+							"parameters": [
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAGPlZiaFBbMWH8=",
+									"_parent": {
+										"$ref": "AAAAAAGPlZiaFBbLKKI="
+									},
+									"name": "return String",
+									"type": "String",
+									"direction": "return"
+								}
+							]
+						}
+					]
+				},
+				{
+					"_type": "UMLClass",
+					"_id": "AAAAAAGPlPUf6xN6Xu8=",
+					"_parent": {
+						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
+					},
+					"name": "Account",
+					"attributes": [
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGPlQ2bmhQ4SaI=",
+							"_parent": {
+								"$ref": "AAAAAAGPlPUf6xN6Xu8="
+							},
+							"name": "accountID",
+							"documentation": "Unique Account ID- A followed by 9 characters",
+							"type": "String",
+							"defaultValue": "-99"
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGPlZZt1hat7TY=",
+							"_parent": {
+								"$ref": "AAAAAAGPlPUf6xN6Xu8="
+							},
+							"name": "client",
+							"documentation": "Client Object Associated with Account",
+							"type": {
+								"$ref": "AAAAAAGPlZUzxRaVmPY="
+							}
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGPlRwY0xSoMIU=",
+							"_parent": {
+								"$ref": "AAAAAAGPlPUf6xN6Xu8="
+							},
+							"name": "reservations",
+							"documentation": "List of reservations associated with account",
+							"type": "List<Reservation>"
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGPlaQD2xc/42M=",
+							"_parent": {
+								"$ref": "AAAAAAGPlPUf6xN6Xu8="
+							},
+							"name": "address",
+							"documentation": "Address Object  for Account",
+							"type": {
+								"$ref": "AAAAAAGPlZHOrhZThMg="
+							}
+						}
+					],
+					"operations": [
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAGPlTlb9RT2sRY=",
+							"_parent": {
+								"$ref": "AAAAAAGPlPUf6xN6Xu8="
+							},
+							"name": "toString",
+							"parameters": [
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAGPlTlb9RT3Bsg=",
+									"_parent": {
+										"$ref": "AAAAAAGPlTlb9RT2sRY="
+									},
+									"name": "return String",
+									"type": "String",
+									"direction": "return"
+								}
+							]
+						}
+					]
+				},
+				{
+					"_type": "UMLClass",
+					"_id": "AAAAAAGPlPbPDxOH9H0=",
+					"_parent": {
+						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
+					},
+					"name": "Reservation",
+					"attributes": [
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGPlSPu/RTG9QM=",
+							"_parent": {
+								"$ref": "AAAAAAGPlPbPDxOH9H0="
+							},
+							"name": "reservationAccount",
+							"documentation": "Account ID associated with reservation",
+							"type": {
+								"$ref": "AAAAAAGPlPUf6xN6Xu8="
+							}
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGPlQ/7FhREuU0=",
+							"_parent": {
+								"$ref": "AAAAAAGPlPbPDxOH9H0="
+							},
+							"name": "reservationID",
+							"documentation": "Unique Reservation ID",
+							"type": "String"
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGPlULp+xVS45Y=",
+							"_parent": {
+								"$ref": "AAAAAAGPlPbPDxOH9H0="
+							},
+							"name": "physicalAddress",
+							"documentation": "Physical Address of Reservation",
+							"type": "Address"
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGPlUNCzxVY3BU=",
+							"_parent": {
+								"$ref": "AAAAAAGPlPbPDxOH9H0="
+							},
+							"name": "mailingAddress",
+							"documentation": "Mailing Address of Reservation",
+							"type": "Address"
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGPlTwQHhUb0gw=",
+							"_parent": {
+								"$ref": "AAAAAAGPlPbPDxOH9H0="
+							},
+							"name": "startDate",
+							"documentation": "Start Date of Reservation",
+							"type": "Date"
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGPlT2JphUmE8I=",
+							"_parent": {
+								"$ref": "AAAAAAGPlPbPDxOH9H0="
+							},
+							"name": "numberOfNights",
+							"documentation": "Number of Nights For Reservation",
+							"type": "int"
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGPlT7jqBUsdkQ=",
+							"_parent": {
+								"$ref": "AAAAAAGPlPbPDxOH9H0="
+							},
+							"name": "numberOfBeds",
+							"documentation": "Number of Beds in Reservation",
+							"type": "int",
+							"defaultValue": "2"
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGPlT9OPhUxarA=",
+							"_parent": {
+								"$ref": "AAAAAAGPlPbPDxOH9H0="
+							},
+							"name": "numberOfRooms",
+							"documentation": "Number of Rooms in Reservation",
+							"type": "int",
+							"defaultValue": "1"
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGPlT/whhU2ogU=",
+							"_parent": {
+								"$ref": "AAAAAAGPlPbPDxOH9H0="
+							},
+							"name": "numberOfBaths",
+							"documentation": "Number of Baths in Reservation",
+							"type": "int",
+							"defaultValue": "1"
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGPlUElixU78tg=",
+							"_parent": {
+								"$ref": "AAAAAAGPlPbPDxOH9H0="
+							},
+							"name": "lodgingSize",
+							"documentation": "Reservation Lodging Size in SqFt",
+							"type": ""
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGPlSRdRRTLDPc=",
+							"_parent": {
+								"$ref": "AAAAAAGPlPbPDxOH9H0="
+							},
+							"name": "reservationStatus",
+							"documentation": "Reservation Status using Reservation Status Enum. Default DRAFT",
+							"type": "ReservationStatus",
+							"defaultValue": "ReservationStatus.DRAFT"
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGPlTgrpxTuvmU=",
+							"_parent": {
+								"$ref": "AAAAAAGPlPbPDxOH9H0="
+							},
+							"name": "priceTotal",
+							"documentation": "Reservation Price Total in Dollars As Float",
+							"type": "float",
+							"defaultValue": "0.00"
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGPlUsCBBV+VsI=",
+							"_parent": {
+								"$ref": "AAAAAAGPlPbPDxOH9H0="
+							},
+							"name": "reservationType",
+							"documentation": "Reservation type using ReservationType Enum",
+							"visibility": "private",
+							"type": {
+								"$ref": "AAAAAAGPlWYclxXP9JU="
+							},
+							"isReadOnly": true
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGPlVQZThWgo4c=",
+							"_parent": {
+								"$ref": "AAAAAAGPlPbPDxOH9H0="
+							},
+							"name": "basePrice",
+							"documentation": "Reservation Base Price",
+							"type": "float",
+							"isReadOnly": true,
+							"defaultValue": "120"
+						}
+					],
+					"operations": [
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAGPlTlloxT9HLs=",
+							"_parent": {
+								"$ref": "AAAAAAGPlPbPDxOH9H0="
+							},
+							"name": "toString",
+							"parameters": [
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAGPlTlloxT+OvA=",
+									"_parent": {
+										"$ref": "AAAAAAGPlTlloxT9HLs="
+									},
+									"name": "return String",
+									"type": "String",
+									"direction": "return"
+								}
+							]
+						}
+					]
+				},
+				{
+					"_type": "UMLClass",
+					"_id": "AAAAAAGPlR/kRhS6bzQ=",
+					"_parent": {
+						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
+					},
+					"name": "Hotel",
+					"attributes": [
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGPlUqKmhV77gs=",
+							"_parent": {
+								"$ref": "AAAAAAGPlR/kRhS6bzQ="
+							},
+							"name": "hasKitchenette",
+							"documentation": "Bool if Hotel as Kitchenette",
+							"type": "bool"
+						}
+					],
+					"operations": [
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAGPlTmIPRUEV6A=",
+							"_parent": {
+								"$ref": "AAAAAAGPlR/kRhS6bzQ="
+							},
+							"name": "toString",
+							"parameters": [
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAGPlTmIPRUFAMM=",
+									"_parent": {
+										"$ref": "AAAAAAGPlTmIPRUEV6A="
+									},
+									"name": "return String",
+									"type": "String",
+									"direction": "return"
+								}
+							]
+						}
+					]
+				},
+				{
+					"_type": "UMLClass",
+					"_id": "AAAAAAGPlSI7jBS+ssI=",
+					"_parent": {
+						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
+					},
+					"name": "Cabin",
+					"attributes": [
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGPlUzMhhWH3YM=",
+							"_parent": {
+								"$ref": "AAAAAAGPlSI7jBS+ssI="
+							},
+							"name": "hasFullKitchen",
+							"documentation": "Bool if Cabin has full kitchen",
+							"type": "bool"
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGPlU7kjhWMdm0=",
+							"_parent": {
+								"$ref": "AAAAAAGPlSI7jBS+ssI="
+							},
+							"name": "hasLoft",
+							"documentation": "Bool if Cabin has lost",
+							"type": "bool"
+						}
+					],
+					"operations": [
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAGPlTmQmRULjhQ=",
+							"_parent": {
+								"$ref": "AAAAAAGPlSI7jBS+ssI="
+							},
+							"name": "toString",
+							"parameters": [
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAGPlTmQmRUMFwU=",
+									"_parent": {
+										"$ref": "AAAAAAGPlTmQmRULjhQ="
+									},
+									"name": "return String",
+									"type": "String",
+									"direction": "return"
+								}
+							]
+						}
+					]
+				},
+				{
+					"_type": "UMLClass",
+					"_id": "AAAAAAGPlSJ7JRTCL3I=",
+					"_parent": {
+						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
+					},
+					"name": "House",
+					"attributes": [
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGPlU9qEhWSRos=",
+							"_parent": {
+								"$ref": "AAAAAAGPlSJ7JRTCL3I="
+							},
+							"name": "numberOfFloors",
+							"documentation": "Number of Floors in House",
+							"type": "int"
+						}
+					],
+					"operations": [
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAGPlTmbnxUSLGw=",
+							"_parent": {
+								"$ref": "AAAAAAGPlSJ7JRTCL3I="
+							},
+							"name": "toString",
+							"parameters": [
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAGPlTmbnxUTG14=",
+									"_parent": {
+										"$ref": "AAAAAAGPlTmbnxUSLGw="
+									},
+									"name": "return String",
+									"type": "String",
+									"direction": "return"
+								}
+							]
+						}
+					]
+				},
+				{
+					"_type": "UMLEnumeration",
+					"_id": "AAAAAAGPlSjdxxTQT0k=",
+					"_parent": {
+						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
+					},
+					"name": "ReservationStatus",
+					"literals": [
+						{
+							"_type": "UMLEnumerationLiteral",
+							"_id": "AAAAAAGPlSsWBxTYuO0=",
+							"_parent": {
+								"$ref": "AAAAAAGPlSjdxxTQT0k="
+							},
+							"name": "DRAFT"
+						},
+						{
+							"_type": "UMLEnumerationLiteral",
+							"_id": "AAAAAAGPlStZzxTeuIs=",
+							"_parent": {
+								"$ref": "AAAAAAGPlSjdxxTQT0k="
+							},
+							"name": "COMPLETED"
+						},
+						{
+							"_type": "UMLEnumerationLiteral",
+							"_id": "AAAAAAGPlSubUxTiCKk=",
+							"_parent": {
+								"$ref": "AAAAAAGPlSjdxxTQT0k="
+							},
+							"name": "CANCELLED"
+						}
+					]
+				},
+				{
+					"_type": "UMLEnumeration",
+					"_id": "AAAAAAGPlWYclxXP9JU=",
+					"_parent": {
+						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
+					},
+					"name": "ReservationType",
+					"literals": [
+						{
+							"_type": "UMLEnumerationLiteral",
+							"_id": "AAAAAAGPlW3CEhXwQiA=",
+							"_parent": {
+								"$ref": "AAAAAAGPlWYclxXP9JU="
+							},
+							"name": "HOTEL",
+							"visibility": "protected"
+						},
+						{
+							"_type": "UMLEnumerationLiteral",
+							"_id": "AAAAAAGPlW3yUBX1h+s=",
+							"_parent": {
+								"$ref": "AAAAAAGPlWYclxXP9JU="
+							},
+							"name": "CABIN",
+							"visibility": "protected"
+						},
+						{
+							"_type": "UMLEnumerationLiteral",
+							"_id": "AAAAAAGPlW4qUBX6FIM=",
+							"_parent": {
+								"$ref": "AAAAAAGPlWYclxXP9JU="
+							},
+							"name": "HOUSE"
+						}
+					]
+				}
+			]
+		}
+	],
+	"documentation": "Accommodation Reservation Tracker",
+	"author": "Curtis Slone",
+	"version": "1.0"
+}
