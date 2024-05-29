@@ -5,4 +5,4 @@ Create software model for Accomodation Reservation System
 
 ## Week 3 Assignment
 Create polymorphism, inheritence, and constructors for model
-![Diagram](week2/AccommodationDiagram.jpg)
+![Diagram](week3/AccommodationDiagram.jpg)
