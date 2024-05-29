@@ -9,6 +9,7 @@ public class Manager {
 
     /**
      * Default constructor
+     * Takes No Parameters
      */
     public Manager() {
     }
@@ -118,12 +119,4 @@ public class Manager {
         // TODO implement here
         return false;
     }
-
-    /**
-     * Default Constructor takes no parameters
-     */
-    public void Manager() {
-        // TODO implement here
-    }
-
 }

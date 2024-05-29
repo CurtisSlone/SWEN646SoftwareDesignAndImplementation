@@ -7,9 +7,14 @@ import java.util.*;
 public class Account implements ToXML {
 
     /**
-     * Default constructor
+     * Account Constructor
+     * Take Contact and Address object references as parameters
+     * @param accountID 
+     * @param contact 
+     * @param address
      */
-    public Account() {
+    public Account(String accountID, Contact contact, Address address) {
+        // TODO implement here
     }
 
     /**
@@ -40,15 +45,6 @@ public class Account implements ToXML {
         return "";
     }
 
-    /**
-     * Account Constructor
-     * Take Contact and Address object references as parameters
-     * @param accountID 
-     * @param contact 
-     * @param address
-     */
-    public void Account(String accountID, Contact contact, Address address) {
-        // TODO implement here
-    }
+    
 
 }

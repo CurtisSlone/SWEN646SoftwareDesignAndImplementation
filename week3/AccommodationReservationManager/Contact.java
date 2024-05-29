@@ -8,10 +8,16 @@ import java.util.*;
 public class Contact {
 
     /**
-     * Default constructor
+     * Default Constructor, takes all fields as parameters
+     * @param firstName 
+     * @param lastName 
+     * @param email 
+     * @param phoneNumber
      */
-    public Contact() {
+    public Contact(String firstName, String lastName, String email, String phoneNumber)  {
+        // TODO implement here
     }
+   
 
     /**
      * 
@@ -41,15 +47,6 @@ public class Contact {
         return "";
     }
 
-    /**
-     * Default Constructor, takes all fields as parameters
-     * @param firstName 
-     * @param lastName 
-     * @param email 
-     * @param phoneNumber
-     */
-    public void Contact(String firstName, String lastName, String email, void phoneNumber) {
-        // TODO implement here
-    }
+    
 
 }

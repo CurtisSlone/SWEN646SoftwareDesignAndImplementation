@@ -7,9 +7,14 @@ import java.util.*;
 public class Hotel extends Reservation implements ToXML {
 
     /**
-     * Default constructor
+     * Constructor
+     * super(reservationID, account, startDate, numberOfNights, numberOfBeds, numberOfRooms, numberOfBaths, lodgingSize)
+     * 
+     * hotelFee = hasKitchenette ? 60.00 : 50.00
+     * @param hasKitchenette
      */
-    public Hotel() {
+    public Hotel(boolean hasKitchenette) {
+        // TODO implement here
     }
 
     /**
@@ -49,15 +54,6 @@ public class Hotel extends Reservation implements ToXML {
         return false;
     }
 
-    /**
-     * Constructor
-     * super(reservationID, account, startDate, numberOfNights, numberOfBeds, numberOfRooms, numberOfBaths, lodgingSize)
-     * 
-     * hotelFee = hasKitchenette ? 60.00 : 50.00
-     * @param hasKitchenette
-     */
-    public void Hotel(boolean hasKitchenette) {
-        // TODO implement here
-    }
+    
 
 }

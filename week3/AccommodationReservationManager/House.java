@@ -7,9 +7,12 @@ import java.util.*;
 public class House extends Reservation implements ToXML {
 
     /**
-     * Default constructor
+     * Constructor
+     * super(reservationID, account, startDate, numberOfNights, numberOfBeds, numberOfRooms, numberOfBaths, lodgingSize)
+     * @param numberOfFloors
      */
-    public House() {
+    public House(int numberOfFloors) {
+        // TODO implement here
     }
 
     /**
@@ -25,13 +28,6 @@ public class House extends Reservation implements ToXML {
         return "";
     }
 
-    /**
-     * Constructor
-     * super(reservationID, account, startDate, numberOfNights, numberOfBeds, numberOfRooms, numberOfBaths, lodgingSize)
-     * @param numberOfFloors
-     */
-    public void House(int numberOfFloors) {
-        // TODO implement here
-    }
+    
 
 }

@@ -6,10 +6,16 @@ import java.util.*;
  */
 public class Cabin extends Reservation implements ToXML {
 
-    /**
-     * Default constructor
+   /**
+     * Constructor
+     * super(reservationID, account, startDate, numberOfNights, numberOfBeds, numberOfRooms, numberOfBaths, lodgingSize)
+     * 
+     * cabinFee =  hasFullKitchen ? ( 20 + ( 5 * numberOfRooms) ) : (5 * numberOfRooms)
+     * @param hasFullKitchen 
+     * @param hasLoft
      */
-    public Cabin() {
+    public Cabin(boolean hasFullKitchen, boolean hasLoft) {
+        // TODO implement here
     }
 
     /**
@@ -35,16 +41,6 @@ public class Cabin extends Reservation implements ToXML {
         return "";
     }
 
-    /**
-     * Constructor
-     * super(reservationID, account, startDate, numberOfNights, numberOfBeds, numberOfRooms, numberOfBaths, lodgingSize)
-     * 
-     * cabinFee =  hasFullKitchen ? ( 20 + ( 5 * numberOfRooms) ) : (5 * numberOfRooms)
-     * @param hasFullKitchen 
-     * @param hasLoft
-     */
-    public void Cabin(void hasFullKitchen, boolean hasLoft) {
-        // TODO implement here
-    }
+    
 
 }

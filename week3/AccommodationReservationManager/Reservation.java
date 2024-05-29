@@ -7,9 +7,17 @@ import java.util.*;
 public abstract class Reservation {
 
     /**
-     * Default constructor
+     * @param reservationID 
+     * @param account 
+     * @param startDate 
+     * @param numberOfNights 
+     * @param numberofBeds 
+     * @param numberOfRooms 
+     * @param numberOfBaths 
+     * @param lodgingSize
      */
-    public Reservation() {
+    public void Reservation(String reservationID, Account account, String startDate, int numberOfNights, int numberofBeds, int numberOfRooms, int numberOfBaths, float lodgingSize) {
+        // TODO implement here
     }
 
     /**
@@ -129,18 +137,6 @@ public abstract class Reservation {
         return false;
     }
 
-    /**
-     * @param reservationID 
-     * @param account 
-     * @param startDate 
-     * @param numberOfNights 
-     * @param numberofBeds 
-     * @param numberOfRooms 
-     * @param numberOfBaths 
-     * @param lodgingSize
-     */
-    public void Reservation(String reservationID, Account account, String startDate, int numberOfNights, int numberofBeds, int numberOfRooms, int numberOfBaths, float lodgingSize) {
-        // TODO implement here
-    }
+    
 
 }
