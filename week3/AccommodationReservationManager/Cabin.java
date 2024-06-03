@@ -6,7 +6,7 @@ import java.util.*;
  */
 public class Cabin extends Reservation implements ToXML {
 
-   /**
+    /**
      * Constructor
      * super(reservationID, account, startDate, numberOfNights, numberOfBeds, numberOfRooms, numberOfBaths, lodgingSize)
      * 
@@ -14,7 +14,7 @@ public class Cabin extends Reservation implements ToXML {
      * @param hasFullKitchen 
      * @param hasLoft
      */
-    public Cabin(boolean hasFullKitchen, boolean hasLoft) {
+    public void Cabin(boolean hasFullKitchen, boolean hasLoft) {
         // TODO implement here
     }
 
@@ -40,7 +40,5 @@ public class Cabin extends Reservation implements ToXML {
         // TODO implement here
         return "";
     }
-
-    
 
 }

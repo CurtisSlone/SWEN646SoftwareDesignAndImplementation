@@ -14,10 +14,9 @@ public class Contact {
      * @param email 
      * @param phoneNumber
      */
-    public Contact(String firstName, String lastName, String email, String phoneNumber)  {
+    public void Contact(String firstName, String lastName, String email, String phoneNumber) {
         // TODO implement here
     }
-   
 
     /**
      * 
@@ -47,6 +46,5 @@ public class Contact {
         return "";
     }
 
-    
 
 }

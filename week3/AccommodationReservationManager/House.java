@@ -11,7 +11,7 @@ public class House extends Reservation implements ToXML {
      * super(reservationID, account, startDate, numberOfNights, numberOfBeds, numberOfRooms, numberOfBaths, lodgingSize)
      * @param numberOfFloors
      */
-    public House(int numberOfFloors) {
+    public void House(int numberOfFloors) {
         // TODO implement here
     }
 

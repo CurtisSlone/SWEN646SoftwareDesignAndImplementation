@@ -8,11 +8,12 @@ import java.util.*;
 public class Manager {
 
     /**
-     * Default constructor
-     * Takes No Parameters
+     * Default Constructor takes no parameters
      */
-    public Manager() {
+    public void Manager() {
+        // TODO implement here
     }
+
 
     /**
      * List of all known accounts
@@ -43,6 +44,13 @@ public class Manager {
      * 
      */
     public Reservation currentReservation;
+
+    /**
+     * @param account Add Account
+     */
+    public void addAccount(Account account) {
+        // TODO implement here
+    }
 
     /**
      * Select Account using AccountID
@@ -119,4 +127,6 @@ public class Manager {
         // TODO implement here
         return false;
     }
+
+    
 }

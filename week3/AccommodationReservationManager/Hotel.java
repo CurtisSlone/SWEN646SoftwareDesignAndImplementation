@@ -13,7 +13,7 @@ public class Hotel extends Reservation implements ToXML {
      * hotelFee = hasKitchenette ? 60.00 : 50.00
      * @param hasKitchenette
      */
-    public Hotel(boolean hasKitchenette) {
+    public void Hotel(boolean hasKitchenette) {
         // TODO implement here
     }
 
