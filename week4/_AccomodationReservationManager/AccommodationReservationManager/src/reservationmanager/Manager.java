@@ -118,8 +118,16 @@ public class Manager {
         List<Address> addresses = new ArrayList<Address>();
         if(!useCurrentContact)
             this.currentContact = this._createTempContact();
-        if(!useSavedAddresses)
+        if(!useSavedAddresses){
             addresses = this._createTempAddressList(mailingSameAsPhysical);
+        } else {
+            addresses.add(this.currentAddressMap.get("PhysicalAddress"));
+            if(!mailingSameAsPhysical)
+                addresses.add(this._createTempAddress("MailingAddress"));
+            addresses.add(this.currentAddressMap.get("PhysicalAddress"));
+        }
+
+        
         this.currentAccount = this._generateNewAccount(this.currentContact, addresses);
 
     }
