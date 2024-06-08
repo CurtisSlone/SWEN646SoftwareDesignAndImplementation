@@ -14,7 +14,7 @@ public class App {
         // System.out.println(reservationApp.viewAddressObject("PhysicalAddress"));
         reservationApp.createNewAccount(true, true, true);
         // System.out.println(reservationApp.viewCurrentAccountObject());
-        System.out.println("Reached");
+        reservationApp.saveCurrentAccountObject();
         
     }    
 }

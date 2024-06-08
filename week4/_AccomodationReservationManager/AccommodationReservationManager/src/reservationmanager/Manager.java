@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.util.TimeZone;
 import java.util.Date;
+import java.io.FileOutputStream;
 
 public class Manager {
 
@@ -138,7 +139,7 @@ public class Manager {
         String lname = contactInfo.nextLine();
         String email = contactInfo.nextLine();
         String phone = contactInfo.nextLine();
-
+        contactInfo.close();
         return new Contact(fname, lname, email, phone);
     }
 
@@ -163,7 +164,7 @@ public class Manager {
         String city = addressInfo.nextLine();
         String state = addressInfo.nextLine();
         String zip = addressInfo.nextLine();
-
+        addressInfo.close();
         return new Address(street1, street2, city, state, zip);
     }
 
@@ -185,7 +186,35 @@ public class Manager {
     }
 
     public String viewCurrentAccountObject() {
+        /*
+         * 
+         */
         return this.currentAccount.toString();
+    }
+
+    public void saveCurrentAccountObject() throws Exception{
+        /*
+         * 
+         */
+
+         String accountDirStr = String.format("./accounts/%s",this.currentAccount.getAccountId());
+        String accountFileName = String.format("%s/acc-%s.xml", accountDirStr, this.currentAccount.getAccountId());
+        String accountInfoStr = this.currentAccount.toString();
+        char foutAccountInfo[] = accountInfoStr.toCharArray();
+
+        File accountDir = new File(accountDirStr);
+        if(!accountDir.exists())
+            accountDir.mkdir();
+        accountDir = null;
+
+        FileOutputStream writeAccountToFile = new FileOutputStream(accountFileName, true);
+
+        for( char c : foutAccountInfo)
+            writeAccountToFile.write(c);
+        
+        writeAccountToFile.close();
+        this._loadAllAccounts();
+
     }
 
     private Reservation _generateNewReservation(ReservationType type, String accountID, List<Address> addresses, Date startDate, int numNights, int numBeds, int numRooms, int numBaths, int lodgingSize) throws Exception {
@@ -198,12 +227,14 @@ public class Manager {
             case HOTEL:
                 reservationID = "HOT" + this._generateUniqueID(10);
                 boolean hasKitchenette = reservationScanner.nextBoolean();
+                reservationScanner.close();
 
                 return new Hotel(reservationID, accountID, addresses, startDate, numNights, numBeds, numRooms, numBaths, lodgingSize, hasKitchenette);
                 
             case HOUSE:
                 reservationID = "HOU" + this._generateUniqueID(10);
                 int numFloors = reservationScanner.nextInt();
+                reservationScanner.close();
 
                 return new House(reservationID, accountID, addresses, startDate, numNights, numBeds, numRooms, numBaths, lodgingSize, numFloors);
 
@@ -211,6 +242,7 @@ public class Manager {
                 reservationID = "CAB" + this._generateUniqueID(10);
                 boolean hasFullKitchen = reservationScanner.nextBoolean();
                 boolean hasLoft = reservationScanner.nextBoolean();
+                reservationScanner.close();
 
                 return new Cabin(reservationID, accountID, addresses, startDate, numNights, numBeds, numRooms, numBaths, lodgingSize, hasFullKitchen, hasLoft);
 
@@ -240,6 +272,7 @@ public class Manager {
         int numRooms = newReservationScanner.nextInt();
         int numBaths = newReservationScanner.nextInt();
         int lodgingSize = newReservationScanner.nextInt();
+        newReservationScanner.close();
         List<Address> addresses = new ArrayList<Address>();
         if(!useSavedAddresses){
             addresses = this._createTempAddressList(mailingSameAsPhysical);
@@ -251,7 +284,8 @@ public class Manager {
         }
         
         this.currentReservation = this._generateNewReservation(type, this.currentAccount.getAccountId(), addresses, startDate, numNights, numBeds, numRooms, numBaths, lodgingSize);
-
+    
+        this._saveReservation();
 
     }
 
@@ -259,12 +293,29 @@ public class Manager {
         /*
          *  
          */
+
+        String accountDirStr = String.format("./accounts/%s",this.currentAccount.getAccountId());
+        String reservationFileName = String.format("%s/res-%s.xml", accountDirStr, this.currentReservation.getReservationID());
+
         if(this.currentReservation instanceof Hotel && !((Hotel)this.currentReservation).checkIfValidHotel())
             throw new Exception();
         if(this.currentAccount == null)
             throw new Exception();
         this.currentAccount.acctReservations.add(this.currentReservation.getReservationID());
-        
+        File accountInfo = new File(accountDirStr);
+        if(!accountInfo.exists())
+            throw new Exception();
+        accountInfo = null;
+
+        String reservationInfo = this.currentReservation.toString();
+        char foutReservationInfo[] = reservationInfo.toCharArray();
+
+        FileOutputStream writeReservationToFile = new FileOutputStream(reservationFileName, true);
+
+        for(char c : foutReservationInfo)
+            writeReservationToFile.write(c);
+
+        writeReservationToFile.close();
     }
 
 }
