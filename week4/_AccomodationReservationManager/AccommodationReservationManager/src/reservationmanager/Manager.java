@@ -20,31 +20,31 @@ public class Manager {
     private Reservation currentReservation;
 
     public Manager() throws Exception {
-        this.allAccounts = this._loadAllAccounts();
+        this._loadAllAccounts();
         this.currentAddressMap = new HashMap<String,Address>();
         currentAddressMap.put("CurrentAddress", null);
         currentAddressMap.put("PhysicalAddress", null);
         currentAddressMap.put("MailingAddress", null);
     }
 
-    private List<String> _loadAllAccounts() throws IOException {
+    private void _loadAllAccounts() throws IOException {
         /*
          * Instantiate new ArrayList
          * Get all directory names as Account IDs as String
          * add name as String to ArrayList
          */
-        List<String> tmp = new ArrayList<String>();
+        this.allAccounts = new ArrayList<String>();
+
+        // Interface this out
         String accounts[];
         File accountsDir = new File("./accounts");
-        if(!accountsDir.exists()){
+        if(!accountsDir.exists())
             accountsDir.mkdir();
-        }
         accounts = accountsDir.list();
         if(accounts.length != 0)
             for(String account : accounts)
-                tmp.add(account);
-
-        return tmp;
+                this.allAccounts.add(account);
+        // End of Interface
     }
 
     public String listAllAccounts(){
@@ -96,7 +96,7 @@ public class Manager {
         this.currentAddressMap.put(addressType, this.currentAddressMap.get("CurrentAddress"));
     }
 
-    private Account _generateNewAccount(Contact contact, List<Address> addresses ){
+    private Account _generateNewAccount(Contact contact, List<Address> addresses ) throws Exception{
         /*
          * Contact and List<Address> type as parameter
          * returns new Account
@@ -126,10 +126,7 @@ public class Manager {
                 addresses.add(this._createTempAddress("MailingAddress"));
             addresses.add(this.currentAddressMap.get("PhysicalAddress"));
         }
-
-        
-        this.currentAccount = this._generateNewAccount(this.currentContact, addresses);
-
+        this.currentAccount = this._generateNewAccount(this.currentContact, addresses);   
     }
     
     private Contact _createTempContact() throws Exception{
@@ -169,7 +166,8 @@ public class Manager {
 
     private String _generateUniqueID(int charCount){
         /*
-         * Create
+         * charCount as int Parameter
+         * Returns random alphanumeric string of charCount length
          */
 
         int leftLimit = 48; // numeral '0'
@@ -183,96 +181,8 @@ public class Manager {
           .toString();
     }
 
-    
-    public void saveCurrentAccount() throws Exception{
-        /* Check if currentAccount ID is in allAccounts ArrayList and accountID != -99
-         *  If not new, update deltas,
-         * If new, create directory and file
-         * change msg based on success or error
-         */
-        
-
-    }
-
-    public String saveCurrentReservation(){
-        String msg = "";
-        /* Find reservation file by ID
-         * Update Deltas
-        */
-        return msg;
-    }
-
-    public String loadAccount(String accountID){
-        String msg = "";
-        /* Find account based on account ID
-         * Open account file, load parse xml
-         * currentContact = new Contact(Parameters from XML)
-         * addressMap.put("PhysicalAddress", new Address(Parameters from XML))
-         * addressMap.put("MailingAddress", new Address(Parameters from XML))
-         * currentAccount = new Account(Parameters from XML, currentContact,currentAddressMap )
-         * reset currentAddressMap values to null
-         * change msg based on success or error
-         */
-
-        return msg;
-
-    }
-
-    public String loadReservation(String reservationID){
-        String msg = "";
-        /* Find account based on account ID
-         * Open account file, load parse xml
-         * currentContact = new Contact(Parameters from XML)
-         * addressMap.put("PhysicalAddress", new Address(Parameters from XML))
-         * addressMap.put("MailingAddress", new Address(Parameters from XML))
-         * currentAccount = new Account(Parameters from XML, currentContact,currentAddressMap )
-         * change msg based on success or error
-         */
-
-        return msg;
-
-    }
-
-    
-
-    private String _generateNewReservationID(){
-        /*
-         * 
-         */
-        return "";
-    }
-
-    public String loadAddressForEdit( String id ){
-        String msg = "";
-        /*
-         * 
-         */
-        return msg;
-    }
-
-    public String loadContactForEdit(){
-        String msg = "";
-        /*
-         * Get contact from current account object
-         *  
-         */
-        return msg;
-    }
-
-    public String saveAddress(String id, String addressType ){
-        String msg = "";
-        /*
-         * 
-         */
-        return msg;
-    }
-
-    public String saveContact(String AccountId){
-        String msg = "";
-        /*
-         * 
-         */
-        return msg;
+    public String viewCurrentAccountObject() {
+        return this.currentAccount.toString();
     }
 
 }
