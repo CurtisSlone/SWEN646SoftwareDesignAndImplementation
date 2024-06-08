@@ -60,4 +60,9 @@ public abstract class Reservation {
     public String getReservationID(){
         return this.reservationID;
     }
+
+    @Override
+    public String toString(){
+        return String.format("\n<reservationID>%s</reservationID>\n<accountID>%s</accountID>\n<reservationStatus>%s</reservationStatus>\n<PhysicalAddress>%s</PhysicalAddress>\n<MailingAddress>%</MailingAddress>\n<date>%s</date>\n<numberOfNights>%s</numberOfNights>\n<numberOfBeds>%s</numberOfBeds>\n<numberOfRooms>%s</numberOfRooms>\n<numberOfBaths>%s</numberOfBaths>\n<lodgingSize>%s</lodgingSize>\n", this.reservationID, this.accountID, this.status.toString(),this.physicalAddress.toString(), this.mailingAddress.toString(), this.startDate.toString(),String.valueOf(this.numberOfNights),String.valueOf(this.numberOfBeds), String.valueOf(this.numberOfRooms), String.valueOf(this.numberOfBaths), String.valueOf(this.lodgingSize));
+    }
 }

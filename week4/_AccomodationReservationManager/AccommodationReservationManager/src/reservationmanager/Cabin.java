@@ -23,6 +23,6 @@ public class Cabin extends Reservation {
     @Override
     public String toString(){
 
-        return "";
+        return String.format("<CabinReservation>\n%s\n<hasFullKitchen>%s</hasFullKitchen>\n<hasLoft>%s</hasLoft>\n</Cabinreservation>", super.toString(), String.valueOf(this.hasFullKitchen), String.valueOf(this.hasLoft));
     }
 }

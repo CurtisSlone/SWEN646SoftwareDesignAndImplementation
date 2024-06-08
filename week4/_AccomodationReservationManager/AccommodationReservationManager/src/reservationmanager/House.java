@@ -19,6 +19,6 @@ public class House extends Reservation {
 
     @Override
     public String toString(){
-        return "";
+        return String.format("<HotelReservation>\n%s\n<numberOfFloors>%s</numberOfFloors>\n</HotelReservation>\n", super.toString(), String.valueOf(this.numberOfFloors));
     }
 }

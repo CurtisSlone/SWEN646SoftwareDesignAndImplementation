@@ -7,8 +7,10 @@ import java.util.List;
 import java.util.ArrayList;
 import java.io.File;
 import java.lang.Exception;
+import java.text.SimpleDateFormat;
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.TimeZone;
 import java.util.Date;
 
 public class Manager {
@@ -188,29 +190,25 @@ public class Manager {
 
     private Reservation _generateNewReservation(ReservationType type, String accountID, List<Address> addresses, Date startDate, int numNights, int numBeds, int numRooms, int numBaths, int lodgingSize) throws Exception {
         /*
-         * Contact and List<Address> type as parameter
-         * returns new Account
+         * 
          */
         String reservationID;
-        Scanner reservationScanner;
+        Scanner reservationScanner = new Scanner(System.in);
         switch (type) {
             case HOTEL:
                 reservationID = "HOT" + this._generateUniqueID(10);
-                reservationScanner = new Scanner(System.in);
                 boolean hasKitchenette = reservationScanner.nextBoolean();
 
                 return new Hotel(reservationID, accountID, addresses, startDate, numNights, numBeds, numRooms, numBaths, lodgingSize, hasKitchenette);
                 
             case HOUSE:
                 reservationID = "HOU" + this._generateUniqueID(10);
-                reservationScanner = new Scanner(System.in);
                 int numFloors = reservationScanner.nextInt();
 
                 return new House(reservationID, accountID, addresses, startDate, numNights, numBeds, numRooms, numBaths, lodgingSize, numFloors);
 
             case CABIN:
                 reservationID = "CAB" + this._generateUniqueID(10);
-                reservationScanner = new Scanner(System.in);
                 boolean hasFullKitchen = reservationScanner.nextBoolean();
                 boolean hasLoft = reservationScanner.nextBoolean();
 
@@ -219,6 +217,54 @@ public class Manager {
             default:
                 throw new Exception();
         }
+    }
+
+    public void createNewReservation(ReservationType type, boolean useSavedAddresses, boolean mailingSameAsPhysical) throws Exception{
+        /*
+         *  
+         */
+        
+        Scanner newReservationScanner = new Scanner(System.in);
+        //Date Operations
+        String dateYear = newReservationScanner.nextLine();
+        String dateMonth = newReservationScanner.nextLine();
+        String dateDay = newReservationScanner.nextLine();
+        String dateFormat = String.format("%s-%s-%s 12:00:23");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        simpleDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+        // End Date Opeerations
+
+        Date startDate = simpleDateFormat.parse(dateFormat);
+        int numNights = newReservationScanner.nextInt();
+        int numBeds = newReservationScanner.nextInt();
+        int numRooms = newReservationScanner.nextInt();
+        int numBaths = newReservationScanner.nextInt();
+        int lodgingSize = newReservationScanner.nextInt();
+        List<Address> addresses = new ArrayList<Address>();
+        if(!useSavedAddresses){
+            addresses = this._createTempAddressList(mailingSameAsPhysical);
+        } else {
+            addresses.add(this.currentAddressMap.get("PhysicalAddress"));
+            if(!mailingSameAsPhysical)
+                addresses.add(this._createTempAddress("MailingAddress"));
+            addresses.add(this.currentAddressMap.get("PhysicalAddress"));
+        }
+        
+        this.currentReservation = this._generateNewReservation(type, this.currentAccount.getAccountId(), addresses, startDate, numNights, numBeds, numRooms, numBaths, lodgingSize);
+
+
+    }
+
+    private void _saveReservation() throws Exception {
+        /*
+         *  
+         */
+        if(this.currentReservation instanceof Hotel && !((Hotel)this.currentReservation).checkIfValidHotel())
+            throw new Exception();
+        if(this.currentAccount == null)
+            throw new Exception();
+        this.currentAccount.acctReservations.add(this.currentReservation.getReservationID());
+        
     }
 
 }

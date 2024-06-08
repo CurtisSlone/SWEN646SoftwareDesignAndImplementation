@@ -21,9 +21,13 @@ public class Hotel extends Reservation {
         this.priceTotal = this.calculatePriceTotal( this.lodgingSizeFee, this.hotelFee);
     }
 
+    public boolean checkIfValidHotel(){
+        return this.isValidHotel;
+    }
+
     @Override
     public String toString(){
 
-        return this.isValidHotel ? "" : "";
+        return String.format("<HotelReservation>\n<isValidHotel>%s</isValidHotel>\n%s\n<hasKitchenette>%s</hasKitchenette>\n</HotelReservation>", String.valueOf(this.isValidHotel),super.toString(), String.valueOf(this.hasKitchenette)) ;
     }
 }
