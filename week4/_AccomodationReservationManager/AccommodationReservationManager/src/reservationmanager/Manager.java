@@ -9,6 +9,7 @@ import java.io.File;
 import java.lang.Exception;
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.Date;
 
 public class Manager {
 
@@ -183,6 +184,41 @@ public class Manager {
 
     public String viewCurrentAccountObject() {
         return this.currentAccount.toString();
+    }
+
+    private Reservation _generateNewReservation(ReservationType type, String accountID, List<Address> addresses, Date startDate, int numNights, int numBeds, int numRooms, int numBaths, int lodgingSize) throws Exception {
+        /*
+         * Contact and List<Address> type as parameter
+         * returns new Account
+         */
+        String reservationID;
+        Scanner reservationScanner;
+        switch (type) {
+            case HOTEL:
+                reservationID = "HOT" + this._generateUniqueID(10);
+                reservationScanner = new Scanner(System.in);
+                boolean hasKitchenette = reservationScanner.nextBoolean();
+
+                return new Hotel(reservationID, accountID, addresses, startDate, numNights, numBeds, numRooms, numBaths, lodgingSize, hasKitchenette);
+                
+            case HOUSE:
+                reservationID = "HOU" + this._generateUniqueID(10);
+                reservationScanner = new Scanner(System.in);
+                int numFloors = reservationScanner.nextInt();
+
+                return new House(reservationID, accountID, addresses, startDate, numNights, numBeds, numRooms, numBaths, lodgingSize, numFloors);
+
+            case CABIN:
+                reservationID = "CAB" + this._generateUniqueID(10);
+                reservationScanner = new Scanner(System.in);
+                boolean hasFullKitchen = reservationScanner.nextBoolean();
+                boolean hasLoft = reservationScanner.nextBoolean();
+
+                return new Cabin(reservationID, accountID, addresses, startDate, numNights, numBeds, numRooms, numBaths, lodgingSize, hasFullKitchen, hasLoft);
+
+            default:
+                throw new Exception();
+        }
     }
 
 }

@@ -1,6 +1,7 @@
 package reservationmanager;
 
 import java.util.Date;
+import java.util.List;
 
 public abstract class Reservation {
     private String reservationID;
@@ -18,12 +19,12 @@ public abstract class Reservation {
     protected float priceTotal;
     protected final float BASEPRICE = 120;
 
-    public Reservation(String reservationID, String accountID, Address physicalAddress, Address mailingAddress ,Date startDate, int numberOfNights, int numberOfBeds, int numberOfRooms, int numberOfBaths, int lodgingSize){
+    public Reservation(String reservationID, String accountID, List<Address> addresses, Date startDate, int numberOfNights, int numberOfBeds, int numberOfRooms, int numberOfBaths, int lodgingSize){
         this.reservationID = reservationID;
         this.accountID = accountID;
         this.startDate = startDate;
-        this.physicalAddress = physicalAddress;
-        this.mailingAddress = mailingAddress;
+        this.physicalAddress = addresses.get(0);
+        this.mailingAddress = addresses.get(1);
         this.numberOfNights = numberOfNights;
         this.numberOfBeds = numberOfBeds;
         this.numberOfRooms = numberOfRooms;
@@ -38,17 +39,10 @@ public abstract class Reservation {
         return this.BASEPRICE + lodgingSizeFee + reservationTypeFee;
     };
 
-    public String updateLodgingSize(int newSize){
-        String msg = "";
-        try {
-            this.lodgingSize = newSize;
-            this.lodgingSizeFee = this._calculateLodgingSizeFee();
-            msg = "Lodging size update successful!";
-        } catch (Exception e) {
-            msg = e.toString();
-        }
-        
-        return msg;
+    public void updateLodgingSize(int newSize) throws Exception {
+            
+        this.lodgingSize = newSize;
+        this.lodgingSizeFee = this._calculateLodgingSizeFee();
     }
 
     public int getLodgingSize(){
@@ -66,5 +60,4 @@ public abstract class Reservation {
     public String getReservationID(){
         return this.reservationID;
     }
-
 }

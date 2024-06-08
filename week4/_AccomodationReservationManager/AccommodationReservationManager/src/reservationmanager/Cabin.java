@@ -1,6 +1,7 @@
 package reservationmanager;
 
 import java.util.Date;
+import java.util.List;
 
 public class Cabin extends Reservation {
     protected boolean hasFullKitchen;
@@ -8,9 +9,9 @@ public class Cabin extends Reservation {
     private float cabinFee;
     protected final ReservationType type = ReservationType.CABIN;
 
-    public Cabin( String reservationID, String accountID, Address physicalAddress, Address mailingAddress, Date startDate, int numberOfNights, int numberOfBeds, int numberOfRooms, int numberOfBaths, int lodgingSize, boolean hasFullKitchen, boolean hasLoft){
+    public Cabin( String reservationID, String accountID, List<Address> addresses, Date startDate, int numberOfNights, int numberOfBeds, int numberOfRooms, int numberOfBaths, int lodgingSize, boolean hasFullKitchen, boolean hasLoft){
 
-        super(reservationID, accountID, physicalAddress, mailingAddress, startDate, numberOfNights, numberOfBeds, numberOfRooms, numberOfBaths, lodgingSize);
+        super(reservationID, accountID, addresses, startDate, numberOfNights, numberOfBeds, numberOfRooms, numberOfBaths, lodgingSize);
 
         this.hasFullKitchen = hasFullKitchen;
         this.hasLoft = hasLoft;
