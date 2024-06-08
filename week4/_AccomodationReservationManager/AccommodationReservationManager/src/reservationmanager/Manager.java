@@ -222,27 +222,25 @@ public class Manager {
          * 
          */
         String reservationID;
-        Scanner reservationScanner = new Scanner(System.in);
         switch (type) {
             case HOTEL:
                 reservationID = "HOT" + this._generateUniqueID(10);
-                boolean hasKitchenette = reservationScanner.nextBoolean();
-                reservationScanner.close();
+                boolean hasKitchenette = true;
 
                 return new Hotel(reservationID, accountID, addresses, startDate, numNights, numBeds, numRooms, numBaths, lodgingSize, hasKitchenette);
                 
             case HOUSE:
                 reservationID = "HOU" + this._generateUniqueID(10);
-                int numFloors = reservationScanner.nextInt();
-                reservationScanner.close();
+                int numFloors = 2;
 
                 return new House(reservationID, accountID, addresses, startDate, numNights, numBeds, numRooms, numBaths, lodgingSize, numFloors);
 
             case CABIN:
                 reservationID = "CAB" + this._generateUniqueID(10);
-                boolean hasFullKitchen = reservationScanner.nextBoolean();
-                boolean hasLoft = reservationScanner.nextBoolean();
-                reservationScanner.close();
+                
+
+                boolean hasFullKitchen = false;
+                boolean hasLoft = false;
 
                 return new Cabin(reservationID, accountID, addresses, startDate, numNights, numBeds, numRooms, numBaths, lodgingSize, hasFullKitchen, hasLoft);
 
@@ -258,19 +256,27 @@ public class Manager {
         
         Scanner newReservationScanner = new Scanner(System.in);
         //Date Operations
+        System.out.print("yyyy: ");
         String dateYear = newReservationScanner.nextLine();
+        System.out.print("MM: ");
         String dateMonth = newReservationScanner.nextLine();
+        System.out.print("dd: ");
         String dateDay = newReservationScanner.nextLine();
-        String dateFormat = String.format("%s-%s-%s 12:00:23");
+        String dateFormat = String.format("%s-%s-%s 12:00:23",dateYear,dateMonth,dateDay);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         simpleDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
         // End Date Opeerations
 
         Date startDate = simpleDateFormat.parse(dateFormat);
+        System.out.print("numNights: ");
         int numNights = newReservationScanner.nextInt();
+        System.out.print("numBeds: ");
         int numBeds = newReservationScanner.nextInt();
+        System.out.print("numRooms: ");
         int numRooms = newReservationScanner.nextInt();
+        System.out.print("numBaths: ");
         int numBaths = newReservationScanner.nextInt();
+        System.out.print("lodgingSize: ");
         int lodgingSize = newReservationScanner.nextInt();
         newReservationScanner.close();
         List<Address> addresses = new ArrayList<Address>();

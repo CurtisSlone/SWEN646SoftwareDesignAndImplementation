@@ -1,8 +1,5 @@
-
-
-
-
 import reservationmanager.Manager;
+import reservationmanager.ReservationType;
 public class App {
     public static void main(String[] args) throws Exception {
         Manager reservationApp = new Manager();
@@ -15,6 +12,7 @@ public class App {
         reservationApp.createNewAccount(true, true, true);
         // System.out.println(reservationApp.viewCurrentAccountObject());
         reservationApp.saveCurrentAccountObject();
-        
+        // System.out.println(reservationApp.listAllAccounts());
+        reservationApp.createNewReservation(ReservationType.HOUSE, true, true);
     }    
 }
