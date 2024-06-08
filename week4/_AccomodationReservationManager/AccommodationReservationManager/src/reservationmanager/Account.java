@@ -7,10 +7,10 @@ import java.util.Map;
 public class Account {
     private String acctID;
     protected Contact acctClient;
-    protected Map<String,Address> acctAddresses;
+    protected List<Address> acctAddresses;
     private List<String> acctReservations;
 
-    public Account(String accountID, Contact client, Map<String,Address> addresses ){
+    public Account(String accountID, Contact client, List<Address>addresses ){
         this.acctID = accountID != null ? accountID : "-99";
         this.acctClient = client;
         this.acctAddresses = addresses;

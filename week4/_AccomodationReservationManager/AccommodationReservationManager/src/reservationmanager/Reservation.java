@@ -59,7 +59,7 @@ public abstract class Reservation {
         return this.lodgingSize > 900 ? (this.lodgingSize - 900 ) * 15 : 0;
     }
 
-    public String getAcountID(){
+    public String getAccountID(){
         return this.accountID;
     }
 
