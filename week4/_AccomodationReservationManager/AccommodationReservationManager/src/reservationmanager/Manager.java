@@ -211,6 +211,7 @@ public class Manager {
 
          String accountDirStr = String.format("./accounts/%s",this.currentAccount.getAccountId());
         String accountFileName = String.format("%s/acc-%s.xml", accountDirStr, this.currentAccount.getAccountId());
+        this.currentAccount.acctReservations = this.currentAccountReservations;
         String accountInfoStr = this.currentAccount.toString();
         char foutAccountInfo[] = accountInfoStr.toCharArray();
 
@@ -229,7 +230,7 @@ public class Manager {
 
     }
 
-    private Reservation _generateNewReservation(ReservationType type, String accountID, List<Address> addresses, Date startDate, int numNights, int numBeds, int numRooms, int numBaths, int lodgingSize) throws Exception {
+    private Reservation _generateNewReservation(ReservationType type, String accountID, List<Address> addresses, List<Object> reservationParameters) throws Exception {
         /*
          * 
          */
@@ -237,60 +238,27 @@ public class Manager {
         switch (type) {
             case HOTEL:
                 reservationID = "HOT" + this._generateUniqueID(10);
-                boolean hasKitchenette = true;
-
-                return new Hotel(reservationID, accountID, addresses, startDate, numNights, numBeds, numRooms, numBaths, lodgingSize, hasKitchenette);
+                return new Hotel(reservationID, accountID, addresses, reservationParameters);
                 
             case HOUSE:
                 reservationID = "HOU" + this._generateUniqueID(10);
-                int numFloors = 2;
-
-                return new House(reservationID, accountID, addresses, startDate, numNights, numBeds, numRooms, numBaths, lodgingSize, numFloors);
+                return new House(reservationID, accountID, addresses, reservationParameters);
 
             case CABIN:
                 reservationID = "CAB" + this._generateUniqueID(10);
-                
-
-                boolean hasFullKitchen = false;
-                boolean hasLoft = false;
-
-                return new Cabin(reservationID, accountID, addresses, startDate, numNights, numBeds, numRooms, numBaths, lodgingSize, hasFullKitchen, hasLoft);
+                return new Cabin(reservationID, accountID, addresses, reservationParameters);
 
             default:
                 throw new Exception();
         }
     }
 
-    public void createNewReservation(ReservationType type, boolean useSavedAddresses, boolean mailingSameAsPhysical) throws Exception{
+    public void createNewReservation(ReservationType type, List<Object> reservationParameters, boolean useSavedAddresses, boolean mailingSameAsPhysical) throws Exception{
         /*
          *  
          */
         
-        Scanner newReservationScanner = new Scanner(System.in);
-        //Date Operations
-        System.out.print("yyyy: ");
-        String dateYear = newReservationScanner.nextLine();
-        System.out.print("MM: ");
-        String dateMonth = newReservationScanner.nextLine();
-        System.out.print("dd: ");
-        String dateDay = newReservationScanner.nextLine();
-        String dateFormat = String.format("%s-%s-%s 12:00:23",dateYear,dateMonth,dateDay);
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        simpleDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
-        // End Date Opeerations
 
-        Date startDate = simpleDateFormat.parse(dateFormat);
-        System.out.print("numNights: ");
-        int numNights = newReservationScanner.nextInt();
-        System.out.print("numBeds: ");
-        int numBeds = newReservationScanner.nextInt();
-        System.out.print("numRooms: ");
-        int numRooms = newReservationScanner.nextInt();
-        System.out.print("numBaths: ");
-        int numBaths = newReservationScanner.nextInt();
-        System.out.print("lodgingSize: ");
-        int lodgingSize = newReservationScanner.nextInt();
-        newReservationScanner.close();
         List<Address> addresses = new ArrayList<Address>();
         if(!useSavedAddresses){
             addresses = this._createTempAddressList(mailingSameAsPhysical);
@@ -301,7 +269,7 @@ public class Manager {
             addresses.add(this.currentAddressMap.get("PhysicalAddress"));
         }
         
-        this.currentReservation = this._generateNewReservation(type, this.currentAccount.getAccountId(), addresses, startDate, numNights, numBeds, numRooms, numBaths, lodgingSize);
+        this.currentReservation = this._generateNewReservation(type, this.currentAccount.getAccountId(), addresses, reservationParameters);
     
         this._saveReservation();
         this.currentAccountReservations.add(this.currentReservation.getReservationID());
@@ -362,7 +330,7 @@ public class Manager {
 
         String accountAddresses = currentLine.substring(currentLine.indexOf("<PhysicalAddress>"), currentLine.indexOf("</MailingAddress>") + 17);
         this.currentAddressMap = this._loadCurrentAddressMap(accountAddresses);
-        
+
         String accountReservations = currentLine.substring(currentLine.indexOf("<Reservations>"), currentLine.indexOf("</Reservations>") + 15);
         this.currentAccountReservations = this._loadCurrentReservationsList(accountReservations);
 

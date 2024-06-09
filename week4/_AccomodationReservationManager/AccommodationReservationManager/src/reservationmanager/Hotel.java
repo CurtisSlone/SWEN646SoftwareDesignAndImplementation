@@ -1,6 +1,5 @@
 package reservationmanager;
 
-import java.util.Date;
 import java.util.List;
  
 public class Hotel extends Reservation {
@@ -10,13 +9,11 @@ public class Hotel extends Reservation {
     private float hotelFee;
     protected final ReservationType type = ReservationType.HOTEL;
 
-    public Hotel( String reservationID, String accountID, List<Address> addresses, Date startDate, int numberOfNights, int numberOfBeds, int numberOfRooms, int numberOfBaths, int lodgingSize, boolean hasKitchenette){
+    public Hotel( String reservationID, String accountID, List<Address> addresses, List<Object> reservationParameters){
+        super(reservationID, accountID, addresses, reservationParameters);
 
-        super(reservationID, accountID, addresses, startDate, numberOfNights, numberOfBeds, numberOfRooms, numberOfBaths, lodgingSize);
-
+        this.hasKitchenette = (boolean)reservationParameters.get(6);
         this.isValidHotel = (this.numberOfBeds == 2 && this.numberOfRooms == 1) ? true : false;
-        
-        this.hasKitchenette = hasKitchenette;
         this.hotelFee = this.hasKitchenette ? 60 : 50;
         this.priceTotal = this.calculatePriceTotal( this.lodgingSizeFee, this.hotelFee);
     }

@@ -1,6 +1,5 @@
 package reservationmanager;
 
-import java.util.Date;
 import java.util.List;
 
 public class House extends Reservation {
@@ -8,11 +7,10 @@ public class House extends Reservation {
     protected int numberOfFloors;
     protected final ReservationType resType = ReservationType.HOUSE;
 
-    public House( String reservationID, String accountID, List<Address> addresses, Date startDate, int numberOfNights, int numberOfBeds, int numberOfRooms, int numberOfBaths, int lodgingSize, int numberOfFloors){
+    public House( String reservationID, String accountID, List<Address> addresses, List<Object> reservationParameters){
+        super(reservationID, accountID, addresses,reservationParameters);
 
-        super(reservationID, accountID, addresses, startDate, numberOfNights, numberOfBeds, numberOfRooms, numberOfBaths, lodgingSize);
-
-        this.numberOfFloors = numberOfFloors;
+        this.numberOfFloors = (Integer)reservationParameters.get(6);
         this.priceTotal = calculatePriceTotal(this.lodgingSizeFee, 0);
         
     }

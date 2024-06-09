@@ -19,17 +19,17 @@ public abstract class Reservation {
     protected float priceTotal;
     protected final float BASEPRICE = 120;
 
-    public Reservation(String reservationID, String accountID, List<Address> addresses, Date startDate, int numberOfNights, int numberOfBeds, int numberOfRooms, int numberOfBaths, int lodgingSize){
+    public Reservation(String reservationID, String accountID, List<Address> addresses, List<Object> reservationParameters){
         this.reservationID = reservationID;
         this.accountID = accountID;
-        this.startDate = startDate;
         this.physicalAddress = addresses.get(0);
         this.mailingAddress = addresses.get(1);
-        this.numberOfNights = numberOfNights;
-        this.numberOfBeds = numberOfBeds;
-        this.numberOfRooms = numberOfRooms;
-        this.numberOfBaths = numberOfBaths;
-        this.lodgingSize = lodgingSize;
+        this.startDate = (Date)reservationParameters.get(0);
+        this.numberOfNights = (Integer)reservationParameters.get(1);
+        this.numberOfBeds = (Integer)reservationParameters.get(2);
+        this.numberOfRooms = (Integer)reservationParameters.get(3);
+        this.numberOfBaths = (Integer)reservationParameters.get(4);
+        this.lodgingSize = (Integer)reservationParameters.get(5);
         this.lodgingSizeFee = this._calculateLodgingSizeFee();
         this.status = ReservationStatus.DRAFT;
     }
