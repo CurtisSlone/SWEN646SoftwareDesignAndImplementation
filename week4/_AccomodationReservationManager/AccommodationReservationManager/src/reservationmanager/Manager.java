@@ -13,6 +13,9 @@ import java.util.Scanner;
 import java.util.TimeZone;
 import java.util.Date;
 import java.io.FileOutputStream;
+import java.io.FileInputStream;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
 public class Manager {
 
@@ -24,6 +27,9 @@ public class Manager {
     private Reservation currentReservation;
 
     public Manager() throws Exception {
+        /*
+         *  
+         */
         this._loadAllAccounts();
         this.currentAddressMap = new HashMap<String,Address>();
         currentAddressMap.put("CurrentAddress", null);
@@ -134,6 +140,9 @@ public class Manager {
     }
     
     private Contact _createTempContact() throws Exception{
+        /*
+         *  
+         */
         Scanner contactInfo = new Scanner(System.in);
         String fname = contactInfo.nextLine();
         String lname = contactInfo.nextLine();
@@ -144,6 +153,9 @@ public class Manager {
     }
 
     private List<Address> _createTempAddressList(boolean mailingSameAsPhysical) throws Exception {
+        /*
+         *  
+         */
         List<Address> tmpList = new ArrayList<Address>();
         Address tmpPhysicalAddress = this._createTempAddress("PhysicalAddress");
         tmpList.add(tmpPhysicalAddress);
@@ -292,6 +304,7 @@ public class Manager {
         this.currentReservation = this._generateNewReservation(type, this.currentAccount.getAccountId(), addresses, startDate, numNights, numBeds, numRooms, numBaths, lodgingSize);
     
         this._saveReservation();
+        this.currentAccountReservations.add(this.currentReservation.getReservationID());
 
     }
 
@@ -322,6 +335,64 @@ public class Manager {
             writeReservationToFile.write(c);
 
         writeReservationToFile.close();
+    }
+
+    public void selectAccountFromAll(int accountIndex) throws Exception {
+        /*
+         *  
+         */
+        String selectedAccountID = this.allAccounts.get(accountIndex);
+    }
+
+    private void _loadCurrentObjectsFromFileByAccountID(String accountID) throws Exception {
+        /*
+         *  
+         */
+        String accountFile = String.format("./accounts/%s/acc-%s.xml", accountID,accountID);
+        BufferedReader accountBufferedReader = null;
+        FileInputStream accountFileInputStream = new FileInputStream(accountFile);
+        accountBufferedReader = new BufferedReader(new InputStreamReader(accountFileInputStream));
+	    String currentLine = null;
+	        
+	        
+	    currentLine = accountBufferedReader.readLine();
+
+	    String accountContact = currentLine.substring(currentLine.indexOf("<Contact>"), currentLine.indexOf("</Contact>") + 10);
+        this.currentContact = this._loadCurrentContactObject(accountContact);
+
+        String accountAddresses = currentLine.substring(currentLine.indexOf("<PhysicalAddress>"), currentLine.indexOf("</MailingAddress>") + 17);
+        this.currentAddressMap = this._loadCurrentAddressMap(accountAddresses);
+        
+        String accountReservations = currentLine.substring(currentLine.indexOf("<Reservations>"), currentLine.indexOf("</Reservations>") + 15);
+        this.currentAccountReservations = this._loadCurrentReservationsList(accountReservations);
+
+        accountFileInputStream.close();
+        accountFileInputStream.close();
+        accountBufferedReader.close();
+    }
+
+    private Contact _loadCurrentContactObject(String contactXML) throws Exception{
+        /*
+         *  
+         */
+        String firstName = contactXML.substring(contactXML.indexOf("<firstName>") + 11, contactXML.indexOf("</firstName>"));
+        String lastName = contactXML.substring(contactXML.indexOf("<lastName>") + 10, contactXML.indexOf("</lastName>"));
+        String email = contactXML.substring(contactXML.indexOf("<email>") + 7, contactXML.indexOf("</email>"));
+        String phoneNumber = contactXML.substring(contactXML.indexOf("<phoneNumber>") + 13, contactXML.indexOf("</phoneNumber>"));
+
+        return new Contact(firstName,lastName,email,phoneNumber);
+    }
+
+    private Map<String,Address> _loadCurrentAddressMap(String addressXML) throws Exception {
+        Map<String,Address> tmpAddresses = new HashMap<String,Address>();
+
+        return tmpAddresses;
+    }
+
+    private List<String> _loadCurrentReservationsList(String reservationXML) throws Exception {
+        List<String> tmpReservations = new ArrayList<String>();
+
+        return tmpReservations;
     }
 
 }
