@@ -9,14 +9,12 @@ public class Account {
     protected Contact acctClient;
     protected List<Address> acctAddresses;
     protected List<String> acctReservations;
-    private String acctReservationsXML;
 
     public Account(String accountID, Contact client, List<Address>addresses ) throws Exception {
         this.acctID = accountID != null ? accountID : "-99";
         this.acctClient = client;
         this.acctAddresses = addresses;
-        this._loadReservations();
-        this._loadReservationsAsXML();
+        this.acctReservations = new ArrayList<String>();
     }
 
     private void _loadReservations() throws Exception {
@@ -26,12 +24,6 @@ public class Account {
          * add filenames as reservation IDs to ArrayList<String>
          */
         this.acctReservations = new ArrayList<String>();
-    }
-
-    private void _loadReservationsAsXML() throws Exception{
-        this.acctReservationsXML = "";
-        for( String reservation : this.acctReservations)
-            this.acctReservationsXML += "<Reservation>" + reservation + "</Reservation>\n";
     }
 
     public String getAccountId(){
@@ -46,6 +38,6 @@ public class Account {
     @Override
     public String toString(){
 
-        return String.format("<Account>\n<accountID>%s</accountID>\n%s<PhysicalAddress>%s</PhysicalAddress>\n<MailingAddress>%s</MailingAddress>\n<Reservations>%s</Reservations>\n</Account>\n",this.acctID,this.acctClient.toString(),this.acctAddresses.get(0),this.acctAddresses.get(1),this.acctReservationsXML);
+        return String.format("<Account>\n<accountID>%s</accountID>\n%s<PhysicalAddress>%s</PhysicalAddress>\n<MailingAddress>%s</MailingAddress>\n<Reservations>%s</Reservations>\n</Account>\n",this.acctID,this.acctClient.toString(),this.acctAddresses.get(0),this.acctAddresses.get(1),this.acctReservations.toString());
     }
 }

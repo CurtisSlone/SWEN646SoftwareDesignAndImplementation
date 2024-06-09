@@ -7,11 +7,8 @@ import java.util.List;
 import java.util.ArrayList;
 import java.io.File;
 import java.lang.Exception;
-import java.text.SimpleDateFormat;
 import java.io.IOException;
 import java.util.Scanner;
-import java.util.TimeZone;
-import java.util.Date;
 import java.io.FileOutputStream;
 import java.io.FileInputStream;
 import java.io.BufferedReader;
@@ -35,6 +32,7 @@ public class Manager {
         currentAddressMap.put("CurrentAddress", null);
         currentAddressMap.put("PhysicalAddress", null);
         currentAddressMap.put("MailingAddress", null);
+        this.currentAccountReservations = new ArrayList<String>();
     }
 
     private void _loadAllAccounts() throws IOException {
@@ -209,7 +207,7 @@ public class Manager {
          * 
          */
 
-         String accountDirStr = String.format("./accounts/%s",this.currentAccount.getAccountId());
+        String accountDirStr = String.format("./accounts/%s",this.currentAccount.getAccountId());
         String accountFileName = String.format("%s/acc-%s.xml", accountDirStr, this.currentAccount.getAccountId());
         this.currentAccount.acctReservations = this.currentAccountReservations;
         String accountInfoStr = this.currentAccount.toString();
@@ -220,7 +218,7 @@ public class Manager {
             accountDir.mkdir();
         accountDir = null;
 
-        FileOutputStream writeAccountToFile = new FileOutputStream(accountFileName, true);
+        FileOutputStream writeAccountToFile = new FileOutputStream(accountFileName, false);
 
         for( char c : foutAccountInfo)
             writeAccountToFile.write(c);
@@ -272,8 +270,6 @@ public class Manager {
         this.currentReservation = this._generateNewReservation(type, this.currentAccount.getAccountId(), addresses, reservationParameters);
     
         this._saveReservation();
-        this.currentAccountReservations.add(this.currentReservation.getReservationID());
-
     }
 
     private void _saveReservation() throws Exception {
@@ -288,7 +284,7 @@ public class Manager {
             throw new Exception();
         if(this.currentAccount == null)
             throw new Exception();
-        this.currentAccount.acctReservations.add(this.currentReservation.getReservationID());
+        
         File accountInfo = new File(accountDirStr);
         if(!accountInfo.exists())
             throw new Exception();
@@ -303,7 +299,26 @@ public class Manager {
             writeReservationToFile.write(c);
 
         writeReservationToFile.close();
+        this.currentAccountReservations.add(this.currentReservation.getReservationID());
+        this.saveCurrentAccountObject();
+        
     }
+
+    public String viewCurrentReservationObject(){
+        /*
+         *  
+         */
+        return this.currentReservation.toString();
+    }
+
+    public String viewAllReservationsCurrentAccount(){
+        /*
+         *  
+         */
+        return this.currentAccountReservations.toString();
+    }
+
+    // Todo: this.current account equls loaded object
 
     public void selectAccountFromAll(int accountIndex) throws Exception {
         /*
