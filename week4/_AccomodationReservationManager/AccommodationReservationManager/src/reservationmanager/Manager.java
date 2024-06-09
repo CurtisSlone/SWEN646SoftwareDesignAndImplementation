@@ -318,13 +318,14 @@ public class Manager {
         return this.currentAccountReservations.toString();
     }
 
-    // Todo: this.current account equls loaded object
+    // Todo: this.current account equals loaded object
 
     public void selectAccountFromAll(int accountIndex) throws Exception {
         /*
          *  
          */
         String selectedAccountID = this.allAccounts.get(accountIndex);
+        this._loadCurrentObjectsFromFileByAccountID(selectedAccountID);
     }
 
     private void _loadCurrentObjectsFromFileByAccountID(String accountID) throws Exception {
@@ -366,13 +367,20 @@ public class Manager {
         return new Contact(firstName,lastName,email,phoneNumber);
     }
 
+    // Most recent need to be finished
     private Map<String,Address> _loadCurrentAddressMap(String addressXML) throws Exception {
+        /*
+        *  
+        */
         Map<String,Address> tmpAddresses = new HashMap<String,Address>();
 
         return tmpAddresses;
     }
 
     private List<String> _loadCurrentReservationsList(String reservationXML) throws Exception {
+       /*
+        *  
+        */
         List<String> tmpReservations = new ArrayList<String>();
 
         return tmpReservations;
