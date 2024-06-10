@@ -1,6 +1,6 @@
-<CabinReservation>
-<reservationID>CABJAGCqJDSbz</reservationID>
-<accountID>AwjanSKmqj</accountID>
+<HotelReservation>
+<reservationID>HOUulCCCyiziQ</reservationID>
+<accountID>AvomBh2pni</accountID>
 <reservationStatus>DRAFT</reservationStatus>
 <PhysicalAddress>
 <Address>
@@ -20,12 +20,11 @@
 <zip>27505</zip>
 </Address>
 </MailingAddress>
-<date>Fri Nov 01 13:00:23 CET 2024</date>
+<date>Sun Jul 21 14:00:23 CEST 2024</date>
 <numberOfNights>1</numberOfNights>
 <numberOfBeds>1</numberOfBeds>
 <numberOfRooms>1</numberOfRooms>
 <numberOfBaths>1</numberOfBaths>
 <lodgingSize>100</lodgingSize>
-<hasFullKitchen>true</hasFullKitchen>
-<hasLoft>true</hasLoft>
-</Cabinreservation>
+<numberOfFloors>2</numberOfFloors>
+</HotelReservation>

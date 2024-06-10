@@ -10,9 +10,8 @@ import java.lang.Exception;
 import java.io.IOException;
 import java.util.Scanner;
 import java.io.FileOutputStream;
-import java.io.FileInputStream;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class Manager {
 
@@ -325,7 +324,6 @@ public class Manager {
          *  
          */
         String selectedAccountID = this.allAccounts.get(accountIndex);
-        System.out.println(selectedAccountID);
         this._loadCurrentObjectsFromFileByAccountID(selectedAccountID);
     }
 
@@ -334,33 +332,23 @@ public class Manager {
          *  
          */
         String accountFile = String.format("./accounts/%s/acc-%s.xml", accountID,accountID);
-        BufferedReader accountBufferedReader = null;
-        FileInputStream accountFileInputStream = new FileInputStream(accountFile);
-        accountBufferedReader = new BufferedReader(new InputStreamReader(accountFileInputStream));
-	    String currentLine = null;
         List<Address> addressArrList = null;
-	        
-	    currentLine = accountBufferedReader.readLine();
-        while((currentLine = accountBufferedReader.readLine()) != null){ 
-            currentLine += accountBufferedReader.readLine();
-        }
+        String accountXmlAsString = new String(Files.readAllBytes(Paths.get(accountFile)));
         
-        System.out.println(currentLine);
-	    String accountContact = currentLine.substring(currentLine.indexOf("<Contact>"), currentLine.indexOf("</Contact>") + 10);
+	    String accountContact = accountXmlAsString.substring(accountXmlAsString.indexOf("<Contact>"), accountXmlAsString.indexOf("</Contact>") + 10);
         this.currentContact = this._loadCurrentContactObject(accountContact);
 
-        String accountAddresses = currentLine.substring(currentLine.indexOf("<PhysicalAddress>"), currentLine.indexOf("</MailingAddress>") + 17);
+        String accountAddresses = accountXmlAsString.substring(accountXmlAsString.indexOf("<PhysicalAddress>"), accountXmlAsString.indexOf("</MailingAddress>") + 17);
         addressArrList = this._loadCurrentAccountAddresses(accountAddresses);
         this._loadCurrentAddessMap(addressArrList);
 
-        String accountReservations = currentLine.substring(currentLine.indexOf("<Reservations>"), currentLine.indexOf("</Reservations>") + 15);
+        String accountReservations = accountXmlAsString.substring(accountXmlAsString.indexOf("<Reservations>"), accountXmlAsString.indexOf("</Reservations>") + 15);
         this.currentAccountReservations = this._loadCurrentReservationsList(accountReservations);
-
-        accountFileInputStream.close();
-        accountFileInputStream.close();
-        accountBufferedReader.close();
+        
+        
 
         this.currentAccount = new Account(accountID, currentContact, addressArrList);
+        this.currentAccount.acctReservations = this._loadCurrentReservationsList(accountReservations);
     }
 
     private Contact _loadCurrentContactObject(String contactXML) throws Exception{
@@ -370,7 +358,7 @@ public class Manager {
         String firstName = contactXML.substring(contactXML.indexOf("<firstName>") + 11, contactXML.indexOf("</firstName>"));
         String lastName = contactXML.substring(contactXML.indexOf("<lastName>") + 10, contactXML.indexOf("</lastName>"));
         String email = contactXML.substring(contactXML.indexOf("<email>") + 7, contactXML.indexOf("</email>"));
-        String phoneNumber = contactXML.substring(contactXML.indexOf("<phoneNumber>") + 13, contactXML.indexOf("</phoneNumber>"));
+        String phoneNumber = contactXML.substring(contactXML.indexOf("<phone>") + 7, contactXML.indexOf("</phone>"));
 
         return new Contact(firstName,lastName,email,phoneNumber);
     }
@@ -383,8 +371,8 @@ public class Manager {
         List<Address> tmpAddresses = new ArrayList<Address>();
         
         String addresses[] = {
-            addressXML.substring(addressXML.indexOf("<PhysicalAddress>" + 17), addressXML.indexOf("</PhysicalAddress")),
-            addressXML.substring(addressXML.indexOf("<MailingAddress>" + 16), addressXML.indexOf("</MailingAddress")),
+            addressXML.substring(addressXML.indexOf("<PhysicalAddress>") + 17, addressXML.indexOf("</PhysicalAddress")),
+            addressXML.substring(addressXML.indexOf("<MailingAddress>") + 16, addressXML.indexOf("</MailingAddress")),
         };
 
         for( String address : addresses){
@@ -410,9 +398,11 @@ public class Manager {
         */
         List<String> tmpReservations = new ArrayList<String>();
         String reservationsXMLString = reservationXML.substring(reservationXML.indexOf("<Reservations>[") + 15, reservationXML.indexOf("]</Reservations>"));
-        String reservations[] = reservationsXMLString.split(",");
+        String reservations[] = reservationsXMLString.split(", ");
+        
         for( String reservation : reservations)
             tmpReservations.add(reservation);
+        
         return tmpReservations;
     }
 

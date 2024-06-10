@@ -1,6 +1,6 @@
 <HotelReservation>
-<reservationID>HOUOb3ZzJbT1z</reservationID>
-<accountID>AwjanSKmqj</accountID>
+<reservationID>HOUDiV05LDWNd</reservationID>
+<accountID>A2gjk4315y</accountID>
 <reservationStatus>DRAFT</reservationStatus>
 <PhysicalAddress>
 <Address>
@@ -25,6 +25,6 @@
 <numberOfBeds>1</numberOfBeds>
 <numberOfRooms>1</numberOfRooms>
 <numberOfBaths>1</numberOfBaths>
-<lodgingSize>100</lodgingSize>
+<lodgingSize>1</lodgingSize>
 <numberOfFloors>1</numberOfFloors>
 </HotelReservation>
