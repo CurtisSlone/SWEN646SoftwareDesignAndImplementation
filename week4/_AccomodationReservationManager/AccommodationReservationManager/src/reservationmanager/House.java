@@ -14,7 +14,7 @@ public class House extends Reservation {
         this.priceTotal = calculatePriceTotal(this.lodgingSizeFee, 0);
         
     }
-
+ 
     @Override
     public String toString(){
         return String.format("<HotelReservation>\n%s\n<numberOfFloors>%s</numberOfFloors>\n</HotelReservation>\n", super.toString(), String.valueOf(this.numberOfFloors));

@@ -12,6 +12,8 @@ import java.util.Scanner;
 import java.io.FileOutputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Date;
+import java.text.SimpleDateFormat;
 
 public class Manager {
 
@@ -317,8 +319,6 @@ public class Manager {
         return this.currentAccountReservations.toString();
     }
 
-    // Todo: this.current account equals loaded object
-
     public void selectAccountFromAll(int accountIndex) throws Exception {
         /*
          *  
@@ -406,4 +406,82 @@ public class Manager {
         return tmpReservations;
     }
 
+    public String viewAllCurrentAccountReservations(){
+        /*
+        *  
+        */
+        return this.currentAccountReservations.toString();
+    }
+
+    public void selectReservationFromAll(int reservationIndex) throws Exception {
+        /*
+         *  
+         */
+        String selectedReservationID = this.currentAccountReservations.get(reservationIndex);
+        this._loadReservationObjectFromFileByReservationID(selectedReservationID);
+    }
+
+    private void _loadReservationObjectFromFileByReservationID(String reservationID) throws Exception {
+        /*
+         *  
+         */
+        String accountID = this.currentAccount.getAccountId();
+        List<Address> addressArrList = null;
+        List<Object> reservationParameters = new ArrayList<Object>();
+        String hotelTypePattern = "^HOT.*";
+        String houseTypePattern = "^HOU.*";
+        String cabinTypePattern = "^CAB.*";
+        ReservationType reservationType = null;
+        if( reservationID.matches(hotelTypePattern)){
+            reservationType = ReservationType.HOTEL;
+        } else if(reservationID.matches(houseTypePattern)){
+            reservationType = ReservationType.HOUSE;
+        } else if(reservationID.matches(cabinTypePattern)){
+            reservationType = ReservationType.CABIN;
+        } else {
+            throw new Exception();
+        }
+
+        String reservationFile = String.format("./accounts/%s/res-%s.xml", accountID, reservationID);
+        String reservationXmlAsString = new String(Files.readAllBytes(Paths.get(reservationFile)));
+
+        String accountAddresses = reservationXmlAsString.substring(reservationXmlAsString.indexOf("<PhysicalAddress>"), reservationXmlAsString.indexOf("</MailingAddress>") + 17);
+        addressArrList = this._loadCurrentAccountAddresses(accountAddresses);
+
+        this._loadCurrentAddessMap(addressArrList);
+
+        reservationParameters.add((Date)(new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy").parse(reservationXmlAsString.substring(reservationXmlAsString.indexOf("<date>") + 6, reservationXmlAsString.indexOf("</date>")))));
+
+        reservationParameters.add(Integer.valueOf(reservationXmlAsString.substring(reservationXmlAsString.indexOf("<numberOfNights>") + 16, reservationXmlAsString.indexOf("</numberOfNights>"))));
+
+        reservationParameters.add(Integer.valueOf(reservationXmlAsString.substring(reservationXmlAsString.indexOf("<numberOfNights>") + 16, reservationXmlAsString.indexOf("</numberOfNights>"))));
+
+        reservationParameters.add(Integer.valueOf(reservationXmlAsString.substring(reservationXmlAsString.indexOf("<numberOfBeds>") + 14, reservationXmlAsString.indexOf("</numberOfBeds>"))));
+        
+        reservationParameters.add(Integer.valueOf(reservationXmlAsString.substring(reservationXmlAsString.indexOf("<numberOfRooms>") + 15, reservationXmlAsString.indexOf("</numberOfRooms>"))));
+
+        reservationParameters.add(Integer.valueOf(reservationXmlAsString.substring(reservationXmlAsString.indexOf("<numberOfBaths>") + 15, reservationXmlAsString.indexOf("</numberOfBaths>"))));
+
+        reservationParameters.add(Integer.valueOf(reservationXmlAsString.substring(reservationXmlAsString.indexOf("<lodgingSize>") + 13, reservationXmlAsString.indexOf("</lodgingSize>"))));
+
+        switch(reservationType){
+            case HOUSE:
+                reservationParameters.add(Integer.valueOf(reservationXmlAsString.substring(reservationXmlAsString.indexOf("<numberOfFloors>") + 16, reservationXmlAsString.indexOf("</numberOfFloors>"))));
+                this.currentReservation = new House(reservationID, accountID, addressArrList, reservationParameters);
+                break;
+            case HOTEL:
+                reservationParameters.add(Integer.valueOf(reservationXmlAsString.substring(reservationXmlAsString.indexOf("<isValidHotel>") + 14, reservationXmlAsString.indexOf("</isValidHotel>"))));
+                reservationParameters.add(Integer.valueOf(reservationXmlAsString.substring(reservationXmlAsString.indexOf("<hasKitchenette>") + 16, reservationXmlAsString.indexOf("</hasKitchenette>"))));
+                this.currentReservation = new Hotel(reservationID, accountID, addressArrList, reservationParameters);
+                break;
+            case CABIN:
+                reservationParameters.add(Integer.valueOf(reservationXmlAsString.substring(reservationXmlAsString.indexOf("<hasFullKitchen>") + 16, reservationXmlAsString.indexOf("</hasFullKitchen>"))));
+                reservationParameters.add(Integer.valueOf(reservationXmlAsString.substring(reservationXmlAsString.indexOf("<hasLoft>") + 9, reservationXmlAsString.indexOf("</hasLoft>"))));
+                this.currentReservation = new Cabin(reservationID, accountID, addressArrList, reservationParameters);
+                break;
+            default:
+
+        }
+        System.out.println(this.currentReservation.toString());
+    }
 }

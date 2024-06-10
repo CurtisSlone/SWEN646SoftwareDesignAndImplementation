@@ -17,7 +17,7 @@ public class Cabin extends Reservation {
         this.cabinFee = this.hasFullKitchen ? (20 + (5 * this.numberOfRooms)) : (5 * this.numberOfRooms);
         this.priceTotal = this.calculatePriceTotal(this.lodgingSizeFee, this.cabinFee);
     }
-    
+
 
     @Override
     public String toString(){

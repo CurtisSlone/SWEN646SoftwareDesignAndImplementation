@@ -17,7 +17,7 @@ public class Hotel extends Reservation {
         this.hotelFee = this.hasKitchenette ? 60 : 50;
         this.priceTotal = this.calculatePriceTotal( this.lodgingSizeFee, this.hotelFee);
     }
-
+ 
     public boolean checkIfValidHotel(){
         return this.isValidHotel;
     }

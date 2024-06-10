@@ -1,4 +1,3 @@
-import java.awt.datatransfer.SystemFlavorMap;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -15,18 +14,18 @@ public class App {
         List<Object> paramList = null;
         ui.newReservationScanner = new Scanner(System.in);
         Manager reservationApp = new Manager();
-        reservationApp.createNewContact("Terry", "Smith", "tsmith@gmail.com", "111-111-1111");
-        // // System.out.println(reservationApp.viewCurrentContactObject());
-        reservationApp.createNewAddress("178 old 30 rd", "", "Nashville", "TN", "27505");
-        // // System.out.println(reservationApp.viewAddressObject("CurrentAddress"));
-        reservationApp.saveCurrentAddress("PhysicalAddress");
-        // // System.out.println(reservationApp.viewAddressObject("PhysicalAddress"));
-        reservationApp.createNewAccount(true, true, true);
-        // // System.out.println(reservationApp.viewCurrentAccountObject());
-        reservationApp.saveCurrentAccountObject();
-        // System.out.println(reservationApp.listAllAccounts());
-        paramList = ui.reservationParameters(ReservationType.HOUSE);
-        reservationApp.createNewReservation(ReservationType.HOUSE, paramList, true, true);
+        // reservationApp.createNewContact("Terry", "Smith", "tsmith@gmail.com", "111-111-1111");
+        // // // System.out.println(reservationApp.viewCurrentContactObject());
+        // reservationApp.createNewAddress("178 old 30 rd", "", "Nashville", "TN", "27505");
+        // // // System.out.println(reservationApp.viewAddressObject("CurrentAddress"));
+        // reservationApp.saveCurrentAddress("PhysicalAddress");
+        // // // System.out.println(reservationApp.viewAddressObject("PhysicalAddress"));
+        // reservationApp.createNewAccount(true, true, true);
+        // // // System.out.println(reservationApp.viewCurrentAccountObject());
+        // reservationApp.saveCurrentAccountObject();
+        // // System.out.println(reservationApp.listAllAccounts());
+        // paramList = ui.reservationParameters(ReservationType.HOUSE);
+        // reservationApp.createNewReservation(ReservationType.HOUSE, paramList, true, true);
         // ui.newReservationScanner= null;
         // ui.newReservationScanner = new Scanner(System.in);
         // paramList = ui.reservationParameters(ReservationType.CABIN);
@@ -34,7 +33,8 @@ public class App {
         // // System.out.println(reservationApp.viewCurrentReservationObject());
         // System.out.println(reservationApp.viewAllReservationsCurrentAccount());
         reservationApp.selectAccountFromAll(0);
-        System.out.println(reservationApp.viewCurrentAccountObject());
+        // System.out.println(reservationApp.viewCurrentAccountObject());
+        reservationApp.selectReservationFromAll(0);
         
         ui.newReservationScanner.close();
     }    
