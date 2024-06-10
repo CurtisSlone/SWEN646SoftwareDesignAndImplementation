@@ -49,6 +49,11 @@ public abstract class Reservation implements ParseXML {
         return this.BASEPRICE + this._calculateLodgingSizeFee();
     };
 
+    public float calculateDailyPrice(){
+        
+        return (this.calculatePriceTotal()/this.numberOfNights);
+    };
+
     protected float _calculateLodgingSizeFee(){
         return this.lodgingSize > 900 ? (this.lodgingSize - 900 ) * 15 : 0;
     }

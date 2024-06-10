@@ -29,11 +29,11 @@ public class Account implements ParseXML {
         this.acctReservations = new ArrayList<String>();
     }
 
-    public String getAccountId(){
+    protected String getAccountId(){
         return this.acctID;
     }
 
-    public List<String> getAccountReservations(){
+    protected List<String> getAccountReservations(){
         return this.acctReservations;
     }
 

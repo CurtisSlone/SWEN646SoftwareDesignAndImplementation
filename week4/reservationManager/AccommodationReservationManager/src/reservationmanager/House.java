@@ -3,7 +3,6 @@ package reservationmanager;
 public class House extends Reservation {
 
     protected int numberOfFloors;
-    protected final ReservationType resType = ReservationType.HOUSE;
 
     public House(String accountID){
         super(accountID);

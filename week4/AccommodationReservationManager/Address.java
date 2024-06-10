@@ -1,22 +1,21 @@
-package reservationmanager;
 
 import java.util.*;
 
 /**
- * 
+ * @author Curtis Slone
  */
-public class Address {
+protected class Address {
 
     /**
      * Default constructor
      */
-    public Address() {
+    protected Address() {
     }
 
     /**
      * 
      */
-    protected String street1;
+    public String street1;
 
     /**
      * 
@@ -39,12 +38,11 @@ public class Address {
     protected String zip;
 
     /**
-     * @param addStreet1 
-     * @param addStreet2 
-     * @param addCity 
-     * @param addZip
+     * Default Constrctor for Address
+     * Takes all fields as parameters
+     * @param parameters
      */
-    public void Address(String addStreet1, String addStreet2, String addCity, String addZip) {
+    public void Address(List<Object> parameters) {
         // TODO implement here
     }
 

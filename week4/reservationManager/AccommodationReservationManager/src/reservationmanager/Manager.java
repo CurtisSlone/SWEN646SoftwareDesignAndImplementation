@@ -82,12 +82,6 @@ public class Manager {
         return this.currentReservation.toString();
     }
     
-    public String viewAllReservationsCurrentAccount(){
-        /*
-         *  
-         */
-        return this.currentAccountReservations.toString();
-    }
 
     public String viewAllCurrentAccountReservations(){
         /*
@@ -143,7 +137,6 @@ public class Manager {
         return new Contact(parameters);
     }
 
-    // Most recent need to be finished
     public List<Address> loadCurrentAccountAddresses(String xml) throws Exception {
         /*
         *  
