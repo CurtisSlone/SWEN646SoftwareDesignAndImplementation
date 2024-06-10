@@ -1,29 +1,33 @@
 package reservationmanager;
-
-import java.util.List;
  
 public class Hotel extends Reservation {
     
     protected boolean hasKitchenette;
-    private boolean isValidHotel;
-    private float hotelFee;
+    protected boolean isValidHotel;
 
-    public Hotel( ReservationType type, String accountID, List<Address> addresses, List<Object> reservationParameters){
-        super(type, accountID, addresses, reservationParameters);
-
-        this.hasKitchenette = (boolean)reservationParameters.get(6);
-        this.isValidHotel = (this.numberOfBeds == 2 && this.numberOfRooms == 1) ? true : false;
-        this.hotelFee = this.hasKitchenette ? 60 : 50;
-        this.priceTotal = this.calculatePriceTotal( this.lodgingSizeFee, this.hotelFee);
+    public Hotel(String accountID){
+        super(accountID);
     }
- 
+    public Hotel( ReservationType type, String accountID){
+        super(type, accountID);
+    }
+    // this.hotelFee = this.hasKitchenette ? 60 : 50;
     public boolean checkIfValidHotel(){
-        return this.isValidHotel;
+        return (this.numberOfBeds == 2 && this.numberOfRooms == 1) ? true : false;
     }
 
     @Override
-    public String toString(){
+    public void loadObjectFromFile(String identifierString) throws Exception{
+        super.loadObjectFromFile(identifierString);
 
-        return String.format("<HotelReservation>\n<isValidHotel>%s</isValidHotel>\n%s\n<hasKitchenette>%s</hasKitchenette>\n</HotelReservation>", String.valueOf(this.isValidHotel),super.toString(), String.valueOf(this.hasKitchenette)) ;
+        this.hasKitchenette = Boolean.getBoolean(this.childXml.substring(this.childXml.indexOf("<hasKitchenette>") + 16, this.childXml.indexOf("</hasKitchenette>")));
+
+        this.childXml = "";
+    }
+
+    @Override
+    public String toString() {
+        
+        return String.format("<HotelReservation>\n%s\n<hasKitchenette>%s</hasKitchenette>\n</HotelReservation>",super.toString(), String.valueOf(this.hasKitchenette)) ;
     }
 }

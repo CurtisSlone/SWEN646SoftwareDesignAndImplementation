@@ -1,23 +1,29 @@
 package reservationmanager;
 
-import java.util.List;
-
 public class Cabin extends Reservation {
     protected boolean hasFullKitchen;
     protected boolean hasLoft;
-    private float cabinFee;
 
-    public Cabin( ReservationType type, String accountID, List<Address> addresses, List<Object> reservationParameters){
+    public Cabin( String accountID){
+        super(accountID);
+    }
 
-        super(type, accountID, addresses, reservationParameters);
-
-        this.hasFullKitchen = (boolean)reservationParameters.get(6);
-        this.hasLoft = (boolean)reservationParameters.get(7);
-        this.cabinFee = this.hasFullKitchen ? (20 + (5 * this.numberOfRooms)) : (5 * this.numberOfRooms);
-        this.priceTotal = this.calculatePriceTotal(this.lodgingSizeFee, this.cabinFee);
+    public Cabin( ReservationType type, String accountID){
+        super(type, accountID);
     }
     
+    @Override
+    public void loadObjectFromFile(String identifierString) throws Exception{
+        super.loadObjectFromFile(identifierString);
 
+        this.hasFullKitchen = Boolean.getBoolean(this.childXml.substring(this.childXml.indexOf("<hasFullKitchen>") + 16, this.childXml.indexOf("</hasFullKitchen>")));
+
+        this.hasLoft = Boolean.getBoolean(this.childXml.substring(this.childXml.indexOf("<hasLoft>") + 9, this.childXml.indexOf("</hasLoft>")));
+
+        this.childXml = "";
+    }
+    
+    // his.hasFullKitchen ? (20 + (5 * this.numberOfRooms)) : (5 * this.numberOfRooms);
     @Override
     public String toString(){
 

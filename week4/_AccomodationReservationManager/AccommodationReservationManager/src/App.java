@@ -9,33 +9,14 @@ import reservationmanager.ReservationType;
 
 public class App {
     Scanner newReservationScanner;
+    List<Object> paramList;
     public static void main(String[] args) throws Exception {
         App ui = new App();
-        List<Object> paramList = null;
+        Manager reservatioManager = new Manager();
+        ui.paramList = new ArrayList<Object>();
         ui.newReservationScanner = new Scanner(System.in);
-        Manager reservationApp = new Manager();
-        // reservationApp.createNewContact("Terry", "Smith", "tsmith@gmail.com", "111-111-1111");
-        // // // System.out.println(reservationApp.viewCurrentContactObject());
-        // reservationApp.createNewAddress("178 old 30 rd", "", "Nashville", "TN", "27505");
-        // // // System.out.println(reservationApp.viewAddressObject("CurrentAddress"));
-        // reservationApp.saveCurrentAddress("PhysicalAddress");
-        // // // System.out.println(reservationApp.viewAddressObject("PhysicalAddress"));
-        // reservationApp.createNewAccount(true, true, true);
-        // // // System.out.println(reservationApp.viewCurrentAccountObject());
-        // reservationApp.saveCurrentAccountObject();
-        // // System.out.println(reservationApp.listAllAccounts());
-        // paramList = ui.reservationParameters(ReservationType.HOUSE);
-        // reservationApp.createNewReservation(ReservationType.HOUSE, paramList, true, true);
-        // ui.newReservationScanner= null;
-        // ui.newReservationScanner = new Scanner(System.in);
-        // paramList = ui.reservationParameters(ReservationType.CABIN);
-        // reservationApp.createNewReservation(ReservationType.CABIN, paramList, true, true);
-        // // System.out.println(reservationApp.viewCurrentReservationObject());
-        // System.out.println(reservationApp.viewAllReservationsCurrentAccount());
-        reservationApp.selectAccountFromAll(0);
-        // System.out.println(reservationApp.viewCurrentAccountObject());
-        reservationApp.selectReservationFromAll(0);
-        
+
+
         ui.newReservationScanner.close();
     }    
 
@@ -99,7 +80,6 @@ public class App {
                 break;
         }
         
-
         return reservationParams;
     }
 
