@@ -341,7 +341,9 @@ public class Manager {
         List<Address> addressArrList = null;
 	        
 	        
-	    currentLine = accountBufferedReader.readLine();
+        while((currentLine = accountBufferedReader.readLine()) != null){ 
+            currentLine += accountBufferedReader.readLine();
+        }
         
         System.out.println(currentLine);
 	    String accountContact = currentLine.substring(currentLine.indexOf("<Contact>"), currentLine.indexOf("</Contact>") + 10);
