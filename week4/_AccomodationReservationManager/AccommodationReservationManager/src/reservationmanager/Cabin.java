@@ -13,6 +13,12 @@ public class Cabin extends Reservation {
     }
     
     @Override
+    public float calculatePriceTotal(){
+        float cabinFee = this.hasFullKitchen ? (20 + (5 * this.numberOfRooms)) : (5 * this.numberOfRooms);
+        return this.BASEPRICE + this._calculateLodgingSizeFee() + cabinFee;
+    };
+
+    @Override
     public void loadObjectFromFile(String identifierString) throws Exception{
         super.loadObjectFromFile(identifierString);
 

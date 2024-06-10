@@ -44,15 +44,22 @@ public abstract class Reservation implements ParseXML {
         this.status = ReservationStatus.DRAFT;
     }
 
-    public float calculatePriceTotal(float reservationTypeFee){
+    public float calculatePriceTotal(){
         
-        return this.BASEPRICE + this._calculateLodgingSizeFee() + reservationTypeFee;
+        return this.BASEPRICE + this._calculateLodgingSizeFee();
     };
 
-    private float _calculateLodgingSizeFee(){
+    protected float _calculateLodgingSizeFee(){
         return this.lodgingSize > 900 ? (this.lodgingSize - 900 ) * 15 : 0;
     }
     
+    public void cancelReservation() throws Exception {
+        /*
+         * if Date < Today
+         * this.status = CANCELLED
+         */
+    }
+
     public void saveCurrentObject() throws Exception{
 
         String reservationDir = String.format("./accounts/%s",this.accountID);

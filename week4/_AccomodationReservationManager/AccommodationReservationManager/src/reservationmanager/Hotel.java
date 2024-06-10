@@ -11,18 +11,31 @@ public class Hotel extends Reservation {
     public Hotel( ReservationType type, String accountID){
         super(type, accountID);
     }
-    // this.hotelFee = this.hasKitchenette ? 60 : 50;
-    public boolean checkIfValidHotel(){
+   
+    private boolean _checkIfValidHotel(){
         return (this.numberOfBeds == 2 && this.numberOfRooms == 1) ? true : false;
     }
+
+    @Override
+    public float calculatePriceTotal(){
+        float hotelFee = this.hasKitchenette ? 60 : 50;
+        return this.BASEPRICE + this._calculateLodgingSizeFee() + hotelFee;
+    };
 
     @Override
     public void loadObjectFromFile(String identifierString) throws Exception{
         super.loadObjectFromFile(identifierString);
 
         this.hasKitchenette = Boolean.getBoolean(this.childXml.substring(this.childXml.indexOf("<hasKitchenette>") + 16, this.childXml.indexOf("</hasKitchenette>")));
-
         this.childXml = "";
+    }
+
+    @Override
+    public void saveCurrentObject() throws Exception{ 
+        
+        if(!this._checkIfValidHotel())
+            throw new Exception();
+        super.saveCurrentObject();
     }
 
     @Override
