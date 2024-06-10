@@ -337,6 +337,7 @@ public class Manager {
         FileInputStream accountFileInputStream = new FileInputStream(accountFile);
         accountBufferedReader = new BufferedReader(new InputStreamReader(accountFileInputStream));
 	    String currentLine = null;
+        List<Address> addressArrList = null;
 	        
 	        
 	    currentLine = accountBufferedReader.readLine();
@@ -345,7 +346,8 @@ public class Manager {
         this.currentContact = this._loadCurrentContactObject(accountContact);
 
         String accountAddresses = currentLine.substring(currentLine.indexOf("<PhysicalAddress>"), currentLine.indexOf("</MailingAddress>") + 17);
-        this.currentAddressMap = this._loadCurrentAddressMap(accountAddresses);
+        addressArrList = this._loadCurrentAccountAddresses(accountAddresses);
+        this._loadCurrentAddessMap(addressArrList);
 
         String accountReservations = currentLine.substring(currentLine.indexOf("<Reservations>"), currentLine.indexOf("</Reservations>") + 15);
         this.currentAccountReservations = this._loadCurrentReservationsList(accountReservations);
@@ -353,6 +355,8 @@ public class Manager {
         accountFileInputStream.close();
         accountFileInputStream.close();
         accountBufferedReader.close();
+
+        this.currentAccount = new Account(accountID, currentContact, addressArrList);
     }
 
     private Contact _loadCurrentContactObject(String contactXML) throws Exception{
@@ -368,13 +372,32 @@ public class Manager {
     }
 
     // Most recent need to be finished
-    private Map<String,Address> _loadCurrentAddressMap(String addressXML) throws Exception {
+    private List<Address> _loadCurrentAccountAddresses(String addressXML) throws Exception {
         /*
         *  
         */
-        Map<String,Address> tmpAddresses = new HashMap<String,Address>();
+        List<Address> tmpAddresses = new ArrayList<Address>();
+        
+        String addresses[] = {
+            addressXML.substring(addressXML.indexOf("<PhysicalAddress>" + 17), addressXML.indexOf("</PhysicalAddress")),
+            addressXML.substring(addressXML.indexOf("<MailingAddress>" + 16), addressXML.indexOf("</MailingAddress")),
+        };
 
+        for( String address : addresses){
+            String street1 = address.substring(address.indexOf("<street1>") + 9, address.indexOf("</street1>"));
+            String street2 = address.substring(address.indexOf("<street2>") + 9, address.indexOf("</street2>"));
+            String city = address.substring(address.indexOf("<city>") + 6, address.indexOf("</city>"));
+            String state = address.substring(address.indexOf("<state>") + 7, address.indexOf("</state>"));
+            String zip = address.substring(address.indexOf("<zip>") + 5, address.indexOf("</zip>"));
+            tmpAddresses.add(new Address(street1, street2, city, state, zip));
+        }
+        
         return tmpAddresses;
+    }
+
+    private void _loadCurrentAddessMap(List<Address> addressList) throws Exception {
+        this.currentAddressMap.put("PhysicalAddress", addressList.get(0));
+        this.currentAddressMap.put("MailingAddress", addressList.get(1));
     }
 
     private List<String> _loadCurrentReservationsList(String reservationXML) throws Exception {
@@ -382,7 +405,10 @@ public class Manager {
         *  
         */
         List<String> tmpReservations = new ArrayList<String>();
-
+        String reservationsXMLString = reservationXML.substring(reservationXML.indexOf("<Reservations>[") + 15, reservationXML.indexOf("]</Reservations>"));
+        String reservations[] = reservationsXMLString.split(",");
+        for( String reservation : reservations)
+            tmpReservations.add(reservation);
         return tmpReservations;
     }
 
