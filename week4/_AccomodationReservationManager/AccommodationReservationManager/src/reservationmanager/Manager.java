@@ -169,4 +169,16 @@ public class Manager {
         return tmpAddresses;
     }
 
+    public void updateAccount(List<Object> parameters){ }
+
+    public void updateReservation(List<Object> parameters){ }
+
+    public void saveAccount() throws Exception{}
+
+    public void saveReservation() throws Exception{}
+
+    public void saveAddresses(){ }
+
+    public void saveContact(){ }
+
 }
