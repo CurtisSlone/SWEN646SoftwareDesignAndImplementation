@@ -1,5 +1,7 @@
 package reservationmanager;
 
+import java.util.List;
+
 public class Address {
     protected String street1;
     protected String street2;
@@ -7,12 +9,12 @@ public class Address {
     protected String state;
     protected String zip;
 
-    public Address(String addStreet1, String addStreet2, String addCity, String addState, String addZip ){
-        this.street1 = addStreet1;
-        this.street2 = addStreet2;
-        this.city = addCity;
-        this.state = addState;
-        this.zip = addZip;
+    public Address(List<Object> parameters){
+        this.street1 = (String)parameters.get(0);
+        this.street2 = (String)parameters.get(1);
+        this.city = (String)parameters.get(2);
+        this.state = (String)parameters.get(3);
+        this.zip = (String)parameters.get(4);
     }
 
     @Override

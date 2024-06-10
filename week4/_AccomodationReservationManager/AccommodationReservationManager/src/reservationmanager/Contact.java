@@ -1,16 +1,18 @@
 package reservationmanager;
 
+import java.util.List;
+
 public class Contact {
     private String firstName;
     private String lastName;
     protected String email;
     protected String phoneNumber;
     
-    public Contact(String fName, String lName, String email, String phoneNumber){
-        this.firstName = fName;
-        this.lastName = lName;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
+    public Contact(List<Object> parameters){
+        this.firstName = (String)parameters.get(0);
+        this.lastName = (String)parameters.get(1);
+        this.email = (String)parameters.get(1);
+        this.phoneNumber = (String)parameters.get(1);
     }
 
     public String getFirstName(){

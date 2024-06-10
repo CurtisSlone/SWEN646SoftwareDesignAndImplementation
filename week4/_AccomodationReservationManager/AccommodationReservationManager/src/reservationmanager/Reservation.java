@@ -63,10 +63,6 @@ public abstract class Reservation implements ParseXML {
 
     };
 
-    public void generateNewObject(List<Object> parameters) throws Exception{
-
-    };
-
     public void loadObjectFromFile(String identifierString) throws Exception{
 
     };
