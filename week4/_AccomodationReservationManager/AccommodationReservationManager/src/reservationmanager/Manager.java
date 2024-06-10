@@ -325,6 +325,7 @@ public class Manager {
          *  
          */
         String selectedAccountID = this.allAccounts.get(accountIndex);
+        System.out.println(selectedAccountID);
         this._loadCurrentObjectsFromFileByAccountID(selectedAccountID);
     }
 
@@ -341,7 +342,8 @@ public class Manager {
 	        
 	        
 	    currentLine = accountBufferedReader.readLine();
-
+        
+        System.out.println(currentLine);
 	    String accountContact = currentLine.substring(currentLine.indexOf("<Contact>"), currentLine.indexOf("</Contact>") + 10);
         this.currentContact = this._loadCurrentContactObject(accountContact);
 

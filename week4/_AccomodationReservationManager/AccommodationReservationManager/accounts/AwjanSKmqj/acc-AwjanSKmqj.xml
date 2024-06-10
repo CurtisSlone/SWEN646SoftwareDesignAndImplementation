@@ -1,0 +1,28 @@
+<Account>
+<accountID>AwjanSKmqj</accountID>
+<Contact>
+<firstName>Terry</firstName> 
+<lastName>Smith</lastName> 
+<email>tsmith@gmail.com</email> 
+<phone>111-111-1111</phone>
+</Contact>
+<PhysicalAddress>
+<Address>
+<street1>178 old 30 rd</street1>
+<street2></street2>
+<city>Nashville</city>
+<state>TN</state>
+<zip>27505</zip>
+</Address>
+</PhysicalAddress>
+<MailingAddress>
+<Address>
+<street1>178 old 30 rd</street1>
+<street2></street2>
+<city>Nashville</city>
+<state>TN</state>
+<zip>27505</zip>
+</Address>
+</MailingAddress>
+<Reservations>[HOUOb3ZzJbT1z, CABJAGCqJDSbz]</Reservations>
+</Account>
