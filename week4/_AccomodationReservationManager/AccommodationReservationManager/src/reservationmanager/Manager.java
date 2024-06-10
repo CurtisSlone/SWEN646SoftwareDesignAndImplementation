@@ -340,7 +340,7 @@ public class Manager {
 	    String currentLine = null;
         List<Address> addressArrList = null;
 	        
-	        
+	    currentLine = accountBufferedReader.readLine();
         while((currentLine = accountBufferedReader.readLine()) != null){ 
             currentLine += accountBufferedReader.readLine();
         }
