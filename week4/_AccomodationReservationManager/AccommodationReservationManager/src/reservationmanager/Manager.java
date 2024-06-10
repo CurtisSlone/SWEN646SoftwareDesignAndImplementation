@@ -110,8 +110,7 @@ public class Manager {
          * Contact and List<Address> type as parameter
          * returns new Account
          */
-        String accountID = "A" + this._generateUniqueID(9);
-        return new Account(accountID, contact, addresses);
+        return new Account(contact, addresses);
     }
 
     public void createNewAccount(boolean useCurrentContact, boolean useSavedAddresses, boolean mailingSameAsPhysical) throws Exception {
@@ -236,16 +235,13 @@ public class Manager {
         String reservationID;
         switch (type) {
             case HOTEL:
-                reservationID = "HOT" + this._generateUniqueID(10);
-                return new Hotel(reservationID, accountID, addresses, reservationParameters);
+                return new Hotel(ReservationType.HOTEL, accountID, addresses, reservationParameters);
                 
             case HOUSE:
-                reservationID = "HOU" + this._generateUniqueID(10);
-                return new House(reservationID, accountID, addresses, reservationParameters);
+                return new House(ReservationType.HOUSE, accountID, addresses, reservationParameters);
 
             case CABIN:
-                reservationID = "CAB" + this._generateUniqueID(10);
-                return new Cabin(reservationID, accountID, addresses, reservationParameters);
+                return new Cabin(ReservationType.CABIN, accountID, addresses, reservationParameters);
 
             default:
                 throw new Exception();
@@ -347,7 +343,7 @@ public class Manager {
         
         
 
-        this.currentAccount = new Account(accountID, currentContact, addressArrList);
+        this.currentAccount = new Account(currentContact, addressArrList);
         this.currentAccount.acctReservations = this._loadCurrentReservationsList(accountReservations);
     }
 
@@ -467,17 +463,17 @@ public class Manager {
         switch(reservationType){
             case HOUSE:
                 reservationParameters.add(Integer.valueOf(reservationXmlAsString.substring(reservationXmlAsString.indexOf("<numberOfFloors>") + 16, reservationXmlAsString.indexOf("</numberOfFloors>"))));
-                this.currentReservation = new House(reservationID, accountID, addressArrList, reservationParameters);
+                this.currentReservation = new House(ReservationType.HOUSE, accountID, addressArrList, reservationParameters);
                 break;
             case HOTEL:
                 reservationParameters.add(Integer.valueOf(reservationXmlAsString.substring(reservationXmlAsString.indexOf("<isValidHotel>") + 14, reservationXmlAsString.indexOf("</isValidHotel>"))));
                 reservationParameters.add(Integer.valueOf(reservationXmlAsString.substring(reservationXmlAsString.indexOf("<hasKitchenette>") + 16, reservationXmlAsString.indexOf("</hasKitchenette>"))));
-                this.currentReservation = new Hotel(reservationID, accountID, addressArrList, reservationParameters);
+                this.currentReservation = new Hotel(ReservationType.HOTEL, accountID, addressArrList, reservationParameters);
                 break;
             case CABIN:
                 reservationParameters.add(Integer.valueOf(reservationXmlAsString.substring(reservationXmlAsString.indexOf("<hasFullKitchen>") + 16, reservationXmlAsString.indexOf("</hasFullKitchen>"))));
                 reservationParameters.add(Integer.valueOf(reservationXmlAsString.substring(reservationXmlAsString.indexOf("<hasLoft>") + 9, reservationXmlAsString.indexOf("</hasLoft>"))));
-                this.currentReservation = new Cabin(reservationID, accountID, addressArrList, reservationParameters);
+                this.currentReservation = new Cabin(ReservationType.CABIN, accountID, addressArrList, reservationParameters);
                 break;
             default:
 

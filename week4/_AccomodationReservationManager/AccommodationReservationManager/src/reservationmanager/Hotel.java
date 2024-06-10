@@ -7,10 +7,9 @@ public class Hotel extends Reservation {
     protected boolean hasKitchenette;
     private boolean isValidHotel;
     private float hotelFee;
-    protected final ReservationType type = ReservationType.HOTEL;
 
-    public Hotel( String reservationID, String accountID, List<Address> addresses, List<Object> reservationParameters){
-        super(reservationID, accountID, addresses, reservationParameters);
+    public Hotel( ReservationType type, String accountID, List<Address> addresses, List<Object> reservationParameters){
+        super(type, accountID, addresses, reservationParameters);
 
         this.hasKitchenette = (boolean)reservationParameters.get(6);
         this.isValidHotel = (this.numberOfBeds == 2 && this.numberOfRooms == 1) ? true : false;

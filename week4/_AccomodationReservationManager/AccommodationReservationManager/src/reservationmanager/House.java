@@ -7,8 +7,8 @@ public class House extends Reservation {
     protected int numberOfFloors;
     protected final ReservationType resType = ReservationType.HOUSE;
 
-    public House( String reservationID, String accountID, List<Address> addresses, List<Object> reservationParameters){
-        super(reservationID, accountID, addresses,reservationParameters);
+    public House( ReservationType type, String accountID, List<Address> addresses, List<Object> reservationParameters){
+        super(type, accountID, addresses,reservationParameters);
 
         this.numberOfFloors = (Integer)reservationParameters.get(6);
         this.priceTotal = calculatePriceTotal(this.lodgingSizeFee, 0);

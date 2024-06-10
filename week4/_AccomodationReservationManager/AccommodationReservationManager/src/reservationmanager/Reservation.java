@@ -2,8 +2,9 @@ package reservationmanager;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
-public abstract class Reservation {
+public abstract class Reservation implements ParseXML {
     private String reservationID;
     private String accountID;
     protected Address physicalAddress;
@@ -19,8 +20,8 @@ public abstract class Reservation {
     protected float priceTotal;
     protected final float BASEPRICE = 120;
 
-    public Reservation(String reservationID, String accountID, List<Address> addresses, List<Object> reservationParameters){
-        this.reservationID = reservationID;
+    public Reservation(ReservationType type, String accountID, List<Address> addresses, List<Object> reservationParameters){
+        this.reservationID = type == ReservationType.HOTEL ? this.generateUniqueID("HOT") : type == ReservationType.HOUSE ? this.generateUniqueID("HOU") : this.generateUniqueID("CAB");
         this.accountID = accountID;
         this.physicalAddress = addresses.get(0);
         this.mailingAddress = addresses.get(1);
@@ -56,6 +57,32 @@ public abstract class Reservation {
     public String getAccountID(){
         return this.accountID;
     }
+
+    
+    public void saveCurrentObject() throws Exception{
+
+    };
+
+    public void generateNewObject(List<Object> parameters) throws Exception{
+
+    };
+
+    public void loadObjectFromFile(String identifierString) throws Exception{
+
+    };
+
+    public String generateUniqueID(String prefix){
+        
+        int leftLimit = 48; // numeral '0'
+        int rightLimit = 122; // letter 'z'
+        Random random = new Random();
+    
+        return String.format("%s%s",prefix,random.ints(leftLimit, rightLimit + 1)
+          .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
+          .limit(10)
+          .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+          .toString());
+    };
 
     public String getReservationID(){
         return this.reservationID;

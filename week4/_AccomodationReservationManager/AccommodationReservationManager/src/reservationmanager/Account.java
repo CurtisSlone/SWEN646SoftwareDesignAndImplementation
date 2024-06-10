@@ -1,28 +1,23 @@
 package reservationmanager;
 
-import java.util.List;
 import java.util.ArrayList;
-import java.lang.Exception;
+import java.util.List;
+import java.util.Random;
 
-public class Account {
+public class Account implements ParseXML {
     private String acctID;
     protected Contact acctClient;
     protected List<Address> acctAddresses;
     protected List<String> acctReservations;
 
-    public Account(String accountID, Contact client, List<Address>addresses ) throws Exception {
-        this.acctID = accountID != null ? accountID : "-99";
-        this.acctClient = client;
-        this.acctAddresses = addresses;
-        this.acctReservations = new ArrayList<String>();
+    public Account(){
+        this.acctID = this.generateUniqueID("A");
     }
 
-    private void _loadReservations() throws Exception {
-        /*
-         * create new ArrayList<String>
-         * enumerate filenames in account directory if this.acctID != -99
-         * add filenames as reservation IDs to ArrayList<String>
-         */
+    public Account(Contact client, List<Address>addresses ) {
+        this.acctID = this.generateUniqueID("A");
+        this.acctClient = client;
+        this.acctAddresses = addresses;
         this.acctReservations = new ArrayList<String>();
     }
 
@@ -34,7 +29,31 @@ public class Account {
         return this.acctReservations;
     }
 
+    public void saveCurrentObject() throws Exception{
+
+    };
+
+    public void generateNewObject(List<Object> parameters) throws Exception{
+
+    };
+
+    public void loadObjectFromFile(String identifierString) throws Exception{
+
+    };
+
+    public String generateUniqueID(String prefix){
+        
+        int leftLimit = 48; // numeral '0'
+        int rightLimit = 122; // letter 'z'
+        Random random = new Random();
     
+        return String.format("%s%s", prefix, random.ints(leftLimit, rightLimit + 1)
+          .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
+          .limit(9)
+          .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+          .toString());
+    };
+ 
     @Override
     public String toString(){
 
