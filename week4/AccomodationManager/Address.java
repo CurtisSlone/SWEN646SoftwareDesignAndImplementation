@@ -9,12 +9,16 @@ public class Address {
     protected String state;
     protected String zip;
 
-    public Address(List<Object> parameters){
-        this.street1 = (String)parameters.get(0);
-        this.street2 = (String)parameters.get(1);
-        this.city = (String)parameters.get(2);
-        this.state = (String)parameters.get(3);
-        this.zip = (String)parameters.get(4);
+    /*
+     * Default Constructor
+     * Takes List<String> as parameter
+     */
+    public Address(List<String> parameters){
+        this.street1 = parameters.get(0);
+        this.street2 = parameters.get(1);
+        this.city = parameters.get(2);
+        this.state = parameters.get(3);
+        this.zip = parameters.get(4);
     }
 
     @Override
