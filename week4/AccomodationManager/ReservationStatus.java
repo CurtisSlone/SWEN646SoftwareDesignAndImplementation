@@ -1,7 +1,3 @@
-
-/**
- * 
- */
 public enum ReservationStatus {
     DRAFT,
     COMPLETED,

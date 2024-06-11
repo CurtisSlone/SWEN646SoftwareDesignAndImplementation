@@ -1,20 +1,11 @@
+import java.util.List;
 
-import java.util.*;
-
-/**
- * Contact Class for Clients
- * @author Curtis Slone
- */
 public class Contact {
-
     protected String firstName;
     protected String lastName;
     protected String email;
     protected String phoneNumber;
-
-    /**
-     * Default constructor
-     */
+    
     public Contact(List<Object> parameters){
         this.firstName = (String)parameters.get(0);
         this.lastName = (String)parameters.get(1);
@@ -22,10 +13,10 @@ public class Contact {
         this.phoneNumber = (String)parameters.get(1);
     }
 
+    
     @Override
     public String toString(){
 
         return String.format("<Contact>\n<firstName>%s</firstName> \n<lastName>%s</lastName> \n<email>%s</email> \n<phone>%s</phone>\n</Contact>\n", this.firstName, this.lastName, this.email, this.phoneNumber);
     }
-
 }

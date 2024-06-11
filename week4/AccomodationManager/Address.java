@@ -1,3 +1,4 @@
+import java.util.List;
 
 public class Address {
     protected String street1;
