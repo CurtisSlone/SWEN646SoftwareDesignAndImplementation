@@ -1,5 +1,4 @@
 
-import java.util.*;
 
 /**
  * 
@@ -7,18 +6,17 @@ import java.util.*;
 public interface ParseXML {
 
     /**
-     * @return
+     * Saves current object to XML file
      */
     public void saveCurrentObject();
 
     /**
-     * @param identifierString 
-     * @return
+     * Loads xml file as object
      */
     public void loadCurrentObject(String identifierString);
 
     /**
-     * @return
+     * Generates Unique ID for Object
      */
     public String generateUniqueID();
 

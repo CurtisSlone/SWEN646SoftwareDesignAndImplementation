@@ -1,21 +1,12 @@
 
-import java.util.*;
-
-/**
- * @author Curtis Slone
- */
 public class Address {
-
     protected String street1;
     protected String street2;
     protected String city;
     protected String state;
     protected String zip;
 
-     /**
-     * Default Constrctor for Address
-     */
-    public Address(List<Object> parameters) {
+    public Address(List<Object> parameters){
         this.street1 = (String)parameters.get(0);
         this.street2 = (String)parameters.get(1);
         this.city = (String)parameters.get(2);
@@ -27,5 +18,4 @@ public class Address {
     public String toString(){
         return String.format("\n<Address>\n<street1>%s</street1>\n<street2>%s</street2>\n<city>%s</city>\n<state>%s</state>\n<zip>%s</zip>\n</Address>\n",this.street1,this.street2,this.city,this.state,this.zip);
     }
-
 }

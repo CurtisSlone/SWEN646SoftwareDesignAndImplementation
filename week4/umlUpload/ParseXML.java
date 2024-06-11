@@ -1,6 +1,3 @@
-package reservationmanager;
-
-import java.util.List;
 
 abstract interface ParseXML {
     void saveCurrentObject() throws Exception;

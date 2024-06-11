@@ -5,86 +5,52 @@ import java.util.*;
  * @author Curtis Slone
  */
 public class Hotel extends Reservation {
-
+    protected boolean hasKitchenette; //Bool if Hotel as Kitchenette
+    protected boolean isValidHotel;  //Bool if Hotel is valid
+    
     /**
-     * Default constructor
+     * Default empty object constructor
      */
-    public Hotel() {
+    public Hotel(String accountID){
+        super(accountID);
     }
 
     /**
-     * Bool if Hotel as Kitchenette
+     * Default new object constructor
      */
-    protected boolean hasKitchenette;
-
-    /**
-     * ( numberOfBeds == 2 && numberOfRooms == 1 && numberOfBaths == 1 ) ? true : false
-     */
-    protected boolean isValidHotel;
-
-    /**
-     * @param accountId
-     */
-    public void Hotel(String accountId) {
-        // TODO implement here
+    public Hotel( ReservationType type, String accountID){
+        super(type, accountID);
     }
 
-    /**
-     * @param type 
-     * @param accountId
-     */
-    public void Hotel(ReservationType type, String accountId) {
-        // TODO implement here
+    private boolean _checkIfValidHotel(){
+        /*
+         * return for isValid Hotel before saving object
+         */
+        return (this.numberOfBeds == 2 && this.numberOfRooms == 1) ? true : false;
     }
 
-    /**
-     * METHOD OVERRIDE
-     * Gets current reservation,
-     * isValidHotelRoom ? update : throw Error
-     *  updates fields and file
-     * returns true on success
-     * @param isValidHotelRoom 
-     * @return
-     */
-    public boolean updateReservation(boolean isValidHotelRoom) {
-        // TODO implement here
-        return false;
-    }
-
-    /**
-     * Constructor
-     * super(reservationID, account, startDate, numberOfNights, numberOfBeds, numberOfRooms, numberOfBaths, lodgingSize)
-     * 
-     * hotelFee = hasKitchenette ? 60.00 : 50.00
-     * @param hasKitchenette
-     */
-    public void Hotel(boolean hasKitchenette) {
-        // TODO implement here
-    }
-
-    /**
-     * @param identifierString 
-     * @return
-     */
+    @Override
     public void loadObjectFromFile(String identifierString) {
-        // TODO implement here
-        return null;
+       /* super.loadObjectFromFile(identifierString);
+
+        this.hasKitchenette = Boolean.getBoolean(this.childXml.substring(this.childXml.indexOf("<hasKitchenette>") + 16, this.childXml.indexOf("</hasKitchenette>")));
+        this.childXml = "";
+     */
     }
 
-    /**
-     * @return
-     */
+    @Override
     public void saveCurrentObject() {
-        // TODO implement here
-        return null;
+        /*
+            if(!this._checkIfValidHotel())
+                throw new Exception();
+            super.saveCurrentObject();
+         */
     }
 
-    /**
-     * @return
-     */
+    @Override
     public String toString() {
-        // TODO implement here
-        return "";
+        
+        return String.format("<HotelReservation>\n%s\n<hasKitchenette>%s</hasKitchenette>\n</HotelReservation>",super.toString(), String.valueOf(this.hasKitchenette)) ;
     }
 
 }

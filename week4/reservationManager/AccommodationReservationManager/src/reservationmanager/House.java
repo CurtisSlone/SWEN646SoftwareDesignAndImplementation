@@ -1,5 +1,7 @@
 package reservationmanager;
 
+import java.util.List;
+
 public class House extends Reservation {
 
     protected int numberOfFloors;
@@ -19,6 +21,12 @@ public class House extends Reservation {
         this.numberOfFloors = Integer.valueOf(this.childXml.substring(this.childXml.indexOf("<numberOfFloors>") + 16, this.childXml.indexOf("</numberOfFloors>")));
 
         this.childXml = "";
+    }
+
+    @Override
+    public void updateObjectFromParameters(List<Object> parameters) throws Exception {
+        super.updateObjectFromParameters(parameters);
+        this.numberOfFloors = (Integer)parameters.get(9);
     }
 
     @Override

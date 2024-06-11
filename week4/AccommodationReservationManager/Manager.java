@@ -1,4 +1,5 @@
 
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -7,159 +8,172 @@ import java.util.*;
  */
 public class Manager {
 
+    private List<String> allAccounts; //List of all known accounts
+    private List<String> currentAccountReservations; // Current Account Selected
+    private Account currentAccount; // Current Account Selected 
+    private Contact currentContact; // Current Account Contact
+    private List<Address> currentAddresses; // Current Account addresses
+    private Reservation currentReservation; // Current Resrvation Selected
     /**
      * Default constructor
      */
-    public Manager() {
-    }
+    public Manager() throws Exception {
+        /*
+         
+            this._loadAllAccounts();
+            this.currentAddresses = new ArrayList<Address>();
+            this.currentAccountReservations = new ArrayList<String>();
 
-    /**
-     * List of all known accounts
-     */
-    private List<Account> allAccounts;
-
-    /**
-     * Reservation Listing from selected Account
-     */
-    private List<String> currentAccountReservations;
-
-    /**
-     * Current Account Selected
-     */
-    private Account currentAccount;
-
-    /**
-     * Current client object
-     */
-    private Contact currentClient;
-
-    /**
-     * 
-     */
-    private List<Addresses> currentAddresses;
-
-    /**
-     * 
-     */
-    private Reservation currentReservation;
-
-    /**
-     * Default Constructor takes no parameters
-     */
-    public void Manager() {
-        // TODO implement here
+        */
     }
 
     /**
      * @return
      */
-    private void _loadAllAccounts() {
-        // TODO implement here
-        return null;
+    private void _loadAllAccounts() throws IOException {
+        /*
+         Instantiate new ArrayList
+         Get all directory names as Account IDs as String
+         add name as String to ArrayList
+
+            this.allAccounts = new ArrayList<String>();
+
+            // Interface this out
+            String accounts[];
+            File accountsDir = new File("./accounts");
+            if(!accountsDir.exists())
+                accountsDir.mkdir();
+            accounts = accountsDir.list();
+            if(accounts.length != 0)
+                for(String account : accounts)
+                    this.allAccounts.add(account);
+        */
     }
 
-    /**
-     * Select Account using AccountID
-     * @param accountID 
-     * @return Returns Account by selected AccountID
-     */
-    public Account selectAccount(String accountID) {
-        // TODO implement here
-        return null;
+    public String listAllAccounts(){
+        return this.allAccounts.toString();
     }
 
-    /**
-     * @return
-     */
-    public String listAllAccounts() {
-        // TODO implement here
-        return "";
+    public String viewCurrentContactObject(){
+        return this.currentContact.toString();
+    }
+    
+    public String viewAddressObject(int typeIdx){
+        return this.currentAddresses.get(typeIdx).toString();
     }
 
-    /**
-     * @return
-     */
-    public String viewCurrentContactObject() {
-        // TODO implement here
-        return "";
-    }
-
-    /**
-     * @param typeIdx 
-     * @return
-     */
-    public String viewAddressObject(int typeIdx) {
-        // TODO implement here
-        return "";
-    }
-
-    /**
-     * @return
-     */
     public String viewCurrentAccountObject() {
-        // TODO implement here
-        return "";
+        return this.currentAccount.toString();
     }
 
-    /**
-     * @return
-     */
-    public String viewCurrentReservationObject() {
-        // TODO implement here
-        return "";
+    public String viewCurrentReservationObject(){
+        return this.currentReservation.toString();
     }
 
-    /**
-     * @return
-     */
-    public String viewAllCurrentAccountReservationst() {
-        // TODO implement here
-        return "";
+    public String viewAllCurrentAccountReservations(){
+        return this.currentAccountReservations.toString();
     }
 
-    /**
-     * @param accountIndex 
-     * @return
-     */
-    public void selectAccountFromAll(int accountIndex) {
-        // TODO implement here
-        return null;
+    public void selectAccountFromAll(int accountIndex) throws Exception {
+        /*
+         *  Sets current account by calling Account.loadFromObjectFile
+         */
+        String selectedAccountID = this.allAccounts.get(accountIndex);
+        this.currentAccount = new Account();
+        this.currentAccount.loadObjectFromFile(selectedAccountID);
     }
 
-    /**
-     * @param reservationIndex 
-     * @return
-     */
     public void selectReservationFromAll(int reservationIndex) {
-        // TODO implement here
-        return null;
+        /*
+         *  Selects reservation from reservations list by index of list
+         * Regex to select correct reservation type
+         * generates empty reservation object to be filled by loadObjectFromFile method
+         */
+        String selectedReservationID = this.currentAccountReservations.get(reservationIndex);
+        String accountID = this.currentAccount.getAccountId();
+        String hotelTypePattern = "^HOT.*";
+        String houseTypePattern = "^HOU.*";
+        String cabinTypePattern = "^CAB.*";
+        if( selectedReservationID.matches(hotelTypePattern)){
+            this.currentReservation = new Hotel(accountID);
+
+        } else if(selectedReservationID.matches(houseTypePattern)){
+            this.currentReservation = new House(accountID);
+
+        } else if(selectedReservationID.matches(cabinTypePattern)){
+            this.currentReservation = new Cabin(accountID);
+
+        }
+
+        this.currentReservation.loadObjectFromFile(selectedReservationID);
     }
 
-    /**
-     * @param xml 
-     * @return
-     */
     public Contact loadCurrentContactObject(String xml) {
-        // TODO implement here
-        return null;
+        /*
+         *  Takes File Xml and Parses for Contact Parameters
+         * Creates new Object using gathered parameters
+         */
+        List<Object> parameters = new ArrayList<Object>();
+        parameters.add(xml.substring(xml.indexOf("<firstName>") + 11, xml.indexOf("</firstName>")));
+        parameters.add(xml.substring(xml.indexOf("<lastName>") + 10, xml.indexOf("</lastName>")));
+        parameters.add(xml.substring(xml.indexOf("<email>") + 7, xml.indexOf("</email>")));
+        parameters.add(xml.substring(xml.indexOf("<phone>") + 7, xml.indexOf("</phone>")));
+
+        return new Contact(parameters);
     }
 
-    /**
-     * @param xml 
-     * @return
-     */
     public List<Address> loadCurrentAccountAddresses(String xml) {
-        // TODO implement here
-        return null;
+        /*
+        *  Load addresses into AddressList using XML from file
+        */
+        List<Object> parameters = new ArrayList<Object>();
+        List<Address> tmpAddresses = new ArrayList<Address>();
+        
+        String addresses[] = {
+            xml.substring(xml.indexOf("<PhysicalAddress>") + 17, xml.indexOf("</PhysicalAddress")),
+            xml.substring(xml.indexOf("<MailingAddress>") + 16, xml.indexOf("</MailingAddress")),
+        };
+
+        for( String address : addresses){
+            parameters.add(address.substring(address.indexOf("<street1>") + 9, address.indexOf("</street1>")));
+            parameters.add(address.substring(address.indexOf("<street2>") + 9, address.indexOf("</street2>")));
+            parameters.add(address.substring(address.indexOf("<city>") + 6, address.indexOf("</city>")));
+            parameters.add(address.substring(address.indexOf("<state>") + 7, address.indexOf("</state>")));
+            parameters.add(address.substring(address.indexOf("<zip>") + 5, address.indexOf("</zip>")));
+            tmpAddresses.add(new Address(parameters));
+            parameters.clear();
+        }
+        
+        return tmpAddresses;
     }
 
-    /**
-     * @param parameters 
-     * @return
-     */
-    public void updateAccount(List<Object> parameters) {
-        // TODO implement here
-        return null;
+    public void updateAccount(List<Object> parameters){ 
+        /* 
+         * 
+         * calls this.currentReservation.saveCurrentObject()
+         */
+    
     }
 
+    public void updateReservation(List<Object> parameters){
+        /*
+         * creates new Reservation using blank object constructor ChildReservation(accountID) for this.currentReservation
+         * iterates and saves properties of ChildReservation using List<Object> parameters for ChildReservation properties
+         * calls this.currentReservation.saveCurrentObject()
+         */
+     }
+
+    public void saveAddresses(){
+        /*
+         * Updates this.currentObject addresses iterating through this.currentAddresses List
+         * Calls this.currentAccount.saveCurrentObject()
+         */
+     }
+
+    public void saveContact(){
+        /*
+         * Updates this.currentObject contact by directly changing this.currentAccount.acctContact with this.currentContact
+         * Calls this.currentAccount.saveCurrentObject()
+         */
+     }
 }

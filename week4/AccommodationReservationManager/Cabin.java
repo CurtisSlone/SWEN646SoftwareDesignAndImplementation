@@ -6,64 +6,46 @@ import java.util.*;
  */
 public class Cabin extends Reservation {
 
+    protected boolean hasFullKitchen; //Bool if Cabin has full kitchen
+    protected boolean hasLoft; //Bool if Cabin has loft
+
     /**
-     * Default constructor
+     * Blank Object Constructor
      */
-    public Cabin() {
+    public Cabin(String accountId) {
+        super(accountId);
     }
 
     /**
-     * Bool if Cabin has full kitchen
+     * New Object Constructor
      */
-    protected boolean hasFullKitchen;
-
-    /**
-     * Bool if Cabin has lost
-     */
-    protected boolean hasLoft;
-
-    /**
-     * Constructor
-     * super(reservationID, account, startDate, numberOfNights, numberOfBeds, numberOfRooms, numberOfBaths, lodgingSize)
-     * 
-     * cabinFee =  hasFullKitchen ? ( 20 + ( 5 * numberOfRooms) ) : (5 * numberOfRooms)
-     * @param accountId
-     */
-    public void Cabin(String accountId) {
-        // TODO implement here
+    public Cabin(ReservtionType type, String accountId) {
+        super(type, accountId);
     }
 
-    /**
-     * @param type 
-     * @param accountId
-     */
-    public void Cabin(ReservtionType type, String accountId) {
-        // TODO implement here
+    @Override
+    public float calculatePriceTotal(){
+        float cabinFee = this.hasFullKitchen ? (20 + (5 * this.numberOfRooms)) : (5 * this.numberOfRooms);
+        return this.BASEPRICE + this._calculateLodgingSizeFee() + cabinFee;
+    };
+
+    @Override
+    public void loadObjectFromFile(String identifierString){
+        super.loadObjectFromFile(identifierString);
+
+        /*
+            this.hasFullKitchen = Boolean.getBoolean(this.childXml.substring(this.childXml.indexOf("<hasFullKitchen>") + 16, this.childXml.indexOf("</hasFullKitchen>")));
+
+            // this.hasLoft = Boolean.getBoolean(this.childXml.substring(this.childXml.indexOf("<hasLoft>") + 9, this.childXml.indexOf("</hasLoft>")));
+
+            this.childXml = ""; 
+        */
     }
 
-    /**
-     * @return
-     */
-    public float calculatePriceTotal() {
-        // TODO implement here
-        return 0.0f;
-    }
+    @Override
+    public String toString(){
 
-    /**
-     * @param identifierString 
-     * @return
-     */
-    public void loadObjectFromFile(String identifierString) {
-        // TODO implement here
-        return null;
-    }
-
-    /**
-     * @return
-     */
-    public String toString() {
-        // TODO implement here
-        return "";
+        return String.format("<CabinReservation>\n%s\n<hasFullKitchen>%s</hasFullKitchen>\n<hasLoft>%s</hasLoft>\n</Cabinreservation>", super.toString(), String.valueOf(this.hasFullKitchen), String.valueOf(this.hasLoft));
     }
 
 }

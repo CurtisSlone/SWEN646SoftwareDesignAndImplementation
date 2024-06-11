@@ -12,11 +12,12 @@ public class App {
     List<Object> paramList;
     public static void main(String[] args) throws Exception {
         App ui = new App();
-        Manager reservatioManager = new Manager();
+        Manager reservationManager = new Manager();
         ui.paramList = new ArrayList<Object>();
         ui.newReservationScanner = new Scanner(System.in);
-
-
+        reservationManager.selectAccountFromAll(0);
+        reservationManager.selectReservationFromAll(0);
+        System.out.println(reservationManager.viewCurrentReservationObject());
         ui.newReservationScanner.close();
     }    
 

@@ -1,6 +1,3 @@
-package reservationmanager;
-
-import java.util.List;
 
 public class Cabin extends Reservation {
     protected boolean hasFullKitchen;
