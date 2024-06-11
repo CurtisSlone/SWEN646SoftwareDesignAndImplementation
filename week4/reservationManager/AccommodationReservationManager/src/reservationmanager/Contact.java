@@ -8,14 +8,21 @@ public class Contact {
     protected String email;
     protected String phoneNumber;
     
-    public Contact(List<Object> parameters){
-        this.firstName = (String)parameters.get(0);
-        this.lastName = (String)parameters.get(1);
-        this.email = (String)parameters.get(1);
-        this.phoneNumber = (String)parameters.get(1);
+    /*
+     * Default Constructor
+     * Takes List<String> as parameter
+     */
+    public Contact(List<String> parameters){
+        this.firstName = parameters.get(0);
+        this.lastName = parameters.get(1);
+        this.email = parameters.get(1);
+        this.phoneNumber = parameters.get(1);
     }
 
-    
+
+    /*
+    * Output as XML
+    */ 
     @Override
     public String toString(){
 

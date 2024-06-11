@@ -1,6 +1,7 @@
 package reservationmanager;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.io.File;
@@ -15,37 +16,54 @@ public class Account implements ParseXML {
     protected List<Address> addressList;
     protected List<String> acctReservations;
 
+    /*
+     * Default Constructor
+     */
     public Account(){
         this.acctID = "-99";
         this.acctReservations = new ArrayList<String>();
         this.addressList = new ArrayList<Address>();
-    }
-
-    public Account(List<Object> parameters) {
-        this.acctID = this.generateUniqueID("A");
-        this.acctClient = (Contact)parameters.get(0);
-        this.addressList.add(0, (Address)parameters.get(1));
-        this.addressList.add(1, (Address)parameters.get(2));
         this.acctReservations = new ArrayList<String>(); 
     }
 
+    /*
+     * Return this account id
+     */
     protected String getAccountId(){
         return this.acctID;
     }
 
+    /*
+     * return reservations associated with account as ArrayList
+     */
     protected List<String> getAccountReservations(){
         return this.acctReservations;
     }
 
+
+    /*
+     * Save Account Object To File
+     */
     public void saveCurrentObject() throws Exception{
+        /*
+         * Local Variables
+         */
         String accountDirName = new String();
         String accountFileName = new String();
-        
         char foutAccountInfo[] = this.toString().toCharArray();
         try {
+            /*
+             * If not acctID, generate new UniqueID
+             */
             if(this.getAccountId() == "-99")
-                throw new Exception();
+                this.acctID = this.generateUniqueID("A");
 
+            /*
+             * Get directory
+             * If directory doesn't exist, create
+             * Write Account object to file
+             * Save file in directory
+             */
             accountDirName = String.format("./accounts/%s",this.getAccountId());
             accountFileName = String.format("%s/acc-%s.xml", accountDirName, this.getAccountId());
 
@@ -65,87 +83,106 @@ public class Account implements ParseXML {
         }
     };
 
+    /*
+     * Load Account Attributes From XML File
+     */
     public void loadObjectFromFile(String identifierString) throws Exception {
-        System.out.println(identifierString);
+        /*
+         * Local Variables
+         */
         String accountFile = new String();
         String accountXmlAsString = new String();
-        List<Object> parameters = new ArrayList<Object>();
-        List<Address> addresses = new ArrayList<Address>();
+        List<String> parameters = new ArrayList<String>();
+
         try {
+            //Change account ID to match File
             this.acctID = identifierString;
+
+            /*
+             * Open file, extract text
+             */
             accountFile = String.format("./accounts/%s/acc-%s.xml", identifierString,identifierString);
             accountXmlAsString = new String(Files.readAllBytes(Paths.get(accountFile)));
 
-            String contactXml = accountXmlAsString.substring(accountXmlAsString.indexOf("<Contact>"), accountXmlAsString.indexOf("</Contact>") + 10);
-            
-            parameters.add(contactXml.substring(contactXml.indexOf("<firstName>") + 11, contactXml.indexOf("</firstName>")));
-
-            parameters.add(contactXml.substring(contactXml.indexOf("<lastName>") + 10, contactXml.indexOf("</lastName>")));
-            
-            parameters.add(contactXml.substring(contactXml.indexOf("<email>") + 7, contactXml.indexOf("</email>")));
-
-            parameters.add(contactXml.substring(contactXml.indexOf("<phone>") + 7, contactXml.indexOf("</phone>")));
-
+            /*
+             * Parse Contact from xml 
+             * Create Contact Object
+             * Clear parameters for next Object
+             */
+            Collections.addAll(parameters, accountXmlAsString.substring(accountXmlAsString.indexOf("<Contact>"), accountXmlAsString.indexOf("</Contact>") + "</Contact>".length()).replaceAll("<(.*?)>", ",").split(","));
+            parameters.removeIf(x -> x == "");
             this.acctClient = new Contact(parameters);
-            
             parameters.clear();
 
-            String accountAddresses[] = {
-                accountXmlAsString.substring(accountXmlAsString.indexOf("<PhysicalAddress>") + 17, accountXmlAsString.indexOf("</PhysicalAddress")),
-                accountXmlAsString.substring(accountXmlAsString.indexOf("<MailingAddress>") + 16, accountXmlAsString.indexOf("</MailingAddress")),
-            };
+            /*
+             * Parse Physical Address from xml 
+             * Create Address Object
+             * Add to adressList List<Address>
+             * Clear parameters for next Object
+             */
+            Collections.addAll(parameters,accountXmlAsString.substring(accountXmlAsString.indexOf("<PhysicalAddress>") + "<PhysicalAddress>".length(), accountXmlAsString.indexOf("</PhysicalAddress")).replaceAll("<(.*?)>", ",").split(","));
+            parameters.removeIf(x -> x == "");
+            this.addressList.add(new Address(parameters));
+            parameters.clear();
 
-            for( String address : accountAddresses){
-                parameters.add(address.substring(address.indexOf("<street1>") + 9, address.indexOf("</street1>")));
-                
-                parameters.add(address.substring(address.indexOf("<street2>") + 9, address.indexOf("</street2>")));
-                
-                parameters.add(address.substring(address.indexOf("<city>") + 6, address.indexOf("</city>")));
-                parameters.add(address.substring(address.indexOf("<state>") + 7, address.indexOf("</state>")));
-                parameters.add(address.substring(address.indexOf("<zip>") + 5, address.indexOf("</zip>")));
-                
-                addresses.add(new Address(parameters));
-                parameters.clear();
-            }
+            /*
+             * Parse Mailing Address from xml 
+             * Create Address Object
+             * Add to adressList List<Address>
+             * Clear parameters for next Object
+             */
+            Collections.addAll(parameters,accountXmlAsString.substring(accountXmlAsString.indexOf("<MailingAddress>") + "<MailingAddress>".length(), accountXmlAsString.indexOf("</MailingAddress")).replaceAll("<(.*?)>", ",").split(","));
+            parameters.removeIf(x -> x == "");
+            this.addressList.add(new Address(parameters));
+            parameters.clear();
 
-            this.addressList.add(0, addresses.get(0));
-            this.addressList.add(1, addresses.get(1));
-            addresses.clear();
-
-            String reservationsXMLString = accountXmlAsString.substring(accountXmlAsString.indexOf("<Reservations>[") + 15, accountXmlAsString.indexOf("]</Reservations>"));
-            String reservations[] = reservationsXMLString.split(", ");
-            
-            for( String reservation : reservations)
-                this.acctReservations.add(reservation);
-                
-
+            /*
+             * Parse RservationIDs from XML
+             * Add to this.acctReservations
+             */
+            Collections.addAll(this.acctReservations, accountXmlAsString.substring(accountXmlAsString.indexOf("<Reservations>[") + 15, accountXmlAsString.indexOf("]</Reservations>")).split(", "));
             
         } catch (Exception e) {
             System.out.println(e.getLocalizedMessage());
         }
     };
     
+    /*
+     * Update Current Account Object With new attributes
+     */
     public void updateObjectFromParameters(List<Object> parameters) throws Exception {
+        /*
+         * Update Object from parameters
+         */
         this.acctClient = (Contact)parameters.get(0);
         this.addressList.clear();
         this.addressList.add(0, (Address)parameters.get(1));
         this.addressList.add(1, (Address)parameters.get(2));
         this.acctReservations.clear();
         String reservationString = (String)parameters.get(3);
-        reservationString = reservationString.replaceAll("[\\[\\](){}]","");
-        String reservations[] = reservationString.split(", ");
-
-        for( String reservation : reservations)
-            this.acctReservations.add(reservation);
-                
+        Collections.addAll(this.acctReservations,reservationString.replaceAll("[\\[\\](){}]","").split(", "));       
     }
 
+    /*
+     * Delete Operation from ParseXML Interface
+     */
     public void deleteFileFromID(String identifierString) throws Exception {
+        /*
+         * Cannot delete account
+         * Throw Exception
+         */
         throw new Exception();
     }
 
+    /*
+     * Generate Unique Account ID Operation From ParseXML Interface
+     */
     public String generateUniqueID(String prefix){
-        
+        /*
+         * Create unique ID
+         * take prefix as string
+         * Stringbuilder to build random charachters
+         */
         int leftLimit = 48; // numeral '0'
         int rightLimit = 122; // letter 'z'
         Random random = new Random();
@@ -157,9 +194,12 @@ public class Account implements ParseXML {
           .toString());
     };
  
+        /*
+         * Output as XML
+         */ 
     @Override
     public String toString(){
-
+        
         return String.format("<Account>\n<accountID>%s</accountID>\n%s<PhysicalAddress>%s</PhysicalAddress>\n<MailingAddress>%s</MailingAddress>\n<Reservations>%s</Reservations>\n</Account>\n",this.acctID,this.acctClient.toString(),this.addressList.get(0).toString(),this.addressList.get(1).toString(),this.acctReservations.toString());
     }
 }
