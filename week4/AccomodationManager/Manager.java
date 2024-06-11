@@ -1,3 +1,5 @@
+package reservationmanager;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -41,14 +43,9 @@ public class Manager {
         return this.currentAccount.addressList.get(typeIdx).toString();
     }
 
-    public String viewCurrentAccountObject() {
-        return this.currentAccount.toString();
+    public String viewCurrentObject(ParseXML objectTypeof) {
+        return objectTypeof.toString();
     }
-
-    public String viewCurrentReservationObject(){
-        return this.currentReservation.toString();
-    }
-    
 
     public String viewAllCurrentAccountReservations(){
         return this.currentAccount.acctReservations.toString();
@@ -93,22 +90,35 @@ public class Manager {
         return new Address(parameters);
     }
 
-    public void updateAccount(List<Object> parameters) throws Exception{
-        this.currentAccount.updateObjectFromParameters(parameters);
-        this.currentAccount.saveCurrentObject();
+    public void createNewReservation(ReservationType type) throws Exception{
+        if(this.currentAccount == null)
+            throw new Exception();
+        switch(type){
+            case HOTEL:
+                this.currentReservation = new Hotel(type, this.currentAccount.getAccountId());
+                break;
+            case HOUSE:
+                this.currentReservation = new House(type, this.currentAccount.getAccountId());
+                break;
+            case CABIN:
+                this.currentReservation = new Cabin(type, this.currentAccount.getAccountId());
+                break;
+            default:
+                throw new Exception();
+        }
     }
 
-    public void updateReservation(List<Object> parameters) throws Exception{ 
-        this.currentReservation.updateObjectFromParameters(parameters);
-        this.currentReservation.saveCurrentObject();
+    public void createNewAccount(){
+        this.currentAccount = new Account();
     }
 
-    public void deleteAccount(String identifierString) throws Exception {
-        this.currentAccount.deleteFileFromID(identifierString);
+    public void updateObject(ParseXML objectTypeOf, List<Object> parameters) throws Exception{
+            objectTypeOf.updateObjectFromParameters(parameters);
+            objectTypeOf.saveCurrentObject();
+    }
+
+    public void deleteObject(ParseXML objectTypeOf,String identifierString) throws Exception {
+        objectTypeOf.deleteFileFromID(identifierString);
      }
-
-    public void deleteReservation(String identifierString) throws Exception { 
-        this.currentReservation.deleteFileFromID(identifierString);
-    }
 
 }

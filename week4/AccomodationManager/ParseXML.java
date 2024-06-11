@@ -1,3 +1,5 @@
+package reservationmanager;
+
 import java.util.List;
 
 interface ParseXML {

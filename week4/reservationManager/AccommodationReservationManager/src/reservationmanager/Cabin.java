@@ -6,7 +6,7 @@ public class Cabin extends Reservation {
     protected boolean hasFullKitchen;
     protected boolean hasLoft;
 
-    public Cabin( String accountID){
+    public Cabin( String accountID ){
         super(accountID);
     }
 

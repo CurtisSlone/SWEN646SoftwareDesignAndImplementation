@@ -2,7 +2,7 @@ package reservationmanager;
 
 import java.util.List;
 
-abstract interface ParseXML {
+interface ParseXML {
     void saveCurrentObject() throws Exception;
     void loadObjectFromFile(String identifierString) throws Exception;
     void updateObjectFromParameters(List<Object> parameters) throws Exception;
