@@ -9,7 +9,10 @@ public class Contact {
     protected String phoneNumber;
     
     /*
-     * Default Constructor
+     * Empty Constructor for parameter validation
+    */
+    public Contact(){ }
+    /*
      * Takes List<String> as parameter
      */
     public Contact(List<String> parameters){

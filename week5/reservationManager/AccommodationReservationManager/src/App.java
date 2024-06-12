@@ -4,21 +4,21 @@ import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 import java.util.TimeZone;
+import java.util.stream.Collectors;
+
 import reservationmanager.Manager;
 import reservationmanager.ReservationType;
 
 public class App {
     Scanner newReservationScanner;
-    List<Object> paramList;
+    List<Object> paramList = new ArrayList<>();
+    List<Object> dummyList = new ArrayList<>();
+    Boolean truthness;
+
+
     public static void main(String[] args) throws Exception {
-        App ui = new App();
-        Manager reservationManager = new Manager();
-        ui.paramList = new ArrayList<Object>();
-        ui.newReservationScanner = new Scanner(System.in);
-        reservationManager.selectAccountFromAll(0);
-        reservationManager.selectReservationFromAll(0);
-        System.out.println(reservationManager.viewCurrentReservationObject());
-        ui.newReservationScanner.close();
+        App app = new App();
+     
     }    
 
     public List<Object> reservationParameters(ReservationType type) throws Exception{

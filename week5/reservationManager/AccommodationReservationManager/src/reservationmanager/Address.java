@@ -10,6 +10,11 @@ public class Address {
     protected String zip;
 
     /*
+     * Empty Constructor for parameterValidation
+     */
+
+     public Address(){ }
+    /*
      * Default Constructor
      * Takes List<String> as parameter
      */

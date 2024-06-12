@@ -1,29 +1,29 @@
 package reservationmanager;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
 import java.io.File;
-import java.lang.Exception;
 import java.io.FileOutputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
-public class Account implements ParseXML {
+public class Account implements ParseXML, ParameterValidator {
     private String acctID;
     protected Contact acctClient;
     protected List<Address> addressList;
     protected List<String> acctReservations;
+    public static List<Object> validationParameters = Arrays.asList(new Contact(), new Address(), new Address(),"_");
 
     /*
      * Default Constructor
      */
     public Account(){
         this.acctID = "-99";
-        this.acctReservations = new ArrayList<String>();
-        this.addressList = new ArrayList<Address>();
-        this.acctReservations = new ArrayList<String>(); 
+        this.acctReservations = new ArrayList<>();
+        this.addressList = new ArrayList<>();
+        this.acctReservations = new ArrayList<>(); 
     }
 
     /*
@@ -48,10 +48,9 @@ public class Account implements ParseXML {
         /*
          * Local Variables
          */
-        String accountDirName = new String();
-        String accountFileName = new String();
+        String accountDirName;
+        String accountFileName;
         char foutAccountInfo[] = this.toString().toCharArray();
-        try {
             /*
              * If not acctID, generate new UniqueID
              */
@@ -68,19 +67,14 @@ public class Account implements ParseXML {
             accountFileName = String.format("%s/acc-%s.xml", accountDirName, this.getAccountId());
 
             File accountDir = new File(accountDirName);
-            if(!accountDir.exists())
+            if(!accountDir.exists()){}
                 accountDir.mkdir();
-            accountDir = null;
 
             FileOutputStream writeAccountToFile = new FileOutputStream(accountFileName, false);
 
             for( char c : foutAccountInfo)
                 writeAccountToFile.write(c);
             writeAccountToFile.close();
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
     };
 
     /*
@@ -92,9 +86,8 @@ public class Account implements ParseXML {
          */
         String accountFile = new String();
         String accountXmlAsString = new String();
-        List<String> parameters = new ArrayList<String>();
+        List<String> parameters = new ArrayList<>();
 
-        try {
             //Change account ID to match File
             this.acctID = identifierString;
 
@@ -102,6 +95,11 @@ public class Account implements ParseXML {
              * Open file, extract text
              */
             accountFile = String.format("./accounts/%s/acc-%s.xml", identifierString,identifierString);
+            File fileToCheck = new File(accountFile);
+
+            if(!fileToCheck.exists())
+                throw new IllegalLoadException("Account does not exist");
+
             accountXmlAsString = new String(Files.readAllBytes(Paths.get(accountFile)));
 
             /*
@@ -140,17 +138,19 @@ public class Account implements ParseXML {
              * Parse RservationIDs from XML
              * Add to this.acctReservations
              */
-            Collections.addAll(this.acctReservations, accountXmlAsString.substring(accountXmlAsString.indexOf("<Reservations>[") + 15, accountXmlAsString.indexOf("]</Reservations>")).split(", "));
+            Collections.addAll(this.acctReservations, accountXmlAsString.substring(accountXmlAsString.indexOf("<Reservations>[") + "<Reservations>[".length(), accountXmlAsString.indexOf("]</Reservations>")).split(", "));
             
-        } catch (Exception e) {
-            System.out.println(e.getLocalizedMessage());
-        }
     };
     
     /*
      * Update Current Account Object With new attributes
      */
     public void updateObjectFromParameters(List<Object> parameters) throws Exception {
+        /*
+         * Validate Parameters
+         */
+        if(!this.validateParameters(this.validationParameters, parameters))
+            throw new IllegalArgumentException("The included parameters were incorrect.");
         /*
          * Update Object from parameters
          */
@@ -164,35 +164,15 @@ public class Account implements ParseXML {
     }
 
     /*
-     * Delete Operation from ParseXML Interface
+    * Delete Operation from ParseXML Interface
      */
-    public void deleteFileFromID(String identifierString) throws Exception {
+    public void deleteFileFromID(String identifierString) throws IllegalOperationException {
         /*
          * Cannot delete account
          * Throw Exception
          */
-        throw new Exception();
+        throw new IllegalOperationException("Can not delete account.");
     }
-
-    /*
-     * Generate Unique Account ID Operation From ParseXML Interface
-     */
-    public String generateUniqueID(String prefix){
-        /*
-         * Create unique ID
-         * take prefix as string
-         * Stringbuilder to build random charachters
-         */
-        int leftLimit = 48; // numeral '0'
-        int rightLimit = 122; // letter 'z'
-        Random random = new Random();
-    
-        return String.format("%s%s", prefix, random.ints(leftLimit, rightLimit + 1)
-          .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
-          .limit(9)
-          .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
-          .toString());
-    };
  
         /*
          * Output as XML

@@ -3,16 +3,15 @@ package reservationmanager;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-import java.util.Random;
 
-public abstract class Reservation implements ParseXML {
+public abstract class Reservation implements ParseXML, ParameterValidator {
     /*
      * Object Attributes
      */
@@ -32,6 +31,7 @@ public abstract class Reservation implements ParseXML {
     protected float lodgingSizeFee;
     protected float priceTotal;
     protected final float BASEPRICE = 120;
+    public static List<Object> validationParameters = Arrays.asList(new Address(), new Address() ,new Date(),false,0,0,0,0,0,0);
 
     /*
      * Default constructor
@@ -42,7 +42,7 @@ public abstract class Reservation implements ParseXML {
         this.numberOfBeds = 2;
         this.numberOfRooms = 1;
         this.status = ReservationStatus.DRAFT;
-        this.addressList = new ArrayList<Address>();
+        this.addressList = new ArrayList<>();
     }
 
     /*
@@ -70,14 +70,20 @@ public abstract class Reservation implements ParseXML {
         /*
          * if Date < Today
          * this.status = CANCELLED
+         * else throw IllegalOperationException()
          */
     }
 
      /*
      * Save Current Object from ParseXML interface
      */
-    public void saveCurrentObject() throws Exception{
-
+    public void saveCurrentObject() throws Exception {
+        /*
+         * If current ReservationStatus = CANCELLED
+         * Throw IllegalStateException
+         */
+        if(this.status == ReservationStatus.CANCELLED)
+            throw new IllegalStateException("Can not save or update current Reservation due to CANCELLED status");
         /*
         * Local Attributes
         */
@@ -85,28 +91,21 @@ public abstract class Reservation implements ParseXML {
         String reservationFileName = String.format("%s/res-%s.xml", reservationDir, this.reservationID);
         char foutReservationInfo[] = this.toString().toCharArray();
 
-        try {
-            
-            /*
-            * Find File based on reservation ID
-            * Write XML as string to file
-            */
-            File accountInfo = new File(reservationDir);
-            if(!accountInfo.exists())
-                throw new Exception();
-            accountInfo = null;
+        /*
+        * Find File based on reservation ID
+        * Write XML as string to file
+        */
+        File accountInfo = new File(reservationDir);
+        if(!accountInfo.exists())
+            throw new DuplicateObjectException("Reservation already exists");
+        accountInfo = null;
 
-            FileOutputStream writeReservationToFile = new FileOutputStream(reservationFileName, true);
+        FileOutputStream writeReservationToFile = new FileOutputStream(reservationFileName, true);
 
-            for(char c : foutReservationInfo)
-                writeReservationToFile.write(c);
+        for(char c : foutReservationInfo)
+            writeReservationToFile.write(c);
 
-            writeReservationToFile.close();
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        
+        writeReservationToFile.close();        
     };
 
     /*
@@ -120,8 +119,7 @@ public abstract class Reservation implements ParseXML {
         /*
         * Local Variables
         */
-        List<String> parameters = new ArrayList<String>();
-        try {
+        List<String> parameters = new ArrayList<>();
             
             /*
              * Locate and load reservation as XML string
@@ -129,6 +127,13 @@ public abstract class Reservation implements ParseXML {
             String reservationFile = String.format("./accounts/%s/res-%s.xml", this.accountID, identifierString);
             String reservationXmlAsString = new String(Files.readAllBytes(Paths.get(reservationFile)));
 
+            /*
+             * Check if Reservation File Exists
+             * If not throw IllegalLoadException
+             */
+            File fileCheck = new File(reservationFile);
+            if(!fileCheck.exists())
+                throw new IllegalLoadException("Reservation does not exist");
             /*
             * Let status
             */
@@ -186,16 +191,16 @@ public abstract class Reservation implements ParseXML {
 
             //set xml for child classes to finish in their constructors
             this.childXml = reservationXmlAsString.substring(reservationXmlAsString.indexOf("</lodgingSize>") + "</lodgingSize>".length(), reservationXmlAsString.length() - 1);
-            
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+
     };
 
     /*
      * Update object from parameters
      */
     public void updateObjectFromParameters(List<Object> parameters) throws Exception {
+
+        if(!this.validateParameters(Reservation.validationParameters, parameters))
+            throw new IllegalArgumentException("The included parameters were incorrect.");
         this.addressList.add(0, (Address)parameters.get(0));
         this.addressList.add(1, (Address)parameters.get(1));
         this.startDate = (Date)(new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy").parse((String)parameters.get(2)));
@@ -211,37 +216,17 @@ public abstract class Reservation implements ParseXML {
      * Delete Object from ParseXML interface
      */
     public void deleteFileFromID(String identifierString) throws Exception {
-        // Check if reservation is canceable
-        if(!this.cancellable)
-            throw new Exception();
         /*
-        * Save file as different naming convention to prevent it from being loaded
-        */ 
-        String reservationFile = String.format("%s/%s/res-%s.xml", this.accountID,this.accountID,this.reservationID);
-        String cancelledFile = String.format("%s/%s/res-cancelled-%s.xml", this.accountID,this.accountID,this.reservationID);
-        Path file = Paths.get(reservationFile);
-        Files.move(file, file.resolveSibling(cancelledFile));
-    }
-
-    /*
-     * Generate Unique Account ID Operation From ParseXML Interface
-     */
-    public String generateUniqueID(String prefix){
-        /*
-         * Create unique ID
-         * take prefix as string
-         * Stringbuilder to build random charachters
+         * Check if Reservation is Cancelleable
+         * If not throw IllegalStateException
          */
-        int leftLimit = 48; // numeral '0'
-        int rightLimit = 122; // letter 'z'
-        Random random = new Random();
-    
-        return String.format("%s%s",prefix,random.ints(leftLimit, rightLimit + 1)
-          .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
-          .limit(10)
-          .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
-          .toString());
-    };
+        if(!this.cancellable)
+            throw new IllegalStateException("Reservation is not cancellable");
+        /*
+        * Set status to cancelled
+        */ 
+        this.status = ReservationStatus.CANCELLED;
+    }
 
     //Reservation ID getter
     public String getReservationID(){

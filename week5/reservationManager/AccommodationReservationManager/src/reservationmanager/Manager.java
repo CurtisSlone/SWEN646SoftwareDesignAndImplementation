@@ -3,11 +3,12 @@ package reservationmanager;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Manager  {
 
-    private List<String> allAccounts;
+    private List<String> allAccounts = new ArrayList<>();
     private Account currentAccount;
     private Contact currentContact;
     private Reservation currentReservation;
@@ -25,11 +26,6 @@ public class Manager  {
     private void _loadAllAccounts() throws IOException {
 
         /*
-         * initialize this.currentReservation
-         */
-        this.allAccounts = new ArrayList<String>();
-
-        /*
          * If accounts directory does not exist, make directory
          * List all account names from directory names
          * Add to this.allAccounts List<String>
@@ -40,8 +36,7 @@ public class Manager  {
             accountsDir.mkdir();
         accounts = accountsDir.list();
         if(accounts.length != 0)
-            for(String account : accounts)
-                this.allAccounts.add(account);
+            Collections.addAll(this.allAccounts, accounts);    
     }
 
     /*
@@ -95,8 +90,13 @@ public class Manager  {
         * select account by ID from this.allAccounts to get accountID for file location
         * call currentObject ParseXML interface method to change all attributes of empty account
         */
-        this.currentAccount = new Account();
-        this.currentAccount.loadObjectFromFile(this.allAccounts.get(accountIndex));
+        try {
+            this.currentAccount = new Account();
+            this.currentAccount.loadObjectFromFile(this.allAccounts.get(accountIndex));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        
     }
 
     /*
@@ -119,8 +119,6 @@ public class Manager  {
         } else if(this.currentAccount.acctReservations.get(reservationIndex).matches("^CAB.*")){
             this.currentReservation = new Cabin(ReservationType.CABIN, this.currentAccount.getAccountId());
 
-        } else {
-            throw new Exception();
         }
 
         this.currentReservation.loadObjectFromFile(this.currentAccount.acctReservations.get(reservationIndex));
