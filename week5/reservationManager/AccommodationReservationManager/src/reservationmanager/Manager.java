@@ -1,7 +1,6 @@
 package reservationmanager;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -23,20 +22,24 @@ public class Manager  {
     /*
      * Load All Accounts
      */
-    private void _loadAllAccounts() throws IOException {
+    private void _loadAllAccounts() {
 
         /*
          * If accounts directory does not exist, make directory
          * List all account names from directory names
          * Add to this.allAccounts List<String>
          */
-        String accounts[];
-        File accountsDir = new File("./accounts");
-        if(!accountsDir.exists())
-            accountsDir.mkdir();
-        accounts = accountsDir.list();
-        if(accounts.length != 0)
-            Collections.addAll(this.allAccounts, accounts);    
+        try {
+            String accounts[];
+            File accountsDir = new File("./accounts");
+            if(!accountsDir.exists())
+                accountsDir.mkdir();
+            accounts = accountsDir.list();
+            if(accounts.length != 0)
+                Collections.addAll(this.allAccounts, accounts);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
     }
 
     /*
@@ -84,7 +87,7 @@ public class Manager  {
     /*
      * Load account by account ID
      */
-    public void selectAccountFromAll(int accountIndex) throws Exception {
+    public void selectAccountFromAll(int accountIndex) {
         /*
         * Create Empty Account
         * select account by ID from this.allAccounts to get accountID for file location
@@ -102,52 +105,59 @@ public class Manager  {
     /*
      * Load Reservation by reservation
      */
-    public void selectReservationFromAll(int reservationIndex) throws Exception {
+    public void selectReservationFromAll(int reservationIndex) {
         /*
          *  Get Reservation ID from Current Account object's reservation list
          *  Parse reservation ID to find Reservation Type
          *  Create new reservation
          *  Change attributes by calling ParseXML interface methof loadObjectFromFile
          */
+        try {
+            
+            if( this.currentAccount.acctReservations.get(reservationIndex).matches("^HOT.*")){
+                this.currentReservation = new Hotel(ReservationType.HOTEL, this.currentAccount.getAccountId());
 
-        if( this.currentAccount.acctReservations.get(reservationIndex).matches("^HOT.*")){
-            this.currentReservation = new Hotel(ReservationType.HOTEL, this.currentAccount.getAccountId());
+            } else if(this.currentAccount.acctReservations.get(reservationIndex).matches("^HOU.*")){
+                this.currentReservation = new House(ReservationType.HOUSE, this.currentAccount.getAccountId());
 
-        } else if(this.currentAccount.acctReservations.get(reservationIndex).matches("^HOU.*")){
-            this.currentReservation = new House(ReservationType.HOUSE, this.currentAccount.getAccountId());
+            } else if(this.currentAccount.acctReservations.get(reservationIndex).matches("^CAB.*")){
+                this.currentReservation = new Cabin(ReservationType.CABIN, this.currentAccount.getAccountId());
 
-        } else if(this.currentAccount.acctReservations.get(reservationIndex).matches("^CAB.*")){
-            this.currentReservation = new Cabin(ReservationType.CABIN, this.currentAccount.getAccountId());
+            }
 
+            this.currentReservation.loadObjectFromFile(this.currentAccount.acctReservations.get(reservationIndex));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
-
-        this.currentReservation.loadObjectFromFile(this.currentAccount.acctReservations.get(reservationIndex));
     }
     
     /*
      * Create new reservation
      */
-    public void createNewReservation(ReservationType type) throws Exception{
+    public void createNewReservation(ReservationType type) {
         /*
          * If not current account loaded, throw exception
          * Take type as parameter, match to ReservationType
          * Create correct Reservation type
          */
-
-        if(this.currentAccount == null)
-            throw new Exception();
-        switch(type){
-            case HOTEL:
-                this.currentReservation = new Hotel(type, this.currentAccount.getAccountId());
-                break;
-            case HOUSE:
-                this.currentReservation = new House(type, this.currentAccount.getAccountId());
-                break;
-            case CABIN:
-                this.currentReservation = new Cabin(type, this.currentAccount.getAccountId());
-                break;
-            default:
-                throw new Exception();
+        try {
+            
+            if(this.currentAccount == null)
+                throw new IllegalOperationException("No current account selected");
+            switch(type){
+                case HOTEL:
+                    this.currentReservation = new Hotel(type, this.currentAccount.getAccountId());
+                    break;
+                case HOUSE:
+                    this.currentReservation = new House(type, this.currentAccount.getAccountId());
+                    break;
+                case CABIN:
+                    this.currentReservation = new Cabin(type, this.currentAccount.getAccountId());
+                    break;
+            }
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -161,20 +171,30 @@ public class Manager  {
     /*
      * Update object
      */
-    public void updateObject(ParseXML objectTypeOf, List<Object> parameters) throws Exception{
+    public void updateObject(ParseXML objectTypeOf, List<Object> parameters){
         /*
         * Take ParseXML object,
         * Save Object
         */
-        objectTypeOf.updateObjectFromParameters(parameters);
+        try {
+            objectTypeOf.updateObjectFromParameters(parameters);
         objectTypeOf.saveCurrentObject();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        
     }
 
     /*
      * Delete object
      */
-    public void deleteObject(ParseXML objectTypeOf,String identifierString) throws Exception {
-        objectTypeOf.deleteFileFromID(identifierString);
+    public void deleteObject(ParseXML objectTypeOf,String identifierString){
+        try {
+            objectTypeOf.deleteFileFromID(identifierString);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        
      }
 
 }
