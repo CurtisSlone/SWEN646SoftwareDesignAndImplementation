@@ -1,13 +1,12 @@
 package reservationmanager;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.List;
 
 public class Manager  {
 
-    private List<String> allAccounts = new ArrayList<>();
+    private List<String> allAccounts;
     private Account currentAccount;
     private Contact currentContact;
     private Reservation currentReservation;
@@ -34,9 +33,7 @@ public class Manager  {
             File accountsDir = new File("./accounts");
             if(!accountsDir.exists())
                 accountsDir.mkdir();
-            accounts = accountsDir.list();
-            if(accounts.length != 0)
-                Collections.addAll(this.allAccounts, accounts);
+            this.allAccounts = Arrays.asList(accountsDir.list());
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
