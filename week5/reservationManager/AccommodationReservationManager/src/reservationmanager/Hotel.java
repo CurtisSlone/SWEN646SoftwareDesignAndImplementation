@@ -1,14 +1,17 @@
 package reservationmanager;
 
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
-public class Hotel extends Reservation {
+public class Hotel extends Reservation implements ParameterValidator {
     
     /*
     * hotel attributes
     */
     protected boolean hasKitchenette;
     protected boolean isValidHotel;
+    public static List<Object> validationParameters = Arrays.asList(new Address(), new Address() ,new Date(),false,0,0,0,0,0,0);
 
     // Default Constructor
     public Hotel( ReservationType type, String accountID){
@@ -57,6 +60,8 @@ public class Hotel extends Reservation {
          * Call Super
          * assign child attributes using childxml string
          */
+        if(!this.validateParameters(Reservation.validationParameters, parameters))
+            throw new IllegalArgumentException("The included parameters were incorrect.");
         super.updateObjectFromParameters(parameters);
         this.hasKitchenette = (Boolean)parameters.get(9);
     }
