@@ -5,9 +5,9 @@ import java.io.FileOutputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -72,6 +72,9 @@ public abstract class Reservation implements ParseXML, ParameterValidator {
          * this.status = CANCELLED
          * else throw IllegalOperationException()
          */
+        if(!this.cancellable)
+            throw new IllegalOperationException("This reservation is not cancellable");
+        this.status = ReservationStatus.CANCELLED;
     }
 
      /*
@@ -98,7 +101,6 @@ public abstract class Reservation implements ParseXML, ParameterValidator {
         File accountInfo = new File(reservationDir);
         if(!accountInfo.exists())
             throw new DuplicateObjectException("Reservation already exists");
-        accountInfo = null;
 
         FileOutputStream writeReservationToFile = new FileOutputStream(reservationFileName, true);
 
@@ -155,10 +157,9 @@ public abstract class Reservation implements ParseXML, ParameterValidator {
              * Add to adressList List<Address>
              * Clear parameters for next Object
              */
-            Collections.addAll(parameters,reservationXmlAsString.substring(reservationXmlAsString.indexOf("<PhysicalAddress>") + "<PhysicalAddress>".length(), reservationXmlAsString.indexOf("</PhysicalAddress")).replaceAll("<(.*?)>", ",").split(","));
-            parameters.removeIf(x -> x == "");
+            parameters = Arrays.asList(reservationXmlAsString.substring(reservationXmlAsString.indexOf("<PhysicalAddress>") + "<PhysicalAddress>".length(), reservationXmlAsString.indexOf("</PhysicalAddress")).replaceAll("<(.*?)>", ",").split(","));
+            parameters.removeIf(x -> x.equals(""));
             this.addressList.add(new Address(parameters));
-            parameters.clear();
 
             /*
              * Parse Mailing Address from xml 
@@ -166,10 +167,9 @@ public abstract class Reservation implements ParseXML, ParameterValidator {
              * Add to adressList List<Address>
              * Clear parameters for next Object
              */
-            Collections.addAll(parameters,reservationXmlAsString.substring(reservationXmlAsString.indexOf("<MailingAddress>") + "<MailingAddress>".length(), reservationXmlAsString.indexOf("</MailingAddress")).replaceAll("<(.*?)>", ",").split(","));
-            parameters.removeIf(x -> x == "");
+            parameters = Arrays.asList(reservationXmlAsString.substring(reservationXmlAsString.indexOf("<MailingAddress>") + "<MailingAddress>".length(), reservationXmlAsString.indexOf("</MailingAddress")).replaceAll("<(.*?)>", ",").split(","));
+            parameters.removeIf(x -> x.equals(""));
             this.addressList.add(new Address(parameters));
-            parameters.clear();
 
             //Set object date
             this.startDate = (Date)(new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy").parse(reservationXmlAsString.substring(reservationXmlAsString.indexOf("<date>") + "<date>".length(), reservationXmlAsString.indexOf("</date>"))));
@@ -210,6 +210,7 @@ public abstract class Reservation implements ParseXML, ParameterValidator {
         this.numberOfRooms = (Integer)parameters.get(6);
         this.numberOfBaths = (Integer)parameters.get(7);
         this.lodgingSize = (Integer)parameters.get(8);
+        this.cancellable = java.time.LocalDate.now().isBefore(this.startDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
     }
 
     /*

@@ -84,9 +84,9 @@ public class Account implements ParseXML, ParameterValidator {
         /*
          * Local Variables
          */
-        String accountFile = new String();
-        String accountXmlAsString = new String();
-        List<String> parameters = new ArrayList<>();
+        String accountFile;
+        String accountXmlAsString;
+        List<String> parameters;
 
             //Change account ID to match File
             this.acctID = identifierString;
@@ -107,10 +107,9 @@ public class Account implements ParseXML, ParameterValidator {
              * Create Contact Object
              * Clear parameters for next Object
              */
-            Collections.addAll(parameters, accountXmlAsString.substring(accountXmlAsString.indexOf("<Contact>"), accountXmlAsString.indexOf("</Contact>") + "</Contact>".length()).replaceAll("<(.*?)>", ",").split(","));
-            parameters.removeIf(x -> x == "");
+            parameters = Arrays.asList(accountXmlAsString.substring(accountXmlAsString.indexOf("<Contact>"), accountXmlAsString.indexOf("</Contact>") + "</Contact>".length()).replaceAll("<(.*?)>", ",").split(","));
+            parameters.removeIf( x -> x.equals(""));
             this.acctClient = new Contact(parameters);
-            parameters.clear();
 
             /*
              * Parse Physical Address from xml 
@@ -118,10 +117,9 @@ public class Account implements ParseXML, ParameterValidator {
              * Add to adressList List<Address>
              * Clear parameters for next Object
              */
-            Collections.addAll(parameters,accountXmlAsString.substring(accountXmlAsString.indexOf("<PhysicalAddress>") + "<PhysicalAddress>".length(), accountXmlAsString.indexOf("</PhysicalAddress")).replaceAll("<(.*?)>", ",").split(","));
-            parameters.removeIf(x -> x == "");
+            parameters = Arrays.asList(accountXmlAsString.substring(accountXmlAsString.indexOf("<PhysicalAddress>") + "<PhysicalAddress>".length(), accountXmlAsString.indexOf("</PhysicalAddress")).replaceAll("<(.*?)>", ",").split(","));
+            parameters.removeIf(x -> x.equals(""));
             this.addressList.add(new Address(parameters));
-            parameters.clear();
 
             /*
              * Parse Mailing Address from xml 
@@ -129,16 +127,15 @@ public class Account implements ParseXML, ParameterValidator {
              * Add to adressList List<Address>
              * Clear parameters for next Object
              */
-            Collections.addAll(parameters,accountXmlAsString.substring(accountXmlAsString.indexOf("<MailingAddress>") + "<MailingAddress>".length(), accountXmlAsString.indexOf("</MailingAddress")).replaceAll("<(.*?)>", ",").split(","));
-            parameters.removeIf(x -> x == "");
+            parameters = Arrays.asList(accountXmlAsString.substring(accountXmlAsString.indexOf("<MailingAddress>") + "<MailingAddress>".length(), accountXmlAsString.indexOf("</MailingAddress")).replaceAll("<(.*?)>", ",").split(","));
+            parameters.removeIf(x -> x.equals(""));
             this.addressList.add(new Address(parameters));
-            parameters.clear();
 
             /*
              * Parse RservationIDs from XML
              * Add to this.acctReservations
              */
-            Collections.addAll(this.acctReservations, accountXmlAsString.substring(accountXmlAsString.indexOf("<Reservations>[") + "<Reservations>[".length(), accountXmlAsString.indexOf("]</Reservations>")).split(", "));
+            this.acctReservations = Arrays.asList(accountXmlAsString.substring(accountXmlAsString.indexOf("<Reservations>[") + "<Reservations>[".length(), accountXmlAsString.indexOf("]</Reservations>")).split(", "));
             
     };
     
