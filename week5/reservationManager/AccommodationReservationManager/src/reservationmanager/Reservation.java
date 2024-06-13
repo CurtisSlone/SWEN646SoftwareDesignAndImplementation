@@ -11,7 +11,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-public abstract class Reservation implements ParseXML, ParameterValidator {
+abstract class Reservation implements ParseXML, ParameterValidator {
     /*
      * Object Attributes
      */

@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class Account implements ParseXML, ParameterValidator {
+class Account implements ParseXML, ParameterValidator {
     private String acctID;
     protected Contact acctClient;
     protected List<Address> addressList;

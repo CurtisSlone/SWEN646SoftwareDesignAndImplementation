@@ -2,7 +2,7 @@ package reservationmanager;
 
 import java.util.List;
 
-public class Contact {
+class Contact {
     protected String firstName;
     protected String lastName;
     protected String email;

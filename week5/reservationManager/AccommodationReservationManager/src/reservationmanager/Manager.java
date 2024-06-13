@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
-public class Manager  {
+class Manager  {
 
     private List<String> allAccounts;
     private Account currentAccount;

@@ -3,7 +3,7 @@ package reservationmanager;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public interface ParameterValidator {
+interface ParameterValidator {
     /*
      * Validate parameters for objects
      */

@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-public class House extends Reservation {
+class House extends Reservation {
     /*
     * House attribute
     */

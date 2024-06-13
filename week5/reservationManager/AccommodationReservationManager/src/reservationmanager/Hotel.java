@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-public class Hotel extends Reservation {
+class Hotel extends Reservation {
     
     /*
     * hotel attributes

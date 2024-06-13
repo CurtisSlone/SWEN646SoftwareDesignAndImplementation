@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-public class Cabin extends Reservation {
+class Cabin extends Reservation {
 
     /*
     * Cabin attribute

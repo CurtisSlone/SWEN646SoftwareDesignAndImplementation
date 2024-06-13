@@ -2,7 +2,7 @@ package reservationmanager;
 
 import java.util.List;
 
-public class Address {
+class Address {
     protected String street1;
     protected String street2;
     protected String city;

@@ -1,6 +1,6 @@
 package reservationmanager;
 
-public class IllegalOperationException extends RuntimeException {
+class IllegalOperationException extends RuntimeException {
     public IllegalOperationException(String message){
         super(message);
     }

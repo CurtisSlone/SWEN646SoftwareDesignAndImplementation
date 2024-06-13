@@ -1,6 +1,6 @@
 package reservationmanager;
 
-public enum ReservationStatus {
+enum ReservationStatus {
     DRAFT,
     COMPLETED,
     CANCELLED
