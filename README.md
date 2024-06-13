@@ -10,3 +10,7 @@ Create polymorphism, inheritence, and constructors for model
 ## Week 4 Assignment
 Access Modifiers, encapsulation, overloading and overriding
 ![Diagram](week4/AccommodationDiagram.jpg)
+
+## Week 5 Assignment
+Add Exceptions
+![Diagram](week5/AccommodationDiagram.jpg)

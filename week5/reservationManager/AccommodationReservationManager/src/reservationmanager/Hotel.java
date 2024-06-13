@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-public class Hotel extends Reservation implements ParameterValidator {
+public class Hotel extends Reservation {
     
     /*
     * hotel attributes
@@ -60,7 +60,7 @@ public class Hotel extends Reservation implements ParameterValidator {
          * Call Super
          * assign child attributes using childxml string
          */
-        if(!this.validateParameters(Reservation.validationParameters, parameters))
+        if(!this.validateParameters(Hotel.validationParameters, parameters))
             throw new IllegalArgumentException("The included parameters were incorrect.");
         super.updateObjectFromParameters(parameters);
         this.hasKitchenette = (Boolean)parameters.get(9);

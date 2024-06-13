@@ -4,14 +4,14 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-public class Cabin extends Reservation implements ParameterValidator {
+public class Cabin extends Reservation {
 
     /*
     * Cabin attribute
     */
     protected boolean hasFullKitchen;
     protected boolean hasLoft;
-    public static List<Object> validationParameters = Arrays.asList(new Address(), new Address() ,new Date(),false,0,0,0,0,0,0);
+    public static List<Object> validationParameters = Arrays.asList(new Address(), new Address() ,new Date(),false,0,0,0,0,0,0, true, true);
 
     // Default Constructor
     public Cabin( ReservationType type, String accountID){
@@ -52,7 +52,7 @@ public class Cabin extends Reservation implements ParameterValidator {
          * assign child attributes using childxml string
          */
         super.updateObjectFromParameters(parameters);
-        if(!this.validateParameters(Reservation.validationParameters, parameters))
+        if(!this.validateParameters(Cabin.validationParameters, parameters))
             throw new IllegalArgumentException("The included parameters were incorrect.");
         this.hasFullKitchen = (Boolean)parameters.get(9);
         this.hasLoft = (Boolean)parameters.get(10);
