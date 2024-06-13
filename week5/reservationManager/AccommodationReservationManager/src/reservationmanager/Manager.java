@@ -8,7 +8,6 @@ public class Manager  {
 
     private List<String> allAccounts;
     private Account currentAccount;
-    private Contact currentContact;
     private Reservation currentReservation;
 
     /*
@@ -29,7 +28,6 @@ public class Manager  {
          * Add to this.allAccounts List<String>
          */
         try {
-            String accounts[];
             File accountsDir = new File("./accounts");
             if(!accountsDir.exists())
                 accountsDir.mkdir();
@@ -47,16 +45,16 @@ public class Manager  {
     }
 
     /*
-     * View Current Contact Object as String
+     * View Current Account Contact Object as String
      */
-    public String viewCurrentContactObject(){
-        return this.currentContact.toString();
+    public String viewCurrentAccountContact(){
+        return this.currentAccount.acctClient.toString();
     }
 
     /*
      * View Current Address Object as string
      */
-    public String viewAddressObject(int typeIdx){
+    public String viewCurrentAccountAddress(int typeIdx){
         return this.currentAccount.addressList.get(typeIdx).toString();
     }
 
@@ -168,6 +166,13 @@ public class Manager  {
         this.currentAccount = new Account();
     }
 
+    public void saveObject(ParseXML objectTypeOf){
+        try {
+            objectTypeOf.saveCurrentObject();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
     /*
      * Update object
      */
@@ -180,9 +185,8 @@ public class Manager  {
             objectTypeOf.updateObjectFromParameters(parameters);
             objectTypeOf.saveCurrentObject();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            
         }
-        
     }
 
     /*

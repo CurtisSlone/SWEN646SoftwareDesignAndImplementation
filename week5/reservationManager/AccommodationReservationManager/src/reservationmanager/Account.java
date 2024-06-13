@@ -54,9 +54,11 @@ public class Account implements ParseXML, ParameterValidator {
             /*
              * If not acctID, generate new UniqueID
              */
-            if(this.getAccountId() == "-99")
+            if(this.getAccountId() == "-99" && this.acctClient != null && !this.addressList.isEmpty())
                 this.acctID = this.generateUniqueID("A");
-
+            
+            if(this.getAccountId() == "-99" && this.acctClient == null && this.addressList.isEmpty())   
+                throw new IllegalOperationException("The Account must have a Contact and Address to be saved");
             /*
              * Get directory
              * If directory doesn't exist, create
