@@ -148,7 +148,7 @@ public class Account implements ParseXML, ParameterValidator {
         /*
          * Validate Parameters
          */
-        if(!this.validateParameters(this.validationParameters, parameters))
+        if(!this.validateParameters(Account.validationParameters, parameters))
             throw new IllegalArgumentException("The included parameters were incorrect.");
         /*
          * Update Object from parameters

@@ -53,9 +53,9 @@ public class Manager  {
                 throw new IllegalOperationException("No Account selected");
            } catch (Exception e) {
             System.out.println(e.getMessage());
-           } finally {
-            return this.currentAccount.acctClient.toString();
            }
+        return this.currentAccount.acctClient.toString();
+           
     }
 
     /*
@@ -67,9 +67,8 @@ public class Manager  {
                 throw new IllegalOperationException("No Account selected");
            } catch (Exception e) {
             System.out.println(e.getMessage());
-           } finally {
-                return this.currentAccount.addressList.get(typeIdx).toString();
-           }
+           } 
+        return this.currentAccount.addressList.get(typeIdx).toString();
     }
 
     /*
@@ -81,9 +80,8 @@ public class Manager  {
                 throw new IllegalOperationException("No Account selected");
            } catch (Exception e) {
             System.out.println(e.getMessage());
-           } finally {
+           } 
                 return this.currentAccount;
-           }
     }
 
     /*
@@ -95,9 +93,9 @@ public class Manager  {
             throw new IllegalOperationException("No reservation selected");
        } catch (Exception e) {
         System.out.println(e.getMessage());
-       } finally {
+       } 
         return this.currentReservation;
-       }
+  
     }
 
     /*
@@ -109,9 +107,9 @@ public class Manager  {
                 throw new IllegalOperationException("No Account selected");
            } catch (Exception e) {
             System.out.println(e.getMessage());
-           } finally {
-             return this.currentAccount.acctReservations.toString();
-           }
+           } 
+        return this.currentAccount.acctReservations.toString();
+
     }
 
     /*

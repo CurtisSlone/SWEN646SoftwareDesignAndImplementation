@@ -4,9 +4,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 import java.util.TimeZone;
-import java.util.stream.Collectors;
 
-import reservationmanager.Manager;
 import reservationmanager.ReservationType;
 
 public class App {
@@ -17,7 +15,7 @@ public class App {
 
 
     public static void main(String[] args) throws Exception {
-        App app = new App();
+        
      
     }    
 

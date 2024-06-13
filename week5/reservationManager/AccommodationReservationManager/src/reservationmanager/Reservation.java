@@ -21,7 +21,7 @@ public abstract class Reservation implements ParseXML, ParameterValidator {
     protected List<Address> addressList;
     protected Date startDate;
     protected ReservationStatus status;
-    private ReservationType type;
+    
     protected boolean cancellable;
     protected int numberOfNights;
     protected int numberOfBeds;
@@ -37,7 +37,7 @@ public abstract class Reservation implements ParseXML, ParameterValidator {
      * Default constructor
      */
     public Reservation(ReservationType type, String accountID){
-        this.reservationID = type == ReservationType.HOTEL ? this.generateUniqueID("HOT") : type == ReservationType.HOUSE ? this.generateUniqueID("HOU") : this.generateUniqueID("CAB");
+        this.reservationID = (type == ReservationType.HOTEL) ? this.generateUniqueID("HOT") : type == ReservationType.HOUSE ? this.generateUniqueID("HOU") : this.generateUniqueID("CAB");
         this.accountID = accountID;
         this.numberOfBeds = 2;
         this.numberOfRooms = 1;
@@ -98,7 +98,6 @@ public abstract class Reservation implements ParseXML, ParameterValidator {
         * Find File based on reservation ID
         * Write XML as string to file
         */
-        File accountInfo = new File(reservationDir);
 
         try (FileOutputStream writeReservationToFile = new FileOutputStream(reservationFileName, true)) {
             for(char c : foutReservationInfo)
