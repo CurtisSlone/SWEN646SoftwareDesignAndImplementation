@@ -91,6 +91,8 @@ public class Manager  {
         * call currentObject ParseXML interface method to change all attributes of empty account
         */
         try {
+            if(accountIndex > this.allAccounts.size() - 1)
+                throw new IllegalOperationException("Index is outside of List Range");
             this.currentAccount = new Account();
             this.currentAccount.loadObjectFromFile(this.allAccounts.get(accountIndex));
         } catch (Exception e) {
@@ -110,7 +112,8 @@ public class Manager  {
          *  Change attributes by calling ParseXML interface methof loadObjectFromFile
          */
         try {
-            
+            if(reservationIndex > this.currentAccount.acctReservations.size() - 1)
+                throw new IllegalOperationException("Index is outside of List Range");
             if( this.currentAccount.acctReservations.get(reservationIndex).matches("^HOT.*")){
                 this.currentReservation = new Hotel(ReservationType.HOTEL, this.currentAccount.getAccountId());
 
