@@ -185,7 +185,7 @@ public class Manager  {
             objectTypeOf.updateObjectFromParameters(parameters);
             objectTypeOf.saveCurrentObject();
         } catch (Exception e) {
-            
+            System.out.println(e.getMessage());
         }
     }
 
