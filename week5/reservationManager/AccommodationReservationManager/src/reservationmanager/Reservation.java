@@ -99,8 +99,6 @@ public abstract class Reservation implements ParseXML, ParameterValidator {
         * Write XML as string to file
         */
         File accountInfo = new File(reservationDir);
-        if(!accountInfo.exists())
-            throw new DuplicateObjectException("Reservation already exists");
 
         try (FileOutputStream writeReservationToFile = new FileOutputStream(reservationFileName, true)) {
             for(char c : foutReservationInfo)
