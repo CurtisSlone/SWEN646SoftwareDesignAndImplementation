@@ -11,7 +11,7 @@ public class Hotel extends Reservation {
     */
     protected boolean hasKitchenette;
     protected boolean isValidHotel;
-    public static List<Object> validationParameters = Arrays.asList(new Address(), new Address() ,new Date(),false,0,0,0,0,0,0);
+    public static List<Object> validationParameters = Arrays.asList(new Address(), new Address() ,new Date(),false,0,0,0,0,0,0,true);
 
     // Default Constructor
     public Hotel( ReservationType type, String accountID){
