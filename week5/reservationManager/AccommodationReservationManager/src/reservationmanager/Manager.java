@@ -48,35 +48,70 @@ public class Manager  {
      * View Current Account Contact Object as String
      */
     public String viewCurrentAccountContact(){
-        return this.currentAccount.acctClient.toString();
+        try {
+            if(this.currentReservation == null)
+                throw new IllegalOperationException("No Account selected");
+           } catch (Exception e) {
+            System.out.println(e.getMessage());
+           } finally {
+            return this.currentAccount.acctClient.toString();
+           }
     }
 
     /*
      * View Current Address Object as string
      */
     public String viewCurrentAccountAddress(int typeIdx){
-        return this.currentAccount.addressList.get(typeIdx).toString();
+        try {
+            if(this.currentReservation == null)
+                throw new IllegalOperationException("No Account selected");
+           } catch (Exception e) {
+            System.out.println(e.getMessage());
+           } finally {
+                return this.currentAccount.addressList.get(typeIdx).toString();
+           }
     }
 
     /*
      * View Current Account Object
      */
     public Account viewCurrentAccountObject() {
-        return this.currentAccount;
+        try {
+            if(this.currentReservation == null)
+                throw new IllegalOperationException("No Account selected");
+           } catch (Exception e) {
+            System.out.println(e.getMessage());
+           } finally {
+                return this.currentAccount;
+           }
     }
 
     /*
      * View Current Reservation Object
      */
     public Reservation viewCurrentReservationObject() {
+       try {
+        if(this.currentReservation == null)
+            throw new IllegalOperationException("No reservation selected");
+       } catch (Exception e) {
+        System.out.println(e.getMessage());
+       } finally {
         return this.currentReservation;
+       }
     }
 
     /*
      * View Current Account Object Reservations as String
      */
     public String viewAllCurrentAccountReservations(){
-        return this.currentAccount.acctReservations.toString();
+        try {
+            if(this.currentReservation == null)
+                throw new IllegalOperationException("No Account selected");
+           } catch (Exception e) {
+            System.out.println(e.getMessage());
+           } finally {
+             return this.currentAccount.acctReservations.toString();
+           }
     }
 
     /*
@@ -112,6 +147,8 @@ public class Manager  {
         try {
             if(reservationIndex > this.currentAccount.acctReservations.size() - 1)
                 throw new IllegalOperationException("Index is outside of List Range");
+            if(this.currentAccount == null)
+            throw new IllegalOperationException("No account selected");
             if( this.currentAccount.acctReservations.get(reservationIndex).matches("^HOT.*")){
                 this.currentReservation = new Hotel(ReservationType.HOTEL, this.currentAccount.getAccountId());
 
