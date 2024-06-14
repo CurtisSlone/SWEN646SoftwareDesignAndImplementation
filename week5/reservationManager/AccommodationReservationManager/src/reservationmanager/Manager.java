@@ -144,9 +144,9 @@ public class Manager  {
          */
         try {
             if(reservationIndex > this.currentAccount.acctReservations.size() - 1)
-                throw new IllegalOperationException("Index is outside of List Range");
+                throw new IllegalArgumentException("Index is outside of List range");
             if(this.currentAccount == null)
-            throw new IllegalOperationException("No account selected");
+                throw new IllegalOperationException("No account selected");
             if( this.currentAccount.acctReservations.get(reservationIndex).matches("^HOT.*")){
                 this.currentReservation = new Hotel(ReservationType.HOTEL, this.currentAccount.getAccountId());
 
