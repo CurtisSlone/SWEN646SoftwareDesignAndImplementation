@@ -19,7 +19,7 @@ class Account implements ParseXML, ParameterValidator {
     /*
      * Default Constructor
      */
-    public Account(){
+    protected Account(){
         this.acctID = "-99";
         this.acctReservations = new ArrayList<>();
         this.addressList = new ArrayList<>();

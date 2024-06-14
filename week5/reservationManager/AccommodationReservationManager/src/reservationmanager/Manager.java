@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
-class Manager  {
+public class Manager  {
 
     private List<String> allAccounts;
     private Account currentAccount;
@@ -49,7 +49,7 @@ class Manager  {
      */
     public String viewCurrentAccountContact(){
         try {
-            if(this.currentReservation == null)
+            if(this.currentAccount == null)
                 throw new IllegalOperationException("No Account selected");
            } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -61,14 +61,14 @@ class Manager  {
     /*
      * View Current Address Object as string
      */
-    public String viewCurrentAccountAddress(int typeIdx){
+    public String viewCurrentAccountAddresses(){
         try {
-            if(this.currentReservation == null)
+            if(this.currentAccount == null)
                 throw new IllegalOperationException("No Account selected");
            } catch (Exception e) {
             System.out.println(e.getMessage());
            } 
-        return this.currentAccount.addressList.get(typeIdx).toString();
+        return this.currentAccount.addressList.toString();
     }
 
     /*
@@ -76,7 +76,7 @@ class Manager  {
      */
     public Account viewCurrentAccountObject() {
         try {
-            if(this.currentReservation == null)
+            if(this.currentAccount == null)
                 throw new IllegalOperationException("No Account selected");
            } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -103,7 +103,7 @@ class Manager  {
      */
     public String viewAllCurrentAccountReservations(){
         try {
-            if(this.currentReservation == null)
+            if(this.currentAccount == null)
                 throw new IllegalOperationException("No Account selected");
            } catch (Exception e) {
             System.out.println(e.getMessage());
