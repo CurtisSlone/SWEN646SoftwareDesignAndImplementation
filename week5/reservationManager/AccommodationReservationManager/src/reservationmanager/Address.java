@@ -26,6 +26,9 @@ public class Address {
         this.zip = parameters.get(4);
     }
 
+    /*
+    * Override Object.toSTring() Output as XML
+    */ 
     @Override
     public String toString(){
         return String.format("\n<Address>\n<street1>%s</street1>\n<street2>%s</street2>\n<city>%s</city>\n<state>%s</state>\n<zip>%s</zip>\n</Address>\n",this.street1,this.street2,this.city,this.state,this.zip);

@@ -58,6 +58,7 @@ class Cabin extends Reservation {
         this.hasLoft = (Boolean)parameters.get(10);
     }
     
+    //Override Object.toString()
     @Override
     public String toString(){
 

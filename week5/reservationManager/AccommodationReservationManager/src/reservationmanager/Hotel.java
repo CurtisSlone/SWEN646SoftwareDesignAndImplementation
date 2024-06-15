@@ -66,6 +66,9 @@ class Hotel extends Reservation {
         this.hasKitchenette = (Boolean)parameters.get(9);
     }
 
+    /*
+    * Override Object.toSTring() Output as XML
+    */ 
     @Override
     public String toString() {
         

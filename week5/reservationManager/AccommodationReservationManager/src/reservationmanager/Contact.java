@@ -24,7 +24,7 @@ public class Contact {
 
 
     /*
-    * Output as XML
+    * Override Object.toSTring() Output as XML
     */ 
     @Override
     public String toString(){

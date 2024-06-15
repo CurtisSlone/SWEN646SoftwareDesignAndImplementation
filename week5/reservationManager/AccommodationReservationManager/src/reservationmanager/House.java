@@ -45,6 +45,9 @@ class House extends Reservation {
         this.numberOfFloors = (Integer)parameters.get(9);
     }
 
+    /*
+    * Override Object.toSTring() Output as XML
+    */ 
     @Override
     public String toString(){
         return String.format("<HotelReservation>\n%s\n<numberOfFloors>%s</numberOfFloors>\n</HotelReservation>\n", super.toString(), String.valueOf(this.numberOfFloors));

@@ -173,9 +173,9 @@ class Account implements ParseXML, ParameterValidator {
         throw new IllegalOperationException("Can not delete account.");
     }
  
-        /*
-         * Output as XML
-         */ 
+    /*
+    * Override Object.toSTring() Output as XML
+    */ 
     @Override
     public String toString(){
         
