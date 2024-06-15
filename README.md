@@ -13,4 +13,4 @@ Access Modifiers, encapsulation, overloading and overriding
 
 ## Week 5 Assignment
 Add Exceptions
-![Diagram](week6/AccommodationDiagram.jpg)
+![Diagram](week5/AccommodationDiagram.jpg)
