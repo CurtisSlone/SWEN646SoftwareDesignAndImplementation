@@ -14,7 +14,7 @@ class Cabin extends Reservation {
     public static List<Object> validationParameters = Arrays.asList(new Address(), new Address() ,new Date(),false,0,0,0,0,0,0, true, true);
 
     // Default Constructor
-    protected Cabin( ReservationType type, String accountID){
+    public Cabin( ReservationType type, String accountID){
         super(type, accountID);
     }
     

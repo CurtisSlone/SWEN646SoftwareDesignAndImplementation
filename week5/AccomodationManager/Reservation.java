@@ -36,7 +36,7 @@ abstract class Reservation implements ParseXML, ParameterValidator {
     /*
      * Default constructor
      */
-  protected Reservation(ReservationType type, String accountID){
+    public Reservation(ReservationType type, String accountID){
         this.reservationID = (type == ReservationType.HOTEL) ? this.generateUniqueID("HOT") : type == ReservationType.HOUSE ? this.generateUniqueID("HOU") : this.generateUniqueID("CAB");
         this.accountID = accountID;
         this.numberOfBeds = 2;

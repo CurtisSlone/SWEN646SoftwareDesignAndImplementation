@@ -12,7 +12,7 @@ class House extends Reservation {
     public static List<Object> validationParameters = Arrays.asList(new Address(), new Address() ,new Date(),false,0,0,0,0,0,0,0);
 
     //Default Constructor
-protected House( ReservationType type, String accountID){
+    public House( ReservationType type, String accountID){
         super(type, accountID);
     }
  
