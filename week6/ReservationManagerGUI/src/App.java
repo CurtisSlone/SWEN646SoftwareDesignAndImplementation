@@ -1,5 +1,9 @@
+
+import com.gui.PrimaryWindow;
+
 public class App {
     public static void main(String[] args) throws Exception {
-        System.out.println("Hello, World!");
+       PrimaryWindow app = new PrimaryWindow();
+       app.setVisible(true);
     }
 }
