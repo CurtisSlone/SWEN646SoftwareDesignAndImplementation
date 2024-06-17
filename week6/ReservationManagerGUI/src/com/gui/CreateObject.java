@@ -4,8 +4,8 @@ import com.manager.Manager;
 
 public class CreateObject extends State {
 
-    public CreateObject(Manager parentManager, String objectType){
-        super(parentManager);
-        
+    public CreateObject(JFrame parentFrame, String objectType){
+        super(parentFrame);
+
     }
 }

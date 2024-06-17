@@ -2,6 +2,7 @@ package com.gui;
 
 import com.manager.Manager;
 import java.awt.*;
+import java.awt.event.*;
 import javax.swing.*;
 
 public class InitialPanel extends State {
@@ -24,10 +25,17 @@ public class InitialPanel extends State {
         JPanel buttonPanel = new JPanel();
         this.confirmSelection = new JButton("Select");
         this.createAccount = new JButton("Create Account");
+        this.createAccount.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ae){
+                PrimaryWindow.changeState();
+            }
+        });
         buttonPanel.add(this.confirmSelection);
         buttonPanel.add(this.createAccount);
 
         this.add(this.accountScroller, BorderLayout.CENTER);
         this.add(buttonPanel, BorderLayout.SOUTH);
     }
+
+    
 }

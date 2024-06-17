@@ -10,6 +10,5 @@ public abstract class State extends JPanel {
     public State(Manager parentManager){
         super(new BorderLayout());
         this.parent = parentManager;
-    }
-
+     }
 }
