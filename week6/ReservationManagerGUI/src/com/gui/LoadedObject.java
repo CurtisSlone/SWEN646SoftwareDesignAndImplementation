@@ -11,6 +11,7 @@ public class LoadedObject extends State {
     JButton selectReservation;
     JButton updateAccount;
     JButton updateReservation;
+    JButton createReservation;
     JLabel reservationsLabel;
     JLabel reservationsIDLabel;
     JLabel accountIDLabel;
@@ -40,11 +41,19 @@ public class LoadedObject extends State {
         this.selectReservation = new JButton("Select Reservation");
         this.updateAccount = new JButton("Update Account");
         this.updateReservation = new JButton("Update Reservation");
+        this.createReservation = new JButton("Create Reservation");
+
+        this.selectAccount.addActionListener(this);
+        this.selectReservation.addActionListener(this);
+        this.updateAccount.addActionListener(this);
+        this.updateReservation.addActionListener(this);
         
-        this.informationPanel.add(this.reservationsLabel);
-        this.informationPanel.add(this.accountIDLabel);
-        this.informationPanel.add(this.reservationScroller);
+        
         this.informationPanel.add(this.reservationsIDLabel);
+        this.informationPanel.add(this.accountIDLabel);
+        this.informationPanel.add(this.reservationsLabel);
+        this.informationPanel.add(this.reservationScroller);
+        
         this.add(this.informationPanel, BorderLayout.NORTH);
 
         this.buttonPanel.add(this.selectAccount);
@@ -54,6 +63,28 @@ public class LoadedObject extends State {
         this.add(this.buttonPanel, BorderLayout.SOUTH);
     }
 
-    public void actionPerformed(ActionEvent ae){};
+    public void actionPerformed(ActionEvent ae){
+        System.out.println(ae.getActionCommand());
+        switch(ae.getActionCommand()){
+            case "Select Account By ID":
+                this.setVisible(false);
+                this.nextState = new InitialPanel(this.parent);
+                break;
+            case "Update Account":
+                this.setVisible(false);
+                this.nextState = new CreateObject(this.parent,"RESERVATION");
+                break;
+            case "Update Reservation":
+                this.setVisible(false);
+                this.nextState = new CreateObject(this.parent,"RESERVATION");
+                break;
+            case "Select Reservation":
+                break;
+            case "Create Reservation":
+                this.setVisible(false);
+                this.nextState = new CreateObject(this.parent,"RESERVATION");
+                break;
+        }
+    };
     
 }

@@ -20,10 +20,19 @@ public class CreateObject extends State {
         this.parent.createNewAccount();
         this.panelQueueIdx = 0;
         this.panelQueue = new Vector<JPanel>();
-        if(objectType == "Account"){
-            this.panelQueue.add(new CreateContact());
-            this.panelQueue.add(new CreateAddress());
-            this.panelQueue.add(new CreateAddress());
+        switch (objectType) {
+            case "ACCOUNT":
+                this.panelQueue.add(new CreateContact());
+                this.panelQueue.add(new CreateAddress());
+                this.panelQueue.add(new CreateAddress());
+                break;
+            case "RESERVATION":
+                this.panelQueue.add(new CreateAddress());
+                this.panelQueue.add(new CreateAddress());
+                this.panelQueue.add(new ReservationBase());
+                break;
+            default:
+                throw new AssertionError();
         }
 
         this.last = new JButton("Last");
