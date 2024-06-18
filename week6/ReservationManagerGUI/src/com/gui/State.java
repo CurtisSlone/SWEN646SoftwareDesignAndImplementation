@@ -1,14 +1,23 @@
 package com.gui;
 
 import com.manager.Manager;
-import java.awt.BorderLayout;
-import javax.swing.JPanel;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
 
-public abstract class State extends JPanel {
+public abstract class State extends JPanel implements ActionListener{
 
-    Manager parent;
+    public Manager parent;
+    public State nextState;
     public State(Manager parentManager){
         super(new BorderLayout());
         this.parent = parentManager;
      }
+
+    public abstract  void actionPerformed(ActionEvent ae);
+
+    public State updateState(){
+        return this.nextState;
+    }
+
 }

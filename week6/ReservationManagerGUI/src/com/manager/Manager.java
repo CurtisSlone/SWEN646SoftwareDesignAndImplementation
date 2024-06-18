@@ -101,14 +101,14 @@ public class Manager  {
     /*
      * View Current Account Object Reservations as String
      */
-    public String viewAllCurrentAccountReservations(){
+    public List<String> viewAllCurrentAccountReservations(){
         try {
             if(this.currentAccount == null)
                 throw new IllegalOperationException("No Account selected");
            } catch (Exception e) {
             System.out.println(e.getMessage());
            } 
-        return this.currentAccount.acctReservations.toString();
+        return this.currentAccount.acctReservations;
 
     }
 

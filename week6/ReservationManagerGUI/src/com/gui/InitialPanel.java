@@ -14,6 +14,7 @@ public class InitialPanel extends State {
     JButton createAccount;
     JScrollPane accountScroller;
     String selectedAccount;
+    
 
     public InitialPanel(Manager parentManager){
         super(parentManager);
@@ -22,20 +23,27 @@ public class InitialPanel extends State {
         this.accounts.setLayoutOrientation(JList.VERTICAL);
         this.accountScroller = new JScrollPane(this.accounts);
 
-        JPanel buttonPanel = new JPanel();
+        this.buttonPanel = new JPanel();
         this.confirmSelection = new JButton("Select");
         this.createAccount = new JButton("Create Account");
-        this.createAccount.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent ae){
-                PrimaryWindow.changeState();
-            }
-        });
-        buttonPanel.add(this.confirmSelection);
-        buttonPanel.add(this.createAccount);
+        this.confirmSelection.addActionListener(this);
+        this.createAccount.addActionListener(this);
+        this.buttonPanel.add(this.confirmSelection);
+        this.buttonPanel.add(this.createAccount);
 
         this.add(this.accountScroller, BorderLayout.CENTER);
-        this.add(buttonPanel, BorderLayout.SOUTH);
+        this.add(this.buttonPanel, BorderLayout.SOUTH);
     }
 
-    
+    public void actionPerformed(ActionEvent ae){
+        switch(ae.getActionCommand()){
+            case "Create Account":
+                this.nextState = new CreateObject(this.parent,"Account");
+                break;
+            case "Select":
+            this.nextState = new LoadedObject(this.parent);
+                break;
+        }
+        this.setVisible(false);
+    }
 }

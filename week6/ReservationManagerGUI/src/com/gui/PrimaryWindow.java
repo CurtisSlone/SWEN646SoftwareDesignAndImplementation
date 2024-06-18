@@ -5,10 +5,9 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class PrimaryWindow extends JFrame {
+public class PrimaryWindow extends JFrame implements ComponentListener{
     Manager reservationManager;
     State currState;
-    State prevState;
 
     public PrimaryWindow(){
         super("Accomodation Reservation Manager");
@@ -16,20 +15,27 @@ public class PrimaryWindow extends JFrame {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.reservationManager = new Manager();
         this.currState = new InitialPanel(this.reservationManager);
+        this.currState.addComponentListener(this);
         this.getContentPane().add(this.currState, BorderLayout.CENTER);
-
     }
 
-    public static void changeState(){
-        System.out.println("Event");
-        // this.prevState = this.currState;
-        // this.getContentPane().remove(this.currState);
-        // this.currState = new UpdateObjectPanel(this.reservationManager);
-        // this.getContentPane().add(this.currState, BorderLayout.CENTER);
+    public void componentHidden(ComponentEvent e) {
+        this.getContentPane().remove(this.currState);
+        this.currState = ((State)e.getComponent()).updateState();
+        this.currState.addComponentListener(this);
+        this.getContentPane().add(this.currState, BorderLayout.CENTER);
     }
 
-    public void actionPerformed(ActionEvent e){
-        System.out.println(e.getActionCommand());
-        
+    public void componentMoved(ComponentEvent e) {
+       
     }
+
+    public void componentResized(ComponentEvent e) {
+                    
+    }
+
+    public void componentShown(ComponentEvent e) {
+    }
+
+
 }
