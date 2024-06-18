@@ -1,4 +1,5 @@
 package com.gui;
+import java.awt.GridLayout;
 import javax.swing.*;
 
 public class ReservationBase extends JPanel {
@@ -27,6 +28,9 @@ public class ReservationBase extends JPanel {
     JRadioButton cabinButton;
 
     ButtonGroup typeButtonGroup;
+    JPanel typePanel;
+    GridLayout radioGrid;
+
 
     public ReservationBase(){
 
