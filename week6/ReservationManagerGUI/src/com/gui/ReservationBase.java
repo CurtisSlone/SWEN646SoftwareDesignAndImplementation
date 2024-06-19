@@ -40,7 +40,7 @@ public class ReservationBase extends JPanel implements ActionListener {
 
 
     public ReservationBase(){
-
+        super(new BorderLayout());
         this.hotelString = "Hotel";
         this.houseString = "House";
         this.cabinString = "Cabin";
@@ -59,10 +59,17 @@ public class ReservationBase extends JPanel implements ActionListener {
         this.typeButtonGroup.add(this.hotelButton);
         this.typeButtonGroup.add(this.cabinButton);
 
+        this.hotelButton.addActionListener(this);
+        this.houseButton.addActionListener(this);
+        this.cabinButton.addActionListener(this);
+
         this.typePanel = new JPanel();
+        this.typePanel.add(this.hotelButton);
+        this.typePanel.add(this.houseButton);
+        this.typePanel.add(this.cabinButton);
     }
 
     public void actionPerformed(ActionEvent ae){
-        
+
     }
 }

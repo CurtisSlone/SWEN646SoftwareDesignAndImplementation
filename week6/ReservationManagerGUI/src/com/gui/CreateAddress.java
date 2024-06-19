@@ -16,11 +16,8 @@ public class CreateAddress extends JPanel {
     JTextField stateTextField;
     JTextField zipTextField;
 
-    GridLayout addressLayout;
-
     public CreateAddress(){
-        this.addressLayout = new GridLayout(5,2);
-        this.setLayout(this.addressLayout);
+        super(new GridLayout(5,2));
         this.street1JLabel = new JLabel("Street Address");
         this.street2Label = new JLabel("Street Address (Cont.)");
         this.cityLabel = new JLabel("City");
