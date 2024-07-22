@@ -9,7 +9,7 @@ class House extends Reservation {
     * House attribute
     */
     protected int numberOfFloors;
-    public static List<Object> validationParameters = Arrays.asList(new Address(), new Address() ,new Date(),false,0,0,0,0,0,0,0);
+    public static List<Object> validationParameters = Arrays.asList(new Address(), new Address() ,new Date(),0,0,0,0,0,0);
 
     //Default Constructor
 protected House( ReservationType type, String accountID){

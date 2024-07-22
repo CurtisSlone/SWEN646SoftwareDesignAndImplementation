@@ -16,7 +16,6 @@ class Cabin extends Reservation {
     // Default Constructor
     protected Cabin( ReservationType type, String accountID){
         super(type, accountID);
-        System.out.println("Creating new Cabin Reservation");
     }
     
     // Override calculate price

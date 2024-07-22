@@ -11,7 +11,7 @@ class Hotel extends Reservation {
     */
     protected boolean hasKitchenette;
     protected boolean isValidHotel;
-    public static List<Object> validationParameters = Arrays.asList(new Address(), new Address() ,new Date(),false,0,0,0,0,0,0,true);
+    public static List<Object> validationParameters = Arrays.asList(new Address(), new Address() ,new Date(),0,0,0,0,0,true);
 
     // Default Constructor
     protected Hotel( ReservationType type, String accountID){
@@ -49,7 +49,7 @@ class Hotel extends Reservation {
     public void saveCurrentObject() throws Exception{ 
         
         if(!this._checkIfValidHotel())
-            throw new Exception();
+            throw new Exception("Hotel not valid");
         super.saveCurrentObject();
     }
 
@@ -63,7 +63,7 @@ class Hotel extends Reservation {
         if(!this.validateParameters(Hotel.validationParameters, parameters))
             throw new IllegalArgumentException("The included parameters were incorrect.");
         super.updateObjectFromParameters(parameters);
-        this.hasKitchenette = (Boolean)parameters.get(9);
+        this.hasKitchenette = (Boolean)parameters.get(8);
     }
 
     /*
@@ -72,6 +72,6 @@ class Hotel extends Reservation {
     @Override
     public String toString() {
         
-        return String.format("<HotelReservation>\n%s\n<hasKitchenette>%s</hasKitchenette>\n</HotelReservation>",super.toString(), String.valueOf(this.hasKitchenette)) ;
+        return String.format("<HotelReservation>\n%s\n<hasKitchenette>%s</hasKitchenette>\n</HotelReservation>",super.toString(), String.valueOf(this.hasKitchenette));
     }
 }

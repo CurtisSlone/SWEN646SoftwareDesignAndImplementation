@@ -52,7 +52,6 @@ public class App {
             1,
             1,
             1,
-            1,
             300,
             true
         );
@@ -65,7 +64,6 @@ public class App {
             2,
             2,
             2,
-            1,
             600,
             true
         );
@@ -104,7 +102,6 @@ public class App {
             2,
             2,
             2,
-            1,
             1400,
             1
         );
@@ -117,7 +114,6 @@ public class App {
             5,
             5,
             5,
-            1,
             2500,
             2
         );

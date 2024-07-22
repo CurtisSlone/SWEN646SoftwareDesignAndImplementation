@@ -192,10 +192,10 @@ abstract class Reservation implements ParseXML, ParameterValidator {
      * Update object from parameters
      */
     public void updateObjectFromParameters(List<Object> parameters) throws Exception {
-
+        
         this.addressList.add(0, (Address)parameters.get(0));
         this.addressList.add(1, (Address)parameters.get(1));
-        this.startDate = (Date)(Date)parameters.get(2);
+        this.startDate = (Date)parameters.get(2);
         this.numberOfNights = (Integer)parameters.get(3);
         this.numberOfBeds = (Integer)parameters.get(4);
         this.numberOfRooms = (Integer)parameters.get(5);
