@@ -201,7 +201,6 @@ public class App {
             """);
             manager.createNewReservation(ReservationType.HOTEL);
             manager.updateObject(manager.viewCurrentReservationObject(), reservationParamsHotel1);
-            manager.saveObject(manager.viewCurrentReservationObject());
 
             System.out.println("""
 
@@ -211,7 +210,6 @@ public class App {
             """);
             manager.createNewReservation(ReservationType.HOUSE);
             manager.updateObject(manager.viewCurrentReservationObject(), reservationParamsHouse1);
-            manager.saveObject(manager.viewCurrentReservationObject());
 
             System.out.println("""
 
