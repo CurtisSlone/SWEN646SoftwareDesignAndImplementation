@@ -11,8 +11,6 @@ import com.manager.ReservationType;
 public class App {
     public static void main(String[] args) throws Exception {
        Manager manager = new Manager();
-        manager.createNewAccount();
-
         /*
          * ACCOUNT TESTS
          */
