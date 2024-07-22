@@ -31,7 +31,7 @@ protected House( ReservationType type, String accountID){
         //Reset child xml
         this.childXml = "";
     }
-
+ 
     // Override updateObjectFromParameters interface method
     @Override
     public void updateObjectFromParameters(List<Object> parameters) throws Exception {
@@ -42,7 +42,7 @@ protected House( ReservationType type, String accountID){
         if(!this.validateParameters(House.validationParameters, parameters))
             throw new IllegalArgumentException("The included parameters were incorrect.");
         super.updateObjectFromParameters(parameters);
-        this.numberOfFloors = (Integer)parameters.get(9);
+        this.numberOfFloors = (Integer)parameters.get(8);
     }
 
     /*

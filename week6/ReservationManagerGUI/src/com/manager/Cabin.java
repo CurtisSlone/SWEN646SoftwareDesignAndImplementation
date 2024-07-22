@@ -11,11 +11,12 @@ class Cabin extends Reservation {
     */
     protected boolean hasFullKitchen;
     protected boolean hasLoft;
-    public static List<Object> validationParameters = Arrays.asList(new Address(), new Address() ,new Date(),false,0,0,0,0,0,0, true, true);
+    public static List<Object> validationParameters = Arrays.asList(new Address(), new Address() ,new Date(),0,0,0,0,0, true, true);
 
     // Default Constructor
     protected Cabin( ReservationType type, String accountID){
         super(type, accountID);
+        System.out.println("Creating new Cabin Reservation");
     }
     
     // Override calculate price
@@ -51,11 +52,11 @@ class Cabin extends Reservation {
          * Call Super
          * assign child attributes using childxml string
          */
-        super.updateObjectFromParameters(parameters);
         if(!this.validateParameters(Cabin.validationParameters, parameters))
             throw new IllegalArgumentException("The included parameters were incorrect.");
-        this.hasFullKitchen = (Boolean)parameters.get(9);
-        this.hasLoft = (Boolean)parameters.get(10);
+        super.updateObjectFromParameters(parameters);
+        this.hasFullKitchen = (Boolean)parameters.get(8);
+        this.hasLoft = (Boolean)parameters.get(9);
     }
     
     //Override Object.toString()

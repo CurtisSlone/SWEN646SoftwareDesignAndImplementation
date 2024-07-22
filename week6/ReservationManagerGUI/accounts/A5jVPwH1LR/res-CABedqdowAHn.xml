@@ -1,0 +1,31 @@
+<CabinReservation>
+<reservationID>CABedqdowAHn</reservationID>
+<accountID>A5jVPwH1LR</accountID>
+<reservationStatus>DRAFT</reservationStatus>
+<PhysicalAddress>
+<Address>
+<street1>789 Cabin Ln</street1>
+<street2></street2>
+<city>Springfield</city>
+<state>IL</state>
+<zip>62703</zip>
+</Address>
+</PhysicalAddress>
+<MailingAddress>
+<Address>
+<street1>789 Cabin Ln</street1>
+<street2></street2>
+<city>Springfield</city>
+<state>IL</state>
+<zip>62703</zip>
+</Address>
+</MailingAddress>
+<date>Mon Jul 22 14:44:59 CEST 2024</date>
+<numberOfNights>3</numberOfNights>
+<numberOfBeds>1</numberOfBeds>
+<numberOfRooms>1</numberOfRooms>
+<numberOfBaths>1</numberOfBaths>
+<lodgingSize>700</lodgingSize>
+<hasFullKitchen>true</hasFullKitchen>
+<hasLoft>false</hasLoft>
+</Cabinreservation>

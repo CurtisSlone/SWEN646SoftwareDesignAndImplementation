@@ -8,9 +8,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-class Account implements ParseXML, ParameterValidator {
-    private String acctID;
+public class Account implements ParseXML, ParameterValidator {
+    protected String acctID;
     protected Contact acctClient;
     protected List<Address> addressList;
     protected List<String> acctReservations;
@@ -23,13 +25,13 @@ class Account implements ParseXML, ParameterValidator {
         this.acctID = "-99";
         this.acctReservations = new ArrayList<>();
         this.addressList = new ArrayList<>();
-        this.acctReservations = new ArrayList<>(); 
+        this.acctReservations = new ArrayList<>();
     }
 
     /*
      * Return this account id
      */
-    protected String getAccountId(){
+    public String getAccountId(){
         return this.acctID;
     }
 
@@ -89,6 +91,8 @@ class Account implements ParseXML, ParameterValidator {
         String accountFile;
         String accountXmlAsString;
         List<String> parameters;
+        Pattern pattern = Pattern.compile(">(.*?)<");
+        Matcher matcher;
 
             //Change account ID to match File
             this.acctID = identifierString;
@@ -103,24 +107,31 @@ class Account implements ParseXML, ParameterValidator {
                 throw new IllegalLoadException("Account does not exist");
 
             accountXmlAsString = new String(Files.readAllBytes(Paths.get(accountFile)));
+            
 
             /*
              * Parse Contact from xml 
              * Create Contact Object
              * Clear parameters for next Object
              */
-            parameters = Arrays.asList(accountXmlAsString.substring(accountXmlAsString.indexOf("<Contact>"), accountXmlAsString.indexOf("</Contact>") + "</Contact>".length()).replaceAll("<(.*?)>", ",").split(","));
-            parameters.removeIf( x -> x.equals(""));
+            parameters = new ArrayList<>();
+            matcher = pattern.matcher(accountXmlAsString.substring(accountXmlAsString.indexOf("<firstName>"), accountXmlAsString.indexOf("</phone") + "</phone>".length()));
+            while (matcher.find()) {
+                parameters.add(matcher.group(1).trim());
+            }
             this.acctClient = new Contact(parameters);
-
+            
             /*
              * Parse Physical Address from xml 
              * Create Address Object
              * Add to adressList List<Address>
              * Clear parameters for next Object
              */
-            parameters = Arrays.asList(accountXmlAsString.substring(accountXmlAsString.indexOf("<PhysicalAddress>") + "<PhysicalAddress>".length(), accountXmlAsString.indexOf("</PhysicalAddress")).replaceAll("<(.*?)>", ",").split(","));
-            parameters.removeIf(x -> x.equals(""));
+            parameters = new ArrayList<>();
+            matcher = pattern.matcher(accountXmlAsString.substring(accountXmlAsString.indexOf("<PhysicalAddress>") + "<PhysicalAddress>".length(), accountXmlAsString.indexOf("</PhysicalAddress")));
+            while (matcher.find()) {
+                parameters.add(matcher.group(1).trim());
+            }
             this.addressList.add(new Address(parameters));
 
             /*
@@ -129,15 +140,22 @@ class Account implements ParseXML, ParameterValidator {
              * Add to adressList List<Address>
              * Clear parameters for next Object
              */
-            parameters = Arrays.asList(accountXmlAsString.substring(accountXmlAsString.indexOf("<MailingAddress>") + "<MailingAddress>".length(), accountXmlAsString.indexOf("</MailingAddress")).replaceAll("<(.*?)>", ",").split(","));
-            parameters.removeIf(x -> x.equals(""));
+            parameters = new ArrayList<>();
+            matcher = pattern.matcher(accountXmlAsString.substring(accountXmlAsString.indexOf("<MailingAddress>") + "<MailingAddress>".length(), accountXmlAsString.indexOf("</MailingAddress")));
+            while (matcher.find()) {
+                parameters.add(matcher.group(1).trim());
+            }
             this.addressList.add(new Address(parameters));
 
             /*
              * Parse RservationIDs from XML
              * Add to this.acctReservations
              */
-            this.acctReservations = Arrays.asList(accountXmlAsString.substring(accountXmlAsString.indexOf("<Reservations>[") + "<Reservations>[".length(), accountXmlAsString.indexOf("]</Reservations>")).split(", "));
+            
+             matcher = pattern.matcher(accountXmlAsString.substring(accountXmlAsString.indexOf("<Reservations>[") + "<Reservations>[".length(), accountXmlAsString.indexOf("]</Reservations>")));
+             while (matcher.find()) {
+                this.acctReservations.add(matcher.group(1).trim());
+            }
             
     };
     
@@ -179,6 +197,6 @@ class Account implements ParseXML, ParameterValidator {
     @Override
     public String toString(){
         
-        return String.format("<Account>\n<accountID>%s</accountID>\n%s<PhysicalAddress>%s</PhysicalAddress>\n<MailingAddress>%s</MailingAddress>\n<Reservations>%s</Reservations>\n</Account>\n",this.acctID,this.acctClient.toString(),this.addressList.get(0).toString(),this.addressList.get(1).toString(),this.acctReservations.toString());
+        return String.format("<Account>\n<accountID>%s</accountID>\n%s<PhysicalAddress>%s</PhysicalAddress>\n<MailingAddress>%s</MailingAddress>\n<Reservations>%s</Reservations>\n</Account>\n",this.acctID,this.acctClient,this.addressList.get(0).toString(),this.addressList.get(1).toString(),this.acctReservations.toString());
     }
 }

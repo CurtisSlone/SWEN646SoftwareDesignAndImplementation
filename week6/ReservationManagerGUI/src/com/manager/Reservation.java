@@ -31,7 +31,6 @@ abstract class Reservation implements ParseXML, ParameterValidator {
     protected float lodgingSizeFee;
     protected float priceTotal;
     protected final float BASEPRICE = 120;
-    public static List<Object> validationParameters = Arrays.asList(new Address(), new Address() ,new Date(),false,0,0,0,0,0,0);
 
     /*
      * Default constructor
@@ -194,18 +193,16 @@ abstract class Reservation implements ParseXML, ParameterValidator {
      */
     public void updateObjectFromParameters(List<Object> parameters) throws Exception {
 
-        if(!this.validateParameters(Reservation.validationParameters, parameters))
-            throw new IllegalArgumentException("The included parameters were incorrect.");
         this.addressList.add(0, (Address)parameters.get(0));
         this.addressList.add(1, (Address)parameters.get(1));
-        this.startDate = (Date)(new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy").parse((String)parameters.get(2)));
-        this.cancellable = (Boolean)parameters.get(3);
-        this.numberOfNights = (Integer)parameters.get(4);
-        this.numberOfBeds = (Integer)parameters.get(5);
-        this.numberOfRooms = (Integer)parameters.get(6);
-        this.numberOfBaths = (Integer)parameters.get(7);
-        this.lodgingSize = (Integer)parameters.get(8);
+        this.startDate = (Date)(Date)parameters.get(2);
+        this.numberOfNights = (Integer)parameters.get(3);
+        this.numberOfBeds = (Integer)parameters.get(4);
+        this.numberOfRooms = (Integer)parameters.get(5);
+        this.numberOfBaths = (Integer)parameters.get(6);
+        this.lodgingSize = (Integer)parameters.get(7);
         this.cancellable = java.time.LocalDate.now().isBefore(this.startDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+
     }
 
     /*

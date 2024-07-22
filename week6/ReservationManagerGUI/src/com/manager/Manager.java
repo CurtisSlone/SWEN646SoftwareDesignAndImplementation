@@ -126,6 +126,7 @@ public class Manager  {
                 throw new IllegalOperationException("Index is outside of List Range");
             this.currentAccount = new Account();
             this.currentAccount.loadObjectFromFile(this.allAccounts.get(accountIndex));
+            // System.out.println(this.currentAccount);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -158,7 +159,7 @@ public class Manager  {
 
             }
 
-            this.currentReservation.loadObjectFromFile(this.currentAccount.acctReservations.get(reservationIndex));
+         this.currentReservation.loadObjectFromFile(this.currentAccount.acctReservations.get(reservationIndex));
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -207,6 +208,7 @@ public class Manager  {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+        this._loadAllAccounts();
     }
     /*
      * Update object
