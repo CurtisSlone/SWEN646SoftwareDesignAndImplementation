@@ -189,6 +189,8 @@ public class Manager  {
                     this.currentReservation = new Cabin(type, this.currentAccount.getAccountId());
                     break;
             }
+
+            this.viewCurrentAccountObject().acctReservations.add(this.currentReservation.getReservationID());
         }
         catch (Exception e) {
             System.out.println(e.getMessage());
