@@ -214,6 +214,7 @@ public class App {
 
             """);
             manager.viewAllCurrentAccountReservations().stream().forEach(System.out::println);
+            manager.saveObject(manager.viewCurrentAccountObject());
 
             
         } catch (Exception e) {
