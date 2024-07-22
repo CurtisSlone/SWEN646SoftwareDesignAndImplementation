@@ -38,7 +38,7 @@ public class InitialPanel extends State {
     public void actionPerformed(ActionEvent ae){
         switch(ae.getActionCommand()){
             case "Create Account":
-                this.nextState = new CreateObject(this.parent,"Account");
+                this.nextState = new CreateObject(this.parent,"ACCOUNT");
                 break;
             case "Select":
             this.nextState = new LoadedObject(this.parent);

@@ -19,15 +19,11 @@ public class LoadedObject extends State {
     JPanel informationPanel;
     JList<String> reservations;
     JScrollPane reservationScroller;
-    GridLayout contentLayout;
 
     public LoadedObject(Manager parentManager){
         super(parentManager);
-        this.contentLayout = new GridLayout(2,2);
-        this.buttonPanel = new JPanel();
-        this.informationPanel = new JPanel();
-        this.informationPanel.setLayout(this.contentLayout);
-        this.buttonPanel.setLayout(this.contentLayout);
+        this.buttonPanel = new JPanel(new GridLayout(2,2));
+        this.informationPanel = new JPanel(new GridLayout(2,2));
         this.reservations = new JList();
         this.reservations.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         this.reservations.setLayoutOrientation(JList.VERTICAL);
@@ -60,6 +56,7 @@ public class LoadedObject extends State {
         this.buttonPanel.add(this.selectReservation);
         this.buttonPanel.add(this.updateAccount);
         this.buttonPanel.add(this.updateReservation);
+        this.buttonPanel.add(this.createReservation);
         this.add(this.buttonPanel, BorderLayout.SOUTH);
     }
 
@@ -72,7 +69,7 @@ public class LoadedObject extends State {
                 break;
             case "Update Account":
                 this.setVisible(false);
-                this.nextState = new CreateObject(this.parent,"RESERVATION");
+                this.nextState = new CreateObject(this.parent,"ACCOUNT");
                 break;
             case "Update Reservation":
                 this.setVisible(false);
