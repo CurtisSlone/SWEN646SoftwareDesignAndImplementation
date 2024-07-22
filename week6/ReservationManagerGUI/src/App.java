@@ -214,6 +214,62 @@ public class App {
             manager.viewAllCurrentAccountReservations().stream().forEach(System.out::println);
             manager.saveObject(manager.viewCurrentAccountObject());
 
+            System.out.println("""
+
+            :Available Accounts- Selecting Differenct Account:
+    
+
+            """);
+            manager.listAllAccounts().stream().forEach(System.out::println);
+
+            System.out.println("""
+
+            :Selecting Second Account:
+    
+
+            """);
+            
+            manager.selectAccountFromAll(1);
+            System.out.println(manager.viewCurrentAccountObject());
+
+            System.out.println("""
+
+            :Creating New Cabin Reservation:
+    
+
+            """);
+            manager.createNewReservation(ReservationType.CABIN);
+            manager.updateObject(manager.viewCurrentReservationObject(), reservationParamsCabin2);
+
+            System.out.println(""" 
+
+            :Creating New Hotel Reservation:
+    
+
+            """);
+            manager.createNewReservation(ReservationType.HOTEL);
+            manager.updateObject(manager.viewCurrentReservationObject(), reservationParamsHotel2);
+
+            System.out.println("""
+
+            :Creating New House Reservation:
+    
+
+            """);
+            manager.createNewReservation(ReservationType.HOUSE);
+            manager.updateObject(manager.viewCurrentReservationObject(), reservationParamsHouse2);
+
+            System.out.println("""
+
+            :Printing All Reservations Available:
+    
+
+            """);
+            manager.viewAllCurrentAccountReservations().stream().forEach(System.out::println);
+            manager.saveObject(manager.viewCurrentAccountObject());
+
+
+
             
         } catch (Exception e) {
             e.printStackTrace();
