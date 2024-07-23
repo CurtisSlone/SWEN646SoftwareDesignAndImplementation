@@ -108,8 +108,16 @@ public class Manager  {
            } catch (Exception e) {
             System.out.println(e.getMessage());
            } 
-        return this.currentAccount.acctReservations;
+        return this.currentAccount.getAccountReservations();
 
+    }
+
+    public String getReservationId(){
+        return this.currentReservation.getReservationID();
+    }
+
+    public String getAccountId(){
+        return this.currentAccount.getAccountId();
     }
 
     /*
@@ -144,11 +152,10 @@ public class Manager  {
          *  Change attributes by calling ParseXML interface methof loadObjectFromFile
          */
         try {
-            if(reservationIndex > this.currentAccount.acctReservations.size() - 1)
-                throw new IllegalArgumentException("Index is outside of List range");
-            if(this.currentAccount == null)
-                throw new IllegalOperationException("No account selected");
-            if( this.currentAccount.acctReservations.get(reservationIndex).matches("^HOT.*")){
+            if(reservationIndex > this.currentAccount.getAccountReservations().size() - 1) throw new IllegalArgumentException("Index is outside of List range");
+            if(this.currentAccount == null) throw new IllegalOperationException("No account selected");
+
+            if( this.currentAccount.getAccountReservations().get(reservationIndex).matches("^HOT.*")){
                 this.currentReservation = new Hotel(ReservationType.HOTEL, this.currentAccount.getAccountId());
 
             } else if(this.currentAccount.acctReservations.get(reservationIndex).matches("^HOU.*")){
@@ -160,6 +167,7 @@ public class Manager  {
             }
 
          this.currentReservation.loadObjectFromFile(this.currentAccount.acctReservations.get(reservationIndex));
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

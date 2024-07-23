@@ -7,9 +7,10 @@ import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 abstract class Reservation implements ParseXML, ParameterValidator {
     /*
@@ -122,6 +123,8 @@ abstract class Reservation implements ParseXML, ParameterValidator {
              */
             String reservationFile = String.format("./accounts/%s/res-%s.xml", this.accountID, identifierString);
             String reservationXmlAsString = new String(Files.readAllBytes(Paths.get(reservationFile)));
+            Pattern pattern = Pattern.compile(">(.*?)<");
+            Matcher matcher;
 
             /*
              * Check if Reservation File Exists
@@ -133,6 +136,7 @@ abstract class Reservation implements ParseXML, ParameterValidator {
             /*
             * Let status
             */
+           
             switch(reservationXmlAsString.substring(reservationXmlAsString.indexOf("<reservationStatus>") + "<reservationStatus>".length(), reservationXmlAsString.indexOf("</reservationStatus>"))){
                 case "DRAFT":
                     this.status = ReservationStatus.DRAFT;
@@ -151,8 +155,12 @@ abstract class Reservation implements ParseXML, ParameterValidator {
              * Add to adressList List<Address>
              * Clear parameters for next Object
              */
-            parameters = Arrays.asList(reservationXmlAsString.substring(reservationXmlAsString.indexOf("<PhysicalAddress>") + "<PhysicalAddress>".length(), reservationXmlAsString.indexOf("</PhysicalAddress")).replaceAll("<(.*?)>", ",").split(","));
-            parameters.removeIf(x -> x.equals(""));
+            parameters = new ArrayList<>();
+            matcher = pattern.matcher(reservationXmlAsString.substring(reservationXmlAsString.indexOf("<PhysicalAddress>") + "<PhysicalAddress>".length(), reservationXmlAsString.indexOf("</PhysicalAddress")));
+
+            while (matcher.find()) {
+                parameters.add(matcher.group(1).trim());
+            }
             this.addressList.add(new Address(parameters));
 
             /*
@@ -161,8 +169,12 @@ abstract class Reservation implements ParseXML, ParameterValidator {
              * Add to adressList List<Address>
              * Clear parameters for next Object
              */
-            parameters = Arrays.asList(reservationXmlAsString.substring(reservationXmlAsString.indexOf("<MailingAddress>") + "<MailingAddress>".length(), reservationXmlAsString.indexOf("</MailingAddress")).replaceAll("<(.*?)>", ",").split(","));
-            parameters.removeIf(x -> x.equals(""));
+            parameters = new ArrayList<>();
+            matcher = pattern.matcher(reservationXmlAsString.substring(reservationXmlAsString.indexOf("<MailingAddress>") + "<MailingAddress>".length(), reservationXmlAsString.indexOf("</MailingAddress")));
+
+            while (matcher.find()) {
+                parameters.add(matcher.group(1).trim());
+            }
             this.addressList.add(new Address(parameters));
 
             //Set object date
@@ -229,6 +241,6 @@ abstract class Reservation implements ParseXML, ParameterValidator {
     //Override Object.toString()
     @Override
     public String toString(){
-        return String.format("<reservationID>%s</reservationID>\n<accountID>%s</accountID>\n<reservationStatus>%s</reservationStatus>\n<PhysicalAddress>%s</PhysicalAddress>\n<MailingAddress>%s</MailingAddress>\n<date>%s</date>\n<numberOfNights>%s</numberOfNights>\n<numberOfBeds>%s</numberOfBeds>\n<numberOfRooms>%s</numberOfRooms>\n<numberOfBaths>%s</numberOfBaths>\n<lodgingSize>%s</lodgingSize>", this.reservationID, this.accountID, this.status.toString(),this.addressList.get(0).toString(),this.addressList.get(1).toString(), this.startDate.toString(),String.valueOf(this.numberOfNights),String.valueOf(this.numberOfBeds), String.valueOf(this.numberOfRooms), String.valueOf(this.numberOfBaths), String.valueOf(this.lodgingSize));
+        return String.format("<reservationID>%s</reservationID>\n<accountID>%s</accountID>\n<reservationStatus>%s</reservationStatus>\n<PhysicalAddress>%s</PhysicalAddress>\n<MailingAddress>%s</MailingAddress>\n<date>%s</date>\n<numberOfNights>%s</numberOfNights>\n<numberOfBeds>%s</numberOfBeds>\n<numberOfRooms>%s</numberOfRooms>\n<numberOfBaths>%s</numberOfBaths>\n<lodgingSize>%s</lodgingSize>", this.reservationID, this.accountID, this.status,this.addressList.get(0),this.addressList.get(1), this.startDate,String.valueOf(this.numberOfNights),String.valueOf(this.numberOfBeds), String.valueOf(this.numberOfRooms), String.valueOf(this.numberOfBaths), String.valueOf(this.lodgingSize));
     }
 }

@@ -268,6 +268,31 @@ public class App {
             manager.viewAllCurrentAccountReservations().stream().forEach(System.out::println);
             manager.saveObject(manager.viewCurrentAccountObject());
 
+            System.out.println("""
+
+            :Loading Second Reservation:
+    
+
+            """);
+            // manager.viewAllCurrentAccountReservations().stream().forEach(System.out::println);
+            manager.selectReservationFromAll(1);
+            System.out.println(manager.viewCurrentReservationObject());
+
+            System.out.println("""
+
+            :Attempting To Cancel Reservation:
+    
+
+            """);
+            manager.deleteObject(manager.viewCurrentReservationObject(), manager.getReservationId());
+
+            System.out.println("""
+
+            :Attempting To Delete Account:
+    
+
+            """);
+            manager.deleteObject(manager.viewCurrentAccountObject(), manager.getAccountId());
 
 
             
