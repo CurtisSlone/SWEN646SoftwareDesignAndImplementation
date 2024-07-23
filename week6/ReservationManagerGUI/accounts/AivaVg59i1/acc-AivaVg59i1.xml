@@ -1,0 +1,27 @@
+<Account>
+<accountID>AivaVg59i1</accountID>
+<Contact>
+    <firstName>Alice</firstName>
+    <lastName>Johnson</lastName>
+    <email>alice.johnson@example.com</email>
+    <phone>555-1111</phone>
+</Contact><PhysicalAddress>
+<Address>
+<street1>123 Apple St</street1>
+<street2>Apt 1</street2>
+<city>Springfield</city>
+<state>IL</state>
+<zip>62701</zip>
+</Address>
+</PhysicalAddress>
+<MailingAddress>
+<Address>
+<street1>456 Orange St</street1>
+<street2>Suite 2</street2>
+<city>Springfield</city>
+<state>IL</state>
+<zip>62702</zip>
+</Address>
+</MailingAddress>
+<Reservations>[CABERjk32wAl, HOTuX6XuXMfb, HOUDkFRFu8Px]</Reservations>
+</Account>

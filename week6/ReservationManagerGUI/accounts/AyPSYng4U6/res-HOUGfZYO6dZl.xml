@@ -1,0 +1,30 @@
+<HotelReservation>
+<reservationID>HOUGfZYO6dZl</reservationID>
+<accountID>AyPSYng4U6</accountID>
+<reservationStatus>DRAFT</reservationStatus>
+<PhysicalAddress>
+<Address>
+<street1>303 House Blvd</street1>
+<street2></street2>
+<city>Springfield</city>
+<state>IL</state>
+<zip>62706</zip>
+</Address>
+</PhysicalAddress>
+<MailingAddress>
+<Address>
+<street1>303 House Blvd</street1>
+<street2></street2>
+<city>Springfield</city>
+<state>IL</state>
+<zip>62706</zip>
+</Address>
+</MailingAddress>
+<date>Tue Jul 23 10:22:43 CEST 2024</date>
+<numberOfNights>10</numberOfNights>
+<numberOfBeds>5</numberOfBeds>
+<numberOfRooms>5</numberOfRooms>
+<numberOfBaths>5</numberOfBaths>
+<lodgingSize>2500</lodgingSize>
+<numberOfFloors>2</numberOfFloors>
+</HotelReservation>
