@@ -17,4 +17,19 @@ public class Transaction {
         this.art = art;
         this.transactionDate = null;
     }
+
+    /*
+     * GETTERS
+     */
+
+     /*
+     * SETTERS
+     */
+
+     /*
+      * METHODS
+      */
+      public double calculateTotalCost(){
+        return 0;
+      }
 }

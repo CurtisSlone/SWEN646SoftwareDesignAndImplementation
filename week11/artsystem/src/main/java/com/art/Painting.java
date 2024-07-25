@@ -39,6 +39,7 @@ public class Painting extends Art{
      */
 
      public double calculatePrice(){
-        return 0;
+        return (this.height * this.width) < 100 ? 5.99 : 
+        ((100 < (this.height * this.width) && (this.height * this.width) > 300) ? 10.99 : 15.99);
      }
 }

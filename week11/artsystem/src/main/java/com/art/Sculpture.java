@@ -14,10 +14,18 @@ public class Sculpture extends Art {
      * GETTERS
      */
 
+     public String getMaterial(){
+        return this.material;
+     }
+
+     public int getWeight(){
+        return this.weight;
+     }
+
      /*
       * METHODS
       */
       public double calculatePrice(){
-        return 0;
+        return this.weight * .2;
      }
 }

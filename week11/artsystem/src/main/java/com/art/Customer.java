@@ -15,4 +15,12 @@ public class Customer {
         this.phoneNumber = phoneNumber;
         this.email = email;
     }
+
+    /*
+     * GETTERS
+     */
+
+     /*
+     * SETTERS
+     */
 }
