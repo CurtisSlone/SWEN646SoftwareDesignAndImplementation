@@ -39,7 +39,12 @@ public class Painting extends Art{
      */
 
      public double calculatePrice(){
-        return (this.height * this.width) < 100 ? 5.99 : 
+        return this.price + (this.height * this.width) < 100 ? 5.99 : 
         ((100 < (this.height * this.width) && (this.height * this.width) > 300) ? 10.99 : 15.99);
+     }
+
+     @Override
+     public String toString(){
+        return String.format("<Painting>\n%s\n<height>%s</height>\n<width>%s</width>\n<style>%s</style>\n<technique>%s</technique>\n</Painting>",super.toString(),this.height,this.width,this.style,this.technique);
      }
 }

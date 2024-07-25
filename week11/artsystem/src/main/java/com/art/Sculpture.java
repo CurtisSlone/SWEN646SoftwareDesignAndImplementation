@@ -26,6 +26,11 @@ public class Sculpture extends Art {
       * METHODS
       */
       public double calculatePrice(){
-        return this.weight * .2;
+        return this.price + (this.weight * .2);
+     }
+
+     @Override
+     public String toString(){
+        return String.format("<Sculpture>\n%s\n<material>%s</material>\n<weight>%s</weight>\n</Sculpture>",super.toString(), this.material, this.weight);
      }
 }

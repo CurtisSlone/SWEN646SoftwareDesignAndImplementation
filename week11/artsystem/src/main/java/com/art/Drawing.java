@@ -33,6 +33,11 @@ public class Drawing extends Art {
       * METHODS
       */
       public double calculatePrice(){
-        return 0;
+        return this.price;
+     }
+
+     @Override
+     public String toString(){
+        return String.format("<Drawing>\n%s\n<style>%s</style>\n<technique>%s</technique>\n<category>%s</category>\n</Drawing>",super.toString(), this.style,this.technique, this.category);
      }
 }

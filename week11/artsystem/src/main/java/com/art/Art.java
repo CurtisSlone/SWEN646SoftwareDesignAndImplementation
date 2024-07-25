@@ -15,7 +15,7 @@ public abstract class Art {
         this.price = price;
         this.yearCreated = yearCreated;
         this.title = title;
-        this.description = description;
+        this.description = description.substring(0,500);
     }
 
     /*
@@ -50,4 +50,9 @@ public abstract class Art {
      */
 
      public abstract double calculatePrice();
+
+     @Override
+     public String toString(){
+        return String.format("<id>%s</id>\n<type>%s</type>\n<price>%s</price>\n<yearCreated>%s</yearCreated>\n<title>%s</title>\n<description>%s</description>", this.id,this.type,this.price,this.yearCreated,this.title,this.description);
+     }
 }

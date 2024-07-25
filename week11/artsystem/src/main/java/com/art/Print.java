@@ -20,6 +20,11 @@ public class Print extends Art {
       * METHODS
       */
       public double calculatePrice(){
-        return 0;
+        return this.price;
+     }
+
+     @Override
+     public String toString(){
+        return String.format("<Print>\n%s\n<openEdition>%s</openEdition>\n</Print>",super.toString(),this.openEdition);
      }
 }
