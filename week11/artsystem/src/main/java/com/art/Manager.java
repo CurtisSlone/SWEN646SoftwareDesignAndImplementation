@@ -9,6 +9,8 @@ public class Manager {
 
     private List<String> inventory;
     private List<String> transactions;
+    private Transaction currentTransaction;
+    private Art currenArt;
 
     public Manager(){
         this._loadInventory();
@@ -26,6 +28,23 @@ public class Manager {
      /*
      * METHODS
      */
+
+    public void loadTransactionFromFile(String id){
+
+    }
+
+    public void loadArtFromFile(String id){
+
+    }
+
+    public void saveTransactionToFile(){
+        
+    }
+
+    public void saveArtToFile(){
+
+    }
+
     private void _loadInventory() {
 
         /*
@@ -73,4 +92,6 @@ public class Manager {
           .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
           .toString());
     };
+
+
 }

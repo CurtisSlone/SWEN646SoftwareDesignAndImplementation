@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.List;
 
-public class Transaction implements ParseXML {
+public class Transaction {
 
     private final String id;
     private Customer customer;
@@ -96,23 +96,4 @@ public class Transaction implements ParseXML {
         this.isFinal = true;
       }
 
-      /*
-     * IMPLEMENTS
-     */
-
-    public void saveCurrentObject() throws Exception{
-
-    }
-
-    public void loadObjectFromFile(String identifierString) throws Exception {
-
-    }
-
-    public void updateObjectFromParameters(List<Object> parameters) throws Exception {
-
-    }
-
-    public void deleteFileFromID(String identifier) throws Exception {
-        
-    }
 }

@@ -1,8 +1,6 @@
 package com.art;
 
-import java.util.List;
-
-public abstract class Art implements ParseXML {
+public abstract class Art {
 
     protected final String id;
     protected final ArtType type;
@@ -59,23 +57,4 @@ public abstract class Art implements ParseXML {
         return String.format("<id>%s</id>\n<type>%s</type>\n<price>%s</price>\n<yearCreated>%s</yearCreated>\n<title>%s</title>\n<description>%s</description>", this.id,this.type,this.price,this.yearCreated,this.title,this.description);
      }
 
-     /*
-     * IMPLEMENTS
-     */
-
-    public void saveCurrentObject() throws Exception {
-
-    }
-
-    public void loadObjectFromFile(String identifierString) throws Exception {
-
-    }
-
-    public void updateObjectFromParameters(List<Object> parameters) throws Exception {
-
-    }
-
-    public void deleteFileFromID(String identifier) throws Exception {
-        
-    }
 }
