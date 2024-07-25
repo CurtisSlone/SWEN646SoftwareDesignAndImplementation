@@ -1,10 +1,62 @@
 package com.art;
 
+import java.io.File;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 public class Manager {
 
-    public Manager(){}
+    private List<String> inventory;
+    private List<String> transactions;
+
+    public Manager(){
+        this._loadInventory();
+        this._loadTransactions();
+    }
+
+    /*
+     * GETTERS
+     */
+
+     /*
+     * SETTERS
+     */
+
+     /*
+     * METHODS
+     */
+    private void _loadInventory() {
+
+        /*
+         * If inventory directory does not exist, make directory
+         * List all inventory from directory by id
+         * Add to this.inventory List<String>
+         */
+        try {
+            File inventoryDir = new File("./inventory");
+            if(!inventoryDir.exists()) inventoryDir.mkdir();
+            this.inventory = Arrays.asList(inventoryDir.list());
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+    }
+
+    private void _loadTransactions() {
+
+        /*
+         * If inventory directory does not exist, make directory
+         * List all inventory from directory by id
+         * Add to this.inventory List<String>
+         */
+        try {
+            File transactionDir = new File("./transactions");
+            if(!transactionDir.exists()) transactionDir.mkdir();
+            this.transactions = Arrays.asList(transactionDir.list());
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+    }
 
     public String generateUniqueID(){
         /*
