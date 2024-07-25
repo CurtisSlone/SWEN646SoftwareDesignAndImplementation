@@ -61,7 +61,7 @@ public class Transaction {
         this.customer = customer;
      }
 
-     public void setArtList(List<Art> art) throws InvalidArtOperation, InvalidTransactionException {
+     public void setArtList(List<Art> art) throws InvalidTransactionException {
         if(this.isFinal) throw new InvalidTransactionException("Transaction is finalized. Cannot add Art");
         this.art = art;
         this.calculateTotalCost();
@@ -84,6 +84,7 @@ public class Transaction {
 
       public void addArt(Art art) throws InvalidArtOperation, InvalidTransactionException {
         if(this.isFinal) throw new InvalidTransactionException("Transaction is finalized. Cannot update ArtList");
+        if(this.art.stream().filter( a -> a.getId().equals(art.getId())).findFirst().isPresent()) throw new InvalidArtOperation("Art is already in ArtList");
         this.art.add(art);
         this.calculateTotalCost();
       }
