@@ -220,6 +220,14 @@ public class Manager  {
         }
         this._loadAllAccounts();
     }
+
+    public float calulateResPrice(){
+        return this.currentReservation.calculatePriceTotal();
+    }
+
+    public float calculateDailyPrice(){
+        return this.currentReservation.calculateDailyPrice();
+    }
     /*
      * Update object
      */

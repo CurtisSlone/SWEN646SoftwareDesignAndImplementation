@@ -1,6 +1,6 @@
 <HotelReservation>
-<reservationID>HOUDkFRFu8Px</reservationID>
-<accountID>AivaVg59i1</accountID>
+<reservationID>HOU9WN9t4Svf</reservationID>
+<accountID>AdKgxOh3h0</accountID>
 <reservationStatus>DRAFT</reservationStatus>
 <PhysicalAddress>
 <Address>
@@ -20,7 +20,7 @@
 <zip>62705</zip>
 </Address>
 </MailingAddress>
-<date>Tue Jul 23 10:22:43 CEST 2024</date>
+<date>Tue Jul 23 12:18:08 CEST 2024</date>
 <numberOfNights>4</numberOfNights>
 <numberOfBeds>2</numberOfBeds>
 <numberOfRooms>2</numberOfRooms>

@@ -31,12 +31,6 @@ public class Contact {
     @Override
     public String toString(){
 
-        return String.format("""
-            <Contact>
-                <firstName>%s</firstName>
-                <lastName>%s</lastName>
-                <email>%s</email>
-                <phone>%s</phone>
-            </Contact>""", this.firstName, this.lastName, this.email, this.phoneNumber);
+        return String.format("<Contact>\n<firstName>%s</firstName>\n<lastName>%s</lastName>\n<email>%s</email>\n<phone>%s</phone>\n</Contact>", this.firstName, this.lastName, this.email, this.phoneNumber);
     }
 }
