@@ -9,4 +9,15 @@ public class Sculpture extends Art {
         this.material = material;
         this.weight = weight;
     }
+
+    /*
+     * GETTERS
+     */
+
+     /*
+      * METHODS
+      */
+      public double calculatePrice(){
+        return 0;
+     }
 }

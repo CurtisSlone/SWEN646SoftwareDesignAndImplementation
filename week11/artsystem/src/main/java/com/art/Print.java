@@ -8,4 +8,18 @@ public class Print extends Art {
         super(id, type, price, yearCreated, title, description);
         this.openEdition = openEdition;
     }
+
+    /*
+     * GETTERS
+     */
+
+     public String getOpenEdition(){
+        return this.openEdition;
+     }
+     /*
+      * METHODS
+      */
+      public double calculatePrice(){
+        return 0;
+     }
 }

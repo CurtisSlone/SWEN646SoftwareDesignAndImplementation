@@ -14,4 +14,31 @@ public class Painting extends Art{
         this.style = style;
         this.technique = technique;
     }
+
+    /*
+     * GETTERS
+     */
+    public int getHeight(){
+        return this.height;
+    }
+
+    public int getWidth(){
+        return this.width;
+    }
+
+    public String getStyle(){
+        return this.style;
+    }
+
+    public String getTechnique(){
+        return this.technique;
+    }
+
+    /*
+     * METHODS
+     */
+
+     public double calculatePrice(){
+        return 0;
+     }
 }

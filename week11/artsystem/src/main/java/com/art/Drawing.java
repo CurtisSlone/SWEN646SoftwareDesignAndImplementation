@@ -12,4 +12,27 @@ public class Drawing extends Art {
         this.technique = technique;
         this.category = category;
     }
+
+    /*
+     * GETTERS
+     */
+
+     public String getStyle(){
+        return this.style;
+     }
+
+     public String getTechnique(){
+        return this.technique;
+     }
+
+     public String getCategory(){
+        return this.category;
+     }
+
+     /*
+      * METHODS
+      */
+      public double calculatePrice(){
+        return 0;
+     }
 }
