@@ -19,8 +19,47 @@ public class Customer {
     /*
      * GETTERS
      */
+    public String getFirstName(){
+        return this.firstName;
+    }
+
+    public String getLastName(){
+        return this.lastName;
+    }
+
+    public String getMailingAddress(){
+        return this.mailingAddress;
+    }
+
+    public String getPhoneNumber(){
+        return this.phoneNumber;
+    }
+
+    public String getEmail(){
+        return this.email;
+    }
 
      /*
      * SETTERS
      */
+
+     public void setFirstName(String firstName){
+        this.firstName = firstName;
+     }
+
+     public void setLastName(String lastName){
+        this.lastName = lastName;
+     }
+
+     public void setMailingAddress(String mailingAddress){
+        this.mailingAddress = mailingAddress;
+     }
+
+     public void setPhoneNumber(String phoneNumber){
+        this.phoneNumber = phoneNumber;
+     }
+
+     public void setEmail(String email){
+        this.email = email;
+     }
 }
