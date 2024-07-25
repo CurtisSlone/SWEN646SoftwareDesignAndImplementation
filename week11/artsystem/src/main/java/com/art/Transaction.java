@@ -56,16 +56,15 @@ public class Transaction {
      * SETTERS
      */
 
-     public void setCustomer(Customer customer){
-       if(!this.isFinal) this.customer = customer;
+     public void setCustomer(Customer customer) throws InvalidTransactionException {
+        if(this.isFinal) throw new InvalidTransactionException("Transaction is finalized. Cannot update customer");
+        this.customer = customer;
      }
 
-     public void setArtList(List<Art> art){
-        if(!this.isFinal){
-            this.art = art;
-        
-            this.calculateTotalCost();
-        }
+     public void setArtList(List<Art> art) throws InvalidArtOperation, InvalidTransactionException {
+        if(this.isFinal) throw new InvalidTransactionException("Transaction is finalized. Cannot add Art");
+        this.art = art;
+        this.calculateTotalCost();
      }
 
      private void setTransactionDate(){
@@ -83,14 +82,14 @@ public class Transaction {
         return this.BASIC_SHIPPING + this.art.stream().mapToDouble(Art::calculatePrice).sum();
       }
 
-      public void addArt(Art art){
-        if(!this.isFinal){
-            this.art.add(art);
-            this.calculateTotalCost();
-        }
+      public void addArt(Art art) throws InvalidArtOperation, InvalidTransactionException {
+        if(this.isFinal) throw new InvalidTransactionException("Transaction is finalized. Cannot update ArtList");
+        this.art.add(art);
+        this.calculateTotalCost();
       }
 
-      public void finalizeTransaction(){
+      public void finalizeTransaction() throws InvalidTransactionException {
+        if(this.isFinal) throw new InvalidTransactionException("Transaction is finalized. Cannot modify transaction.");
         this.setCost();
         this.setTransactionDate();
         this.isFinal = true;
