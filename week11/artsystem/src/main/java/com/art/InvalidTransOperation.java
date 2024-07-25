@@ -1,5 +1,7 @@
 package com.art;
 
-public class InvalidTransOperation {
-
+public class InvalidTransOperation extends RuntimeException  {
+    public InvalidTransOperation(String message){
+        super(message);
+    }
 }
